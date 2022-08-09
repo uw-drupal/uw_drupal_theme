@@ -1,0 +1,25 @@
+// Title area for standard nodes
+.block-page-title-block {
+  .entry-header {
+    margin-top: 1.5rem !important;
+  }
+}
+
+// override for lines 10489-10503 in bootstrap.css from v1.3.1 of WP theme
+#body {
+  a, a:visited {
+    color: #1a62c7
+  }
+
+  a:active, a:focus, a:hover {
+    color: #85754d
+  }
+
+  a:focus {
+    outline: 2px solid #4b2e83
+  }
+
+  a:active, a:hover {
+    outline: 0
+  }
+}

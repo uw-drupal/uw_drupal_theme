@@ -1,0 +1,107 @@
+/**
+ * Porting breadcrumb CSS from 2014
+ */
+.uw-breadcrumbs {
+	padding: 20px 0 0;
+	// margin-bottom: 3px;
+	// margin-bottom: -1.5em;
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		list-style: none;
+		display: inline-block;
+		position: relative;
+		&:first-child {
+			a {
+				background: url('../assets/svg/uw-sprite.svg') no-repeat -253px 5px;
+				text-indent: -99999px;
+				width: 25px;
+				padding: 5px 0 5px 0;
+				margin-right: 25px;
+				&:before {
+					right: -18px;
+				}
+				&:focus,
+				&:active,
+				&:hover {
+				    border-bottom: 1px solid $darkgold;
+				    margin-bottom: -1px;
+				}
+			}
+			&:before {
+				top: 10px;
+			}
+		}
+		&.current {
+            span {
+                color: #6c757d;
+            }
+			&:before {
+				display: none;
+			}
+		}
+		&:before {
+			content: "/";
+			color: #6c757d;
+			position: absolute;
+			height: 29px;
+			width: 25px;
+			right: 0;
+			top: 0;
+			padding-left: 0.5rem;
+			//background: url('../assets/images/breadcrumb-gradient.png') right top repeat-y transparent;
+		}
+
+		&:empty {
+			display: none;
+		}
+		a:hover {
+			border-bottom: none;
+			text-decoration: underline;
+		}
+	}
+	a, span {
+		color:$links;
+		font-weight: 400;
+		padding: 0 25px 0 0;
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		//Caret
+		br {
+			display: none;
+		}
+	}
+}
+
+@media only screen and (max-width : 767px) {
+	.uw-breadcrumbs {
+		/* float: none;
+		padding: 0;
+		margin: 0 0 0 -5px; */
+		li {
+		/* 	float: left;
+			display: initial; */
+			a, span {
+				padding: 0 25px 0 0;
+			}
+			&:before{
+				top: 0;
+			}
+			&:first-child {
+				&:before{
+					top: 0;
+				}
+				a {
+					background-position: -250px -3px;
+					padding: 0;
+				}
+				&:after {
+					top: 8px;
+				}
+			}
+		}
+	}
+}

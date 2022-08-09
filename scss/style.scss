@@ -1,0 +1,21 @@
+// import files
+@import "style-from-wp-theme";
+@import "bootstrap-from-wp-theme";
+
+/* Remnants from an earlier approach of building the css from the UW Theme Static files */
+//@import "../src/uw-theme-static-main/lib/normalize/normalize.css";
+//@import "../src/uw-theme-static-main/src/scss/uw-boundless-barrio-source-start";
+
+// Add uw_boundless_barrio specific CSS here
+// or create a variables file and reference it here
+
+#loginlink {
+  text-decoration: none;
+}
+
+#enhanced-preview a:hover span {
+  display: block;
+}
+
+@import "admin";
+@import "content";

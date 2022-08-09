@@ -1,0 +1,80 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ *
+ * @ingroup themeable
+ */
+#}
+{% import _self as menus %}
+
+{#
+We call a macro which calls itself to render the full tree.
+@see https://twig.symfony.com/doc/1.x/tags/macro.html
+#}
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+<ul{{ attributes.setAttribute('id', 'menu-dropdowns').removeClass('clearfix').addClass(['navbar-nav','classic-menu-nav']) }}>
+  {% else %}
+  <ul{{ attributes.removeClass(['navbar-nav','classic-menu-nav']).addClass('dropdown-menu').setAttribute('role', 'menu').removeAttribute('id', 'menu-dropdowns') }}>
+    {% endif %}
+    {% for item in items %}
+      {%
+        set classes = [
+          'menu-item',
+          item.below ? 'menu-item-has-children',
+          item.below ? 'dropdown',
+          item.below ? 'top-level-nav',
+          'nav-item',
+        ]
+      %}
+      {%
+        set link_classes = [
+          'nav-link',
+          item.below ? 'dropdown-toggle'
+        ]
+      %}
+      {% if menu_level == 0 %}
+        <li{{ item.attributes.addClass(classes) }}>
+          {# Add the data attributes for the links for menu items that have children as we build each link #}
+          {{ link(item.title, item.url, {
+            class: link_classes,
+            'data-toggle': item.below ? 'dropdown' : false,
+            'aria-haspopup': item.below ? 'true' : false,
+            'aria-expanded': item.below ? 'false' : false,
+            })
+          }}
+          {% if item.below %}
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          {% endif %}
+        </li>
+      {% else %}
+        {%
+          set active = [item.in_active_trail ? "current_page_item" : '']
+        %}
+        <li{{ item.attributes.addClass(classes|merge(active)) }}>
+          {{ link(item.title, item.url, { class: ['nav-link'] }) }}
+        </li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endmacro %}

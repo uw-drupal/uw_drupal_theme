@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  theme:
+    - uw_boundless_barrio
+id: uw_boundless_barrio_uwsidebarmenu
+theme: uw_boundless_barrio
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+  suggestion: main__uwsidebarmenu
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '<front>'

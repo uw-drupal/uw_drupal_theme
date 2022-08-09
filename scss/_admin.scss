@@ -1,0 +1,17 @@
+// Styles for editor experience when viewing front-end and logged in
+
+// Menu local tasks tabs
+ul {
+  &.nav {
+    &.nav-tabs {
+      margin-right: 1.5rem;
+      margin-left: 1.5rem;
+
+      @include media-breakpoint-up(md) {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+}
+

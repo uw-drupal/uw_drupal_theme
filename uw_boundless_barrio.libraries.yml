@@ -1,0 +1,37 @@
+global-styling:
+  version: 0.0.1
+  js:
+    js/skip-link-focus-fix.js: {}
+    js/keyboard-navmenu.js: {}
+    js/libs/bootstrap.min.js: { minified: true }
+    js/barrio.js: {}
+    js/2014/2014.js: {}
+    js/2014/alert.js: {}
+    js/2014/quicklinks.js: {}
+    js/2014/radio.js: {}
+#    js/2014/search.js: {}
+#    js/2014/searchtoggle.js: {}
+    js/2014/select.js: {}
+
+
+    js/scripts.js: {}
+  css:
+    component:
+      css/style.css: {}
+#      css/style.min.css: { minified: true}
+      css/content.css: {}
+      css/sidebar.css: {}
+#      css/widgets.css: {}
+
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/popperjs
+    - core/backbone
+
+search:
+  js:
+    js/2014/search.js: {}
+searchtoggleonly:
+  js:
+    js/searchtoggleonly.js: {}

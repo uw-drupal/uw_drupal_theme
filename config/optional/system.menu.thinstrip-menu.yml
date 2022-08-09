@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: thinstrip-menu
+label: Thinstrip menu
+description: 'Menu that appears in thinstrip (top right of page)'
+locked: false

@@ -1,0 +1,72 @@
+//
+// Tooltips
+// --------------------------------------------------
+
+
+// Base class
+a[data-toggle="tooltip"]{
+	white-space: nowrap;
+}
+.btn {
+    border-radius: 0;
+    margin: 0 3px;
+}
+.tooltip {
+	position: absolute;
+	z-index: 1;
+	display: block;
+	visibility: visible;
+	line-height: 1.4;
+	border-radius: 0;
+  }
+
+  // Wrapper for the tooltip content
+  .tooltip-inner {
+	max-width: 100%;
+	padding: 5px 8px;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	background-color:$black;
+	border-radius: 0;
+  }
+
+  // Arrows
+  .tooltip-arrow {
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+  }
+  .tooltip {
+	&.top .tooltip-arrow {
+	  bottom: 0;
+	  left: 50%;
+	}
+	&.top-left .tooltip-arrow {
+	  bottom: 0;
+	}
+	&.top-right .tooltip-arrow {
+	  bottom: 0;
+	}
+	&.right .tooltip-arrow {
+	  top: 50%;
+	  left: 0;
+	}
+	&.left .tooltip-arrow {
+	  top: 50%;
+	  right: 0;
+	}
+	&.bottom .tooltip-arrow {
+	  top: 0;
+	  left: 50%;
+	}
+	&.bottom-left .tooltip-arrow {
+	  top: 0;
+	}
+	&.bottom-right .tooltip-arrow {
+	  top: 0;
+	}
+  }
+

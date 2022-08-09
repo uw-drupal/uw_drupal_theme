@@ -1,0 +1,99 @@
+html {
+	overflow-x: hidden;
+}
+
+.container-fluid {
+	@media (min-width: 992px) {
+		padding-right: 10vw;
+		padding-left: 10vw;
+	}
+}
+
+// Images
+.img-horizontal {
+	max-width: 720px;
+	height: 250px;
+	background: url('../img/uw-band.png') no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+
+.img-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.img-round {
+	border-radius: 50%;
+}
+
+// figures
+.figure-caption {
+	font-style: normal;
+	font-size: 15px;
+    line-height: 1rem;
+    margin-top: 15px;
+
+	&.text-right {
+		left: auto;
+		right: 15px;
+	}
+}
+
+// tables
+.table {
+	th {
+		border: 0 none;
+		color: $purple;
+	}
+
+	th[scope=row] {
+		border-top: 1px solid #ddd;
+	}
+
+	thead th {
+		border-bottom: 0 none;
+	}
+
+	th, td {
+		border-left: 1px solid #ddd;
+		border-color: #ddd;
+	}
+
+	tr th:first-child {
+		border-left: 0 none;
+	}
+}
+
+.table-striped {
+	tbody {
+		tr:nth-of-type(odd) {
+			background: rgba(0, 0, 0, 0.05);
+		}
+	}
+	th, td {
+		border-left: 0 none;
+	}
+}
+
+// remove empty p tags.
+p:empty{
+	display: none;
+}
+
+.entry-header {
+	margin-top: 0 !important;
+}
+
+article {
+	margin-top: 1.5em;
+}
+
+.page-template-no-title {
+	.uw-breadcrumbs {
+		padding-bottom: 1.5em;
+	}
+	article {
+		margin-top: 0;
+	}
+}
