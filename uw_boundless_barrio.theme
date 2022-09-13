@@ -108,6 +108,7 @@ function uw_boundless_barrio_preprocess_page(&$variables) {
   $variables['site_slogan'] = $config->get('slogan');
 
   $variables['uw_boundless_barrio_custom_quicklinks_menu'] = theme_get_setting('uw_boundless_barrio_custom_quicklinks_menu');
+  $variables['uw_boundless_barrio_top_links_to_dropdowns'] = theme_get_setting('uw_boundless_barrio_top_links_to_dropdowns');
   $variables['uw_quicklinks_markup'] = theme_get_setting('uw_boundless_barrio_theme_quicklinks_markup');
 
   // Set hero image paths.
@@ -443,6 +444,14 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
     '#description' => t('Use this'),
     '#prefix' => '<pre>',
     '#suffix' => '</pre>',
+  ];
+
+  $form['uw_boundless_barrio_theme_menus']['uw_boundless_barrio_top_links_to_dropdowns'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Add top-level links to drop-down menus'),
+    '#tree' => FALSE,
+    '#default_value' => theme_get_setting('uw_boundless_barrio_top_links_to_dropdowns'),
+    '#description' => t('When a top-level navigation item has a node associated with it, add the top-level Menu link to the drop-down menu.'),
   ];
 
   // Color settings.

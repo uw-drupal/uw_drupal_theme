@@ -35,3 +35,8 @@ search:
 searchtoggleonly:
   js:
     js/searchtoggleonly.js: {}
+
+top-links-to-dropdowns:
+  version: 1.x
+  js:
+    js/top-links-to-dropdowns.js: {}

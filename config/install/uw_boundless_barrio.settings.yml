@@ -22,6 +22,7 @@ uw_boundless_barrio_text_shadow_black: '2px 2px 2px rgba(0, 0, 0, 0.5)'
 uw_boundless_barrio_text_shadow_white: '2px 2px 2px rgba(255, 255, 255, 0.5)'
 uw_boundless_barrio_theme_quicklinks_markup: ''
 uw_boundless_barrio_custom_quicklinks_menu: 0
+uw_boundless_barrio_top_links_to_dropdowns: 0
 uw_boundless_barrio_login_url: '/user/login'
 
 # Library.

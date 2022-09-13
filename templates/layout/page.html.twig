@@ -122,6 +122,11 @@
 
     {% if page.navigation %}
       {{ page.navigation }}
+
+      {% if uw_boundless_barrio_top_links_to_dropdowns %}
+        {{ attach_library('uw_boundless_barrio/top-links-to-dropdowns') }}
+      {% endif %}
+
     {% endif %}
 
     {% include '@uw_boundless_barrio/includes/uw-hero-image.html.twig' %}
