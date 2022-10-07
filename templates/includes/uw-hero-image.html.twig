@@ -40,7 +40,11 @@
       <div class="mobile-image" style="background-image: url('{{ uw_hero_image_mobile }}');"></div>
     {% endif %}
     <div class="container-fluid">
-      <div id="hashtag"><span><span>#TODO:MakeThisEditable</span></span></div>
+
+      {% if site_slogan %}
+        <div id="hashtag"><span><span>{{ site_slogan }}</span></span></div>
+      {% endif %}
+
       <h1 {{ attributes.addClass(uw_site_title_classes)}}" style="color:{{ uw_boundless_front_page_title_color }};text-shadow:2px 2px 2px {{ uw_front_title_text_shadow }};">{{ node.label }}</h1>
       <span class="udub-slant"><span style="background-color:{{ uw_boundless_front_page_slant_color }};"></span></span>
     </div>
