@@ -358,7 +358,7 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
   ];
   $form['uw_boundless_barrio_hero_image']['instructions'] = [
     '#type' => 'markup',
-    '#markup' => t("<div class='form-item__description'>The \"Big hero\" and \"Small hero\" options above will include the \"Slogan\" from: <br> &nbsp; /admin/config/system/site-information.</div>"),
+    '#markup' => t("<div class='form-item__description'>The \"Big hero\" and \"Small hero\" options above will include the \"Slogan\" from \"Basic Site Settings\" (See:&nbsp;/admin/config/system/site-information.)</div>"),
   ];
 
   //
