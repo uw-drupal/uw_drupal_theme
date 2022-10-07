@@ -184,6 +184,7 @@ function uw_boundless_barrio_preprocess_breadcrumb(&$variables) {
         'attributes' => new Attribute(['class' => ['current']]),
       ];
     }
+    $variables['#cache']['contexts'][] = 'url';
   }
 }
 
