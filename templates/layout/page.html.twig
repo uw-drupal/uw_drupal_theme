@@ -43,7 +43,12 @@
  * @see html.html.twig
  */
 #}
-{% set sidebar = (page.sidebar_first or page_sidebar_second) ? true : false %}
+{% if page.sidebar_first|render|striptags|trim|length <= 1 %}
+  {% set sidebar_first = false %}
+{% else %}
+  {% set sidebar_first = page.sidebar_first|render %}
+{% endif %}
+{% set sidebar = (sidebar_first or page.sidebar_second) ? true : false %}
 {% set hero_template_type = is_front ? uw_boundless_barrio_hero_template_front : uw_boundless_barrio_hero_template_other %}
 
 {% include '@uw_boundless_barrio/includes/uwsearcharea.html.twig' %}
@@ -148,9 +153,9 @@
 
         {% if sidebar %}
         <aside id="secondary" class="primary-sidebar uw-sidebar col-md-4">
-          {% if page.sidebar_first %}
+          {% if sidebar_first %}
             <section class="layout-sidebar-first" role="complementary">
-              {{ page.sidebar_first }}
+              {{ sidebar_first }}
             </section>
           {% endif %}
           {% if page.sidebar_second %}
@@ -159,7 +164,7 @@
             </section>
           {% endif %}
         </aside>
-        {%  endif %}
+        {% endif %}
       </div> <!-- /.row -->
     </div> <!-- /.container -->
     {% include '@uw_boundless_barrio/includes/footer.html.twig' %}
