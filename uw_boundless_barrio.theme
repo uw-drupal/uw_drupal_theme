@@ -72,7 +72,6 @@ function uw_boundless_barrio_preprocess_html(&$variables) {
 }
 
 /**
-/**
  * Implements template_preprocess_block().
  */
 // TODO: this is a marker for uw_sidebar_menu fix
@@ -94,13 +93,13 @@ function uw_boundless_barrio_preprocess_page(&$variables) {
   // kint($theme_path);
   // Set base path so it's usable in templates beyond page.html.twig;
   // also set the current year.
-//  $variables['base_path'] = $base_url;
+  // $variables['base_path'] = $base_url;
   $variables['current_year'] = date("Y");
 
   // shib_auth_get_login_link is the function for the new D9 shib module
   // Jeanna Vogt worked on.
-//  $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
-//  $variables['login_link'] = $variables['show_shib_link'] ? 'super cool link' : Url::fromUri('internal:/user/login')->toString();
+  // $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
+  // $variables['login_link'] = $variables['show_shib_link'] ? 'super cool link' : Url::fromUri('internal:/user/login')->toString();
   $variables['login_url'] = theme_get_setting('uw_boundless_barrio_login_url');
 
   // Load the site name out of configuration.
@@ -241,10 +240,10 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
     'yes_upload' => t("Yes and use an image file that I'll upload here."),
   ];
 
-  // Set form fields for UW Boundless SASS Theme Settings.
+  // Set form fields for UW Boundless Barrio Theme Settings.
   $form['uw_boundless_barrio'] = [
     '#type' => 'vertical_tabs',
-    '#prefix' => '<h2><small>' . t('UW Boundless SASS Theme Settings') . '</small></h2>',
+    '#prefix' => '<h2><small>' . t('UW Boundless Barrio Theme Settings') . '</small></h2>',
     '#weight' => -11,
   ];
   $form['toggle_breadcrumb'] = [

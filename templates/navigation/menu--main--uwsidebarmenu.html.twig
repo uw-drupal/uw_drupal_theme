@@ -39,7 +39,7 @@ We call a macro which calls itself to render the full tree.
     {% for item in items %}
        {%
          set classes = [
-           not item.attributes.hasClass('is-active') and item.below ? 'current_page_ancestor',
+           not item.attributes.hasClass('active') and item.below ? 'current_page_ancestor',
            'nav-item',
            'page-item',
            item.in_active_trail ? 'current_page_item',
@@ -59,8 +59,8 @@ We call a macro which calls itself to render the full tree.
       %}
         {% endif %}
       <li{{ item.attributes.addClass(classes) }}>
-        {% if item.attributes.hasClass('is-active') and item.attributes.hasClass('current_page_item') %}
-{#        {{ kint('this one has that thing you look for') }}#}
+        {% if item.attributes.hasClass('active') and item.attributes.hasClass('current_page_item') %}
+          {# this item is the current page/path we're on and don't need to link it #}
           <span{{ item.attributes.addClass(classes) }}>{{ item.title }}</span>
         {% else %}
         {{ link(item.title, item.url, { class: ['nav-link'] }) }}
