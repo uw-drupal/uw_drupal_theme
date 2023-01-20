@@ -72,9 +72,9 @@ function uw_boundless_barrio_preprocess_html(&$variables) {
 }
 
 /**
-/**
  * Implements template_preprocess_block().
  */
+// TODO: this is a marker for uw_sidebar_menu fix
 function uw_boundless_barrio_preprocess_block(&$variables) {
   if ($variables['attributes']['id'] === 'block-uw-boundless-barrio-uwsidebarmenu') {
 //    kint($variables);
@@ -93,13 +93,13 @@ function uw_boundless_barrio_preprocess_page(&$variables) {
   // kint($theme_path);
   // Set base path so it's usable in templates beyond page.html.twig;
   // also set the current year.
-//  $variables['base_path'] = $base_url;
+  // $variables['base_path'] = $base_url;
   $variables['current_year'] = date("Y");
 
   // shib_auth_get_login_link is the function for the new D9 shib module
   // Jeanna Vogt worked on.
-//  $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
-//  $variables['login_link'] = $variables['show_shib_link'] ? 'super cool link' : Url::fromUri('internal:/user/login')->toString();
+  // $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
+  // $variables['login_link'] = $variables['show_shib_link'] ? 'super cool link' : Url::fromUri('internal:/user/login')->toString();
   $variables['login_url'] = theme_get_setting('uw_boundless_barrio_login_url');
 
   // Load the site name out of configuration.
@@ -165,6 +165,10 @@ function uw_boundless_barrio_preprocess_page(&$variables) {
   // Set front page motto and shadow colors.
   $variables['uw_boundless_front_page_slogan_color'] = theme_get_setting('uw_boundless_barrio_front_page_slogan_color');
   $variables['uw_front_slogan_text_shadow'] = _uw_boundless_barrio_get_text_shadow($variables['uw_boundless_front_page_slogan_color']);
+
+  // TODO: this is a marker for uw_sidebar_menu fix
+//  $variables['show_sidebar_menu'] = theme_get_setting('uw_boundless_barrio_sidebar_menu_visibility');
+//  $variables['sidebar_menu_render_array'] = _uw_boundless_barrio_build_uw_sidebar_menu();
 }
 
 /**
@@ -236,10 +240,10 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
     'yes_upload' => t("Yes and use an image file that I'll upload here."),
   ];
 
-  // Set form fields for UW Boundless SASS Theme Settings.
+  // Set form fields for UW Boundless Barrio Theme Settings.
   $form['uw_boundless_barrio'] = [
     '#type' => 'vertical_tabs',
-    '#prefix' => '<h2><small>' . t('UW Boundless SASS Theme Settings') . '</small></h2>',
+    '#prefix' => '<h2><small>' . t('UW Boundless Barrio Theme Settings') . '</small></h2>',
     '#weight' => -11,
   ];
   $form['toggle_breadcrumb'] = [
@@ -369,6 +373,21 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
     '#title' => t('Theme menus'),
     '#group' => 'uw_boundless_barrio',
   ];
+  $form['uw_boundless_barrio_theme_menus']['sidebar_menu'] = [
+    '#type' => 'details',
+    '#title' => t('Sidebar menu'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['uw_boundless_barrio_theme_menus']['sidebar_menu']['uw_boundless_barrio_sidebar_menu_visibility']= array(
+    '#type' => 'select',
+    '#title' => t('Sidebar menu visibility'),
+    '#default_value' => theme_get_setting('uw_boundless_barrio_sidebar_menu_visibility'),
+    '#options' => array(
+      0 => t('Hidden'),
+      1 => t('Visible'),
+    ),
+  );
   $form['uw_boundless_barrio_theme_menus']['thinstrip_menu'] = [
     '#type' => 'details',
     '#title' => t('Thinstrip menu'),
@@ -531,80 +550,91 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
 /**
  * Builds the sidebar menu.
  *
- * @return array
- *   Returns a renderable array of the menu. Inspired by and code implemented
- *   from the Menu Block module (https://www.drupal.org/project/menu_block).
+ * @return bool|array
+ *   Returns a render array of the menu if we should render the menu.
+ *   Returns false if we shouldn't render it.
  */
 function _uw_boundless_barrio_build_uw_sidebar_menu() {
+  // If the theme setting is not set to 1 (Visible), then we don't need to go any further.
+  if(!theme_get_setting('uw_boundless_barrio_sidebar_menu_visibility')) {
+    return false;
+  }
+
   $menu_name = 'main';
   $menu_tree = \Drupal::menuTree();
   $parameters = $menu_tree->getCurrentRouteMenuTreeParameters($menu_name);
   $where_are_we = \Drupal::service('menu.active_trail')->getActiveLink($menu_name);
   $where_are_we_id = ($where_are_we) ? $where_are_we->getPluginId() : '';
 
-  // Set these to suit, mainly for testing.
-  // @todo Read these in from the block's settings. Also,
-  // the theme should set the defaults on install.
-  $level = 1;
-  $depth = 3;
+  //  kint($where_are_we);
+  //  kint($where_are_we_id);
+  //  kint($parameters);
 
-  // Update the level to match the active menu item's level in the menu.
-  if (count($parameters->activeTrail) > $level) {
-    $level = count($parameters->activeTrail);
+  // If we have an empty string for $where_are_we, which is the
+  // current ActiveLink, then we're at the menu root. We don't need
+  // to show the sidebar menu, so return false.
+  if(empty($where_are_we_id)) {
+    return false;
   }
+  // Set the level to where we
+  $level = count($parameters->activeTrail);
+//  kint($level);
 
-  // Set the max depth such that we never exceed the maximum available depth.
-  // @todo Evaluate whether to remove this condition and just set the max depth.
-  if ($depth > 0) {
-    $parameters->setMaxDepth(min($level + $depth - 1, $menu_tree->maxDepth()));
-  }
   // Only show the menu items for the current active trail and adjust the root
   // according to the current position in the menu in order to determine if we
   // can show the subtree.
-  if (count($parameters->activeTrail) >= $level) {
-    // Active trail array is child-first. Reverse it and pull the new menu
-    // root based on the parent of the start level.
-    $menu_trail_ids = array_reverse(array_values($parameters->activeTrail));
 
-    // Set the offset to 2 if we are past $level of 2 to prevent siblings
-    // from showing if we're only 1 level beneath the main menu.
-    $offset = ($level > 2 ? 2 : 1);
-    $menu_root = $menu_trail_ids[$level - $offset];
+  // Active trail array is child-first. Reverse it and pull the new menu
+  // root based on the parent of the start level.
+  $menu_trail_ids = array_reverse(array_values($parameters->activeTrail));
+//  kint($menu_trail_ids);
 
-    $parameters->setRoot($menu_root);
-    if ($depth > 0) {
-      $parameters->setMaxDepth(min($depth, $menu_tree->maxDepth()));
-    }
-  }
-  else {
-    return [];
-  }
+  // Set the offset to 2 if we are past $level of 2 to prevent siblings
+  // from showing if we're only 1 level beneath the main menu.
+  $offset = ($level > 2 ? 2 : 1);
 
-  // Load the tree if we haven't already.
-  if (!isset($tree)) {
-    $tree = $menu_tree->load($menu_name, $parameters);
-  }
+  // Get the menu trail id that we want to use to setRoot.
+  $menu_root = $menu_trail_ids[$level - $offset];
+
+  $parameters->setRoot($menu_root);
+
+  // Load the tree.
+  $tree = $menu_tree->load($menu_name, $parameters);
   $manipulators = [
     ['callable' => 'menu.default_tree_manipulators:checkAccess'],
     ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
   ];
   $tree = $menu_tree->transform($tree, $manipulators);
 
+  // Check the start of the tree to see if it has children.
+  // If it has no children, then we don't need to show the sidebar menu.
+  // The start of the tree is one above the level that we're on because of the
+  // offset accomplished above.
+  $tree_root_has_children = array_values($tree)[0]->hasChildren;
+  if(!$tree_root_has_children) {
+    return false;
+  }
+
   $build = $menu_tree->build($tree);
 
   // Update the items in the $build
   // We at least want to add a class for the active menu item <li>
   // we'll do this by walking through the array (if additional manipulations
-  // are needed in future, the _uw_boundless_barrio_walk_tree
+  // are needed in the future, the _uw_boundless_barrio_walk_tree
   // function could be enhanced).
   $build_items_walked = _uw_boundless_barrio_walk_tree($build['#items'], $where_are_we_id);
-  $build['#items'] = $build_items_walked;
-  $build['#title'] = [
-    '#markup' => 'UW Sidebar Menu',
-  ];
-  $build['#theme'] = 'menu__main__uwsidebarmenu';
-
-  return $build;
+  if (!$build_items_walked) {
+    return false;
+  }
+  else {
+    $build['#items'] = $build_items_walked;
+    $build['#title'] = [
+      '#markup' => 'UW Sidebar Menu',
+    ];
+    $build['#theme'] = 'menu__main__uwsidebarmenu';
+//    kint($build);
+    return $build;
+  }
 }
 
 /**
@@ -612,8 +642,10 @@ function _uw_boundless_barrio_build_uw_sidebar_menu() {
  *
  * Builds a side menu based on the current path.
  *
+ * @param array $build_items render array #items to walk through
+ * @param string $menuLinkPluginId the string for the id of the current menu item we're on
  * @return array
- *   The returned array is of of menubuilditems content or false
+ *   The returned array consists of render array #items
  */
 function _uw_boundless_barrio_walk_tree($build_items, $menuLinkPluginId): array {
   $build_items_revised = [];
@@ -623,8 +655,8 @@ function _uw_boundless_barrio_walk_tree($build_items, $menuLinkPluginId): array 
     // to find.
     $compare = $index;
     if ($compare == $menuLinkPluginId) {
-      // Since the menuLinkPluginId matches, let's set a class for it.
-      $item['attributes']->addClass('is-active');
+      // Since the menuLinkPluginId matches, add the .active class for its attributes.
+      $item['attributes']->addClass('active');
       $build_items_revised[$index] = $item;
     }
     else {
