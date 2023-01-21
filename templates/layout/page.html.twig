@@ -49,14 +49,14 @@
   {% set sidebar_first = page.sidebar_first|render %}
 {% endif %}
 {% set sidebar = (sidebar_first or page.sidebar_second) ? true : false %}
-{% set hero_template_type = is_front ? uw_boundless_barrio_hero_template_front : uw_boundless_barrio_hero_template_other %}
+{% set hero_template_type = is_front ? uw_drupal_theme_hero_template_front : uw_drupal_theme_hero_template_other %}
 
-{% include '@uw_boundless_barrio/includes/uwsearcharea.html.twig' %}
+{% include '@uw_drupal_theme/includes/uwsearcharea.html.twig' %}
 
 <div id="page" class="site">
   <nav id="quicklinks" aria-label="quick links" aria-hidden="true">
     {{ page.quicklinks }}
-    {% if uw_boundless_barrio_custom_quicklinks_menu %}
+    {% if uw_drupal_theme_custom_quicklinks_menu %}
       {{ uw_quicklinks_markup|raw }}
     {% else %}
     <ul id="big-links">
@@ -128,13 +128,13 @@
     {% if page.navigation %}
       {{ page.navigation }}
 
-      {% if uw_boundless_barrio_top_links_to_dropdowns %}
-        {{ attach_library('uw_boundless_barrio/top-links-to-dropdowns') }}
+      {% if uw_drupal_theme_top_links_to_dropdowns %}
+        {{ attach_library('uw_drupal_theme/top-links-to-dropdowns') }}
       {% endif %}
 
     {% endif %}
 
-    {% include '@uw_boundless_barrio/includes/uw-hero-image.html.twig' %}
+    {% include '@uw_drupal_theme/includes/uw-hero-image.html.twig' %}
 
     <div class="container-fluid">
       {{ page.breadcrumb }}
@@ -167,6 +167,6 @@
         {% endif %}
       </div> <!-- /.row -->
     </div> <!-- /.container -->
-    {% include '@uw_boundless_barrio/includes/footer.html.twig' %}
+    {% include '@uw_drupal_theme/includes/footer.html.twig' %}
   </div> <!-- /#page--inner -->
 </div> <!-- /#page.site -->

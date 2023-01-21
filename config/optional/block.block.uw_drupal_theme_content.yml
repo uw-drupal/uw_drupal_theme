@@ -4,16 +4,16 @@ dependencies:
   module:
     - system
   theme:
-    - uw_boundless_barrio
-id: uw_boundless_barrio_content
-theme: uw_boundless_barrio
+    - uw_drupal_theme
+id: uw_drupal_theme_content
+theme: uw_drupal_theme
 region: content
 weight: 0
 provider: null
 plugin: system_main_block
 settings:
   id: system_main_block
-  label: 'Main page content'
+  label: "Main page content"
   provider: system
-  label_display: '0'
-visibility: {  }
+  label_display: "0"
+visibility: {}

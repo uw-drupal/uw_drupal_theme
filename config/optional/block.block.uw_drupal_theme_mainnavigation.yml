@@ -4,20 +4,20 @@ dependencies:
   config:
     - system.menu.main
   theme:
-    - uw_boundless_barrio
-id: uw_boundless_barrio_mainnavigation
-theme: uw_boundless_barrio
+    - uw_drupal_theme
+id: uw_drupal_theme_mainnavigation
+theme: uw_drupal_theme
 region: navigation
 weight: 0
 provider: null
-plugin: 'system_menu_block:main'
+plugin: "system_menu_block:main"
 settings:
-  id: 'system_menu_block:main'
-  label: 'Main navigation'
-  label_display: '0'
+  id: "system_menu_block:main"
+  label: "Main navigation"
+  label_display: "0"
   provider: system
   level: 1
   depth: 2
   expand_all_items: true
   suggestion: main__mainnavigation
-visibility: {  }
+visibility: {}

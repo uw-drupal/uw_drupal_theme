@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Functions to support the UW Boundless Barrio subtheme.
+ * Functions to support the UW Drupal Theme, Bootstrap Barrio subtheme.
  */
 
 use Drupal\Core\Form\FormStateInterface;
@@ -30,16 +30,16 @@ abstract class UwColor {
  *
  * Adds additional classes to <body>
  */
-function uw_boundless_barrio_preprocess_html(&$variables) {
+function uw_drupal_theme_preprocess_html(&$variables) {
   $classes = [];
   $classes[] = 'page-template';
   $classes[] = 'page-templates';
   $classes[] = 'page';
   if (\Drupal::service('path.matcher')->isFrontPage()) {
-    $hero_template = theme_get_setting('uw_boundless_barrio_hero_template_front');
+    $hero_template = theme_get_setting('uw_drupal_theme_hero_template_front');
   }
   else {
-    $hero_template = theme_get_setting('uw_boundless_barrio_hero_template_other');
+    $hero_template = theme_get_setting('uw_drupal_theme_hero_template_other');
   }
   switch ($hero_template) {
     case 'default':
@@ -74,19 +74,17 @@ function uw_boundless_barrio_preprocess_html(&$variables) {
 /**
  * Implements template_preprocess_block().
  */
-// TODO: this is a marker for uw_sidebar_menu fix
-function uw_boundless_barrio_preprocess_block(&$variables) {
-  if ($variables['attributes']['id'] === 'block-uw-boundless-barrio-uwsidebarmenu') {
-//    kint($variables);
+function uw_drupal_theme_preprocess_block(&$variables) {
+  if ($variables['attributes']['id'] === 'block-uw-drupal-theme-uwsidebarmenu') {
     $variables['base_path'] = base_path();
-    $variables['content'] = _uw_boundless_barrio_build_uw_sidebar_menu();
+    $variables['content'] = _uw_drupal_theme_build_uw_sidebar_menu();
   }
 }
 
 /**
  * Implements template_preprocess_page().
  */
-function uw_boundless_barrio_preprocess_page(&$variables) {
+function uw_drupal_theme_preprocess_page(&$variables) {
   global $base_url;
   $theme = \Drupal::theme()->getActiveTheme();
   $theme_path = $theme->getPath();
@@ -100,50 +98,50 @@ function uw_boundless_barrio_preprocess_page(&$variables) {
   // Jeanna Vogt worked on.
   // $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
   // $variables['login_link'] = $variables['show_shib_link'] ? 'super cool link' : Url::fromUri('internal:/user/login')->toString();
-  $variables['login_url'] = theme_get_setting('uw_boundless_barrio_login_url');
+  $variables['login_url'] = theme_get_setting('uw_drupal_theme_login_url');
 
   // Load the site name out of configuration.
   $config = \Drupal::config('system.site');
   $variables['site_name'] = $config->get('name');
   $variables['site_slogan'] = $config->get('slogan');
 
-  $variables['uw_boundless_barrio_custom_quicklinks_menu'] = theme_get_setting('uw_boundless_barrio_custom_quicklinks_menu');
-  $variables['uw_boundless_barrio_top_links_to_dropdowns'] = theme_get_setting('uw_boundless_barrio_top_links_to_dropdowns');
-  $variables['uw_quicklinks_markup'] = theme_get_setting('uw_boundless_barrio_theme_quicklinks_markup');
+  $variables['uw_drupal_theme_custom_quicklinks_menu'] = theme_get_setting('uw_drupal_theme_custom_quicklinks_menu');
+  $variables['uw_drupal_theme_top_links_to_dropdowns'] = theme_get_setting('uw_drupal_theme_top_links_to_dropdowns');
+  $variables['uw_quicklinks_markup'] = theme_get_setting('uw_drupal_theme_theme_quicklinks_markup');
 
   // Set hero image paths.
-  $variables['uw_hero_image_front_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_boundless_barrio_hero_image_front_default_path');
-  $variables['uw_hero_image_front_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_boundless_barrio_hero_image_front_mobile_default_path');
-  $variables['uw_hero_image_other_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_boundless_barrio_hero_image_other_default_path');
-  $variables['uw_hero_image_other_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_boundless_barrio_hero_image_other_mobile_default_path');
+  $variables['uw_hero_image_front_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_front_default_path');
+  $variables['uw_hero_image_front_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_front_mobile_default_path');
+  $variables['uw_hero_image_other_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_other_default_path');
+  $variables['uw_hero_image_other_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_other_mobile_default_path');
 
   // Set flags for whether we're using mobile hero images.
-  $variables['uw_hero_image_front_mobile'] = theme_get_setting('uw_boundless_barrio_hero_image_front_mobile');
-  $variables['uw_hero_image_other_mobile'] = theme_get_setting('uw_boundless_barrio_hero_image_other_mobile');
+  $variables['uw_hero_image_front_mobile'] = theme_get_setting('uw_drupal_theme_hero_image_front_mobile');
+  $variables['uw_hero_image_other_mobile'] = theme_get_setting('uw_drupal_theme_hero_image_other_mobile');
 
   // If the default is overridden with a file upload, reset the hero paths.
-  if ((theme_get_setting('uw_boundless_barrio_hero_image_front_default') === 0) && !empty(theme_get_setting('hero_image_front_upload'))) {
+  if ((theme_get_setting('uw_drupal_theme_hero_image_front_default') === 0) && !empty(theme_get_setting('hero_image_front_upload'))) {
     $hero_front = theme_get_setting('hero_image_front_upload');
     $fid = reset($hero_front);
     if ($file = File::load($fid)) {
       $variables['uw_hero_image_front_path'] = $file->createFileUrl(TRUE);
     }
   }
-  if ((theme_get_setting('uw_boundless_barrio_hero_image_default') === 0) && !empty(theme_get_setting('hero_image_other_upload'))) {
+  if ((theme_get_setting('uw_drupal_theme_hero_image_default') === 0) && !empty(theme_get_setting('hero_image_other_upload'))) {
     $hero_other = theme_get_setting('hero_image_other_upload');
     $fid_other = reset($hero_other);
     if ($file_other = File::load($fid_other)) {
       $variables['uw_hero_image_other_path'] = $file_other->createFileUrl(TRUE);
     }
   }
-  if (theme_get_setting('uw_boundless_barrio_hero_image_front_mobile') == 'yes_upload' && !empty(theme_get_setting('hero_image_front_mobile_upload'))) {
+  if (theme_get_setting('uw_drupal_theme_hero_image_front_mobile') == 'yes_upload' && !empty(theme_get_setting('hero_image_front_mobile_upload'))) {
     $hero_front_mobile = theme_get_setting('hero_image_front_mobile_upload');
     $fid = reset($hero_front_mobile);
     if ($file = File::load($fid)) {
       $variables['uw_hero_image_front_mobile_path'] = $file->createFileUrl(TRUE);
     }
   }
-  if (theme_get_setting('uw_boundless_barrio_hero_image_other_mobile') == 'yes_upload' && !empty(theme_get_setting('hero_image_other_mobile_upload'))) {
+  if (theme_get_setting('uw_drupal_theme_hero_image_other_mobile') == 'yes_upload' && !empty(theme_get_setting('hero_image_other_mobile_upload'))) {
     $hero_other_mobile = theme_get_setting('hero_image_other_mobile_upload');
     $fid = reset($hero_other_mobile);
     if ($file = File::load($fid)) {
@@ -152,23 +150,20 @@ function uw_boundless_barrio_preprocess_page(&$variables) {
   }
 
   // Set hero template styles.
-  $variables['uw_boundless_barrio_hero_template_front'] = theme_get_setting('uw_boundless_barrio_hero_template_front');
-  $variables['uw_boundless_barrio_hero_template_other'] = theme_get_setting('uw_boundless_barrio_hero_template_other');
+  $variables['uw_drupal_theme_hero_template_front'] = theme_get_setting('uw_drupal_theme_hero_template_front');
+  $variables['uw_drupal_theme_hero_template_other'] = theme_get_setting('uw_drupal_theme_hero_template_other');
 
   // Set front page title and shadow colors.
-  $variables['uw_boundless_front_page_title_color'] = theme_get_setting('uw_boundless_barrio_front_page_title_color');
-  $variables['uw_front_title_text_shadow'] = _uw_boundless_barrio_get_text_shadow($variables['uw_boundless_front_page_title_color']);
+  $variables['uw_drupal_theme_front_page_title_color'] = theme_get_setting('uw_drupal_theme_front_page_title_color');
+  $variables['uw_front_title_text_shadow'] = _uw_drupal_theme_get_text_shadow($variables['uw_drupal_theme_front_page_title_color']);
 
   // Set slant color.
-  $variables['uw_boundless_front_page_slant_color'] = theme_get_setting('uw_boundless_barrio_front_page_slant_color');
+  $variables['uw_drupal_theme_front_page_slant_color'] = theme_get_setting('uw_drupal_theme_front_page_slant_color');
 
   // Set front page motto and shadow colors.
-  $variables['uw_boundless_front_page_slogan_color'] = theme_get_setting('uw_boundless_barrio_front_page_slogan_color');
-  $variables['uw_front_slogan_text_shadow'] = _uw_boundless_barrio_get_text_shadow($variables['uw_boundless_front_page_slogan_color']);
+  $variables['uw_drupal_theme_front_page_slogan_color'] = theme_get_setting('uw_drupal_theme_front_page_slogan_color');
+  $variables['uw_front_slogan_text_shadow'] = _uw_drupal_theme_get_text_shadow($variables['uw_drupal_theme_front_page_slogan_color']);
 
-  // TODO: this is a marker for uw_sidebar_menu fix
-//  $variables['show_sidebar_menu'] = theme_get_setting('uw_boundless_barrio_sidebar_menu_visibility');
-//  $variables['sidebar_menu_render_array'] = _uw_boundless_barrio_build_uw_sidebar_menu();
 }
 
 /**
@@ -176,7 +171,7 @@ function uw_boundless_barrio_preprocess_page(&$variables) {
  *
  * See: https://www.drupal.org/node/743366.
  */
-function uw_boundless_barrio_preprocess_breadcrumb(&$variables) {
+function uw_drupal_theme_preprocess_breadcrumb(&$variables) {
   if ($variables['breadcrumb']) {
     $request = \Drupal::request();
     $route_match = \Drupal::routeMatch();
@@ -195,12 +190,12 @@ function uw_boundless_barrio_preprocess_breadcrumb(&$variables) {
 /**
  * Implements template_preprocess_page_title().
  */
-function uw_boundless_barrio_preprocess_page_title(&$variables) {
+function uw_drupal_theme_preprocess_page_title(&$variables) {
   if (\Drupal::service('path.matcher')->isFrontPage()) {
     $variables['is_front'] = TRUE;
   }
-  $variables['uw_boundless_barrio_hero_template_front'] = theme_get_setting('uw_boundless_barrio_hero_template_front');
-  $variables['uw_boundless_barrio_hero_template_other'] = theme_get_setting('uw_boundless_barrio_hero_template_other');
+  $variables['uw_drupal_theme_hero_template_front'] = theme_get_setting('uw_drupal_theme_hero_template_front');
+  $variables['uw_drupal_theme_hero_template_other'] = theme_get_setting('uw_drupal_theme_hero_template_other');
 }
 
 /**
@@ -208,7 +203,7 @@ function uw_boundless_barrio_preprocess_page_title(&$variables) {
  *
  * Replace Barrio setting options with subtheme ones.
  */
-function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
+function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
   // Work-around for a core bug affecting admin themes. See issue #943212.
   if (isset($form_id)) {
     return;
@@ -240,10 +235,10 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
     'yes_upload' => t("Yes and use an image file that I'll upload here."),
   ];
 
-  // Set form fields for UW Boundless Barrio Theme Settings.
-  $form['uw_boundless_barrio'] = [
+  // Set form fields for UW Drupal Theme Settings.
+  $form['uw_drupal_theme'] = [
     '#type' => 'vertical_tabs',
-    '#prefix' => '<h2><small>' . t('UW Boundless Barrio Theme Settings') . '</small></h2>',
+    '#prefix' => '<h2><small>' . t('UW Drupal Theme Settings') . '</small></h2>',
     '#weight' => -11,
   ];
   $form['toggle_breadcrumb'] = [
@@ -255,41 +250,41 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
   //
   // Hero image tab.
   //
-  $form['uw_boundless_barrio_hero_image'] = [
+  $form['uw_drupal_theme_hero_image'] = [
     '#type' => 'details',
     '#title' => t('Hero Image'),
-    '#group' => 'uw_boundless_barrio',
+    '#group' => 'uw_drupal_theme',
   ];
   // Hero image settings for the image on the default front page.
-  $form['uw_boundless_barrio_hero_image']['front_page'] = [
+  $form['uw_drupal_theme_hero_image']['front_page'] = [
     '#type' => 'details',
     '#title' => t('Front page hero image area'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_boundless_barrio_hero_image']['front_page']['uw_boundless_barrio_hero_template_front'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['uw_drupal_theme_hero_template_front'] = [
     '#type' => 'radios',
     '#title' => t('Select the hero template style for the front page'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_hero_template_front'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_template_front'),
     '#options' => $_hero_templates,
   ];
-  $form['uw_boundless_barrio_hero_image']['front_page']['uw_boundless_barrio_hero_image_front_default'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['uw_drupal_theme_hero_image_front_default'] = [
     '#type' => 'checkbox',
     '#title' => t('Use the default hero-image'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_hero_image_front_default'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_front_default'),
     '#tree' => FALSE,
     '#description' => t('Check here if you want the theme to use the hero-image supplied with it.'),
   ];
-  $form['uw_boundless_barrio_hero_image']['front_page']['settings'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['settings'] = [
     '#type' => 'container',
     '#states' => [
       // Hide the header settings when using the default header.
       'invisible' => [
-        'input[name="uw_boundless_barrio_hero_image_front_default"]' => ['checked' => TRUE],
+        'input[name="uw_drupal_theme_hero_image_front_default"]' => ['checked' => TRUE],
       ],
     ],
   ];
-  $form['uw_boundless_barrio_hero_image']['front_page']['settings']['hero_image_front_upload'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['settings']['hero_image_front_upload'] = [
     '#type' => 'managed_file',
     '#title' => t('Upload front page hero image'),
     '#upload_location' => 'public://',
@@ -297,23 +292,23 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
     '#description' => t("Use this field to upload your front-page hero-image."),
     '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg']],
   ];
-  $form['uw_boundless_barrio_hero_image']['front_page']['uw_boundless_barrio_hero_image_front_mobile'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['uw_drupal_theme_hero_image_front_mobile'] = [
     '#type' => 'radios',
     '#title' => t('Include a hero image for mobile devices?'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_hero_image_front_mobile'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_front_mobile'),
     '#options' => $_hero_mobile_options,
     '#tree' => FALSE,
   ];
-  $form['uw_boundless_barrio_hero_image']['front_page']['mobile_settings'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['mobile_settings'] = [
     '#type' => 'container',
     '#states' => [
       // Hide the header settings when using the default header.
       'visible' => [
-        'input[name="uw_boundless_barrio_hero_image_front_mobile"]' => ['value' => 'yes_upload'],
+        'input[name="uw_drupal_theme_hero_image_front_mobile"]' => ['value' => 'yes_upload'],
       ],
     ],
   ];
-  $form['uw_boundless_barrio_hero_image']['front_page']['mobile_settings']['hero_image_front_mobile_upload'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['mobile_settings']['hero_image_front_mobile_upload'] = [
     '#type' => 'managed_file',
     '#title' => t('Upload front page hero image for mobile'),
     '#upload_location' => 'public://',
@@ -323,36 +318,36 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
   ];
 
   // Hero image settings for the image used on other pages.
-  $form['uw_boundless_barrio_hero_image']['other_page'] = [
+  $form['uw_drupal_theme_hero_image']['other_page'] = [
     '#type' => 'details',
     '#title' => t('Non-front page hero image'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
 
-  $form['uw_boundless_barrio_hero_image']['other_page']['uw_boundless_barrio_hero_template_other'] = [
+  $form['uw_drupal_theme_hero_image']['other_page']['uw_drupal_theme_hero_template_other'] = [
     '#type' => 'radios',
     '#title' => t('Select the hero template style'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_hero_template_other'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_template_other'),
     '#options' => $_hero_templates,
   ];
-  $form['uw_boundless_barrio_hero_image']['other_page']['uw_boundless_barrio_hero_image_default'] = [
+  $form['uw_drupal_theme_hero_image']['other_page']['uw_drupal_theme_hero_image_default'] = [
     '#type' => 'checkbox',
     '#title' => t('Use the default non-front page hero image'),
     '#tree' => FALSE,
-    '#default_value' => theme_get_setting('uw_boundless_barrio_hero_image_default'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_default'),
     '#description' => t('Check here if you want the theme to use the hero-image supplied with it.'),
   ];
-  $form['uw_boundless_barrio_hero_image']['other_page']['settings'] = [
+  $form['uw_drupal_theme_hero_image']['other_page']['settings'] = [
     '#type' => 'container',
     '#states' => [
       // Hide the header settings when using the default header.
       'invisible' => [
-        'input[name="uw_boundless_barrio_hero_image_default"]' => ['checked' => TRUE],
+        'input[name="uw_drupal_theme_hero_image_default"]' => ['checked' => TRUE],
       ],
     ],
   ];
-  $form['uw_boundless_barrio_hero_image']['other_page']['settings']['hero_image_other_upload'] = [
+  $form['uw_drupal_theme_hero_image']['other_page']['settings']['hero_image_other_upload'] = [
     '#type' => 'managed_file',
     '#title' => t('Upload a non-front page hero image'),
     '#upload_location' => 'public://',
@@ -360,7 +355,7 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
     '#description' => t("Use this field to upload your non-front page hero-image."),
     '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg']],
   ];
-  $form['uw_boundless_barrio_hero_image']['instructions'] = [
+  $form['uw_drupal_theme_hero_image']['instructions'] = [
     '#type' => 'markup',
     '#markup' => t("<div class='form-item__description'>The \"Big hero\" and \"Small hero\" options above will include the \"Slogan\" from \"Basic Site Settings\" (See:&nbsp;/admin/config/system/site-information.)</div>"),
   ];
@@ -368,80 +363,80 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
   //
   // Theme menus tab.
   //
-  $form['uw_boundless_barrio_theme_menus'] = [
+  $form['uw_drupal_theme_theme_menus'] = [
     '#type' => 'details',
     '#title' => t('Theme menus'),
-    '#group' => 'uw_boundless_barrio',
+    '#group' => 'uw_drupal_theme',
   ];
-  $form['uw_boundless_barrio_theme_menus']['sidebar_menu'] = [
+  $form['uw_drupal_theme_theme_menus']['sidebar_menu'] = [
     '#type' => 'details',
     '#title' => t('Sidebar menu'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_boundless_barrio_theme_menus']['sidebar_menu']['uw_boundless_barrio_sidebar_menu_visibility']= array(
+  $form['uw_drupal_theme_theme_menus']['sidebar_menu']['uw_drupal_theme_sidebar_menu_visibility']= array(
     '#type' => 'select',
     '#title' => t('Sidebar menu visibility'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_sidebar_menu_visibility'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_sidebar_menu_visibility'),
     '#options' => array(
       0 => t('Hidden'),
       1 => t('Visible'),
     ),
   );
-  $form['uw_boundless_barrio_theme_menus']['thinstrip_menu'] = [
+  $form['uw_drupal_theme_theme_menus']['thinstrip_menu'] = [
     '#type' => 'details',
     '#title' => t('Thinstrip menu'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_boundless_barrio_theme_menus']['thinstrip_menu']['description'] = [
+  $form['uw_drupal_theme_theme_menus']['thinstrip_menu']['description'] = [
     '#type' => 'markup',
-    '#markup' => t("<p><strong>Instructions</strong><br/>The Thinstrip menu is handled as a block with a menu in it:</p><ul><li>@block_layout_link to override the standard UW Boundless theme Thinstrip menu (also known as the Audience menu).</li><li>You can modify the @thinstrip_menu_link</li><li>or adjust the @thinstrip_block_link to customize it.</li></ul><p>When the theme is first installed a Thinstrip menu (machine name: thinstrip-menu) is created if it doesn't already exist and the Thinstrip menu block is placed in the Thinstrip region, but set to Disabled.</p>", [
+    '#markup' => t("<p><strong>Instructions</strong><br/>The Thinstrip menu is handled as a block with a menu in it:</p><ul><li>@block_layout_link to override the standard UW WordPress theme Thinstrip menu (also known as the Audience menu).</li><li>You can modify the @thinstrip_menu_link</li><li>or adjust the @thinstrip_block_link to customize it.</li></ul><p>When the theme is first installed a Thinstrip menu (machine name: thinstrip-menu) is created if it doesn't already exist and the Thinstrip menu block is placed in the Thinstrip region, but set to Disabled.</p>", [
       '@block_layout_link' => Link::fromTextAndUrl('Enable the Thinstrip menu block', Url::fromUri('internal:/admin/structure/block'))->toString(),
-      '@thinstrip_menu_link' => Link::fromTextAndUrl('Thinstrip menu items', Url::fromUri('internal:/admin/structure/menu/manage/thinstrip-menu?destination=/admin/appearance/settings/uw_boundless_barrio'))->toString(),
-      '@thinstrip_block_link' => Link::fromTextAndUrl('Thinstrip menu block settings', Url::fromUri('internal:/admin/structure/block/manage/uw_boundless_barrio_thinstripmenu?destination=/admin/appearance/settings/uw_boundless_barrio'))->toString(),
+      '@thinstrip_menu_link' => Link::fromTextAndUrl('Thinstrip menu items', Url::fromUri('internal:/admin/structure/menu/manage/thinstrip-menu?destination=/admin/appearance/settings/uw_drupal_theme'))->toString(),
+      '@thinstrip_block_link' => Link::fromTextAndUrl('Thinstrip menu block settings', Url::fromUri('internal:/admin/structure/block/manage/uw_drupal_theme_thinstripmenu?destination=/admin/appearance/settings/uw_drupal_theme'))->toString(),
     ]),
   ];
-  $form['uw_boundless_barrio_theme_menus']['footer_links_menu'] = [
+  $form['uw_drupal_theme_theme_menus']['footer_links_menu'] = [
     '#type' => 'details',
     '#title' => t('Footer links menu'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_boundless_barrio_theme_menus']['footer_links_menu']['description'] = [
+  $form['uw_drupal_theme_theme_menus']['footer_links_menu']['description'] = [
     '#type' => 'markup',
-    '#markup' => t("<p><strong>Instructions</strong><br/>The navigation links in the Footer are handled as a menu within a block using Drupal's Footer menu:</p><ul><li>@block_layout_link to override the standard UW Boundless theme footer links (also known as the footer-navigation nav).</li><li>You can modify the @footer_menu_link</li><li>or adjust the @footer_block_link to customize it further.</li></ul><p>When the theme is first installed the Footer menu block is placed in the Footer region, but set to Disabled.</p>", [
+    '#markup' => t("<p><strong>Instructions</strong><br/>The navigation links in the Footer are handled as a menu within a block using Drupal's Footer menu:</p><ul><li>@block_layout_link to override the standard UW drupal_theme theme footer links (also known as the footer-navigation nav).</li><li>You can modify the @footer_menu_link</li><li>or adjust the @footer_block_link to customize it further.</li></ul><p>When the theme is first installed the Footer menu block is placed in the Footer region, but set to Disabled.</p>", [
       '@block_layout_link' => Link::fromTextAndUrl('Enable the Footer menu block', Url::fromUri('internal:/admin/structure/block'))->toString(),
-      '@footer_menu_link' => Link::fromTextAndUrl('Footer menu items', Url::fromUri('internal:/admin/structure/menu/manage/footer?destination=/admin/appearance/settings/uw_boundless_barrio'))->toString(),
-      '@footer_block_link' => Link::fromTextAndUrl('Footer menu block settings', Url::fromUri('internal:/admin/structure/block/manage/uw_boundless_barrio_footermenu?destination=/admin/appearance/settings/uw_boundless_barrio'))->toString(),
+      '@footer_menu_link' => Link::fromTextAndUrl('Footer menu items', Url::fromUri('internal:/admin/structure/menu/manage/footer?destination=/admin/appearance/settings/uw_drupal_theme'))->toString(),
+      '@footer_block_link' => Link::fromTextAndUrl('Footer menu block settings', Url::fromUri('internal:/admin/structure/block/manage/uw_drupal_theme_footermenu?destination=/admin/appearance/settings/uw_drupal_theme'))->toString(),
     ]),
   ];
-  $form['uw_boundless_barrio_theme_menus']['quicklinks_menu'] = [
+  $form['uw_drupal_theme_theme_menus']['quicklinks_menu'] = [
     '#type' => 'details',
     '#title' => t('QuickLinks menu'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_boundless_barrio_theme_menus']['quicklinks_menu']['uw_boundless_barrio_custom_quicklinks_menu'] = [
+  $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['uw_drupal_theme_custom_quicklinks_menu'] = [
     '#type' => 'checkbox',
     '#title' => t('Use the custom markup below for the QuickLinks menu'),
     '#tree' => FALSE,
-    '#default_value' => theme_get_setting('uw_boundless_barrio_custom_quicklinks_menu'),
-    '#description' => t('If this is checked, the content you enter below will be shown in the QuickLinks area. If unchecked, the standard UW Boundless theme QuickLinks will show.'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_custom_quicklinks_menu'),
+    '#description' => t('If this is checked, the content you enter below will be shown in the QuickLinks area. If unchecked, the standard UW WordPress theme QuickLinks will show.'),
   ];
-  $form['uw_boundless_barrio_theme_menus']['quicklinks_menu']['uw_boundless_barrio_theme_quicklinks_markup'] = [
+  $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['uw_drupal_theme_theme_quicklinks_markup'] = [
     '#type' => 'textarea',
     '#title' => t('Enter markup for the QuickLinks menu'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_theme_quicklinks_markup'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_theme_quicklinks_markup'),
     '#description' => t('Adjust the QuickLinks markup as needed. Since the markup is complex with link classes for specific icons, it is not handled as a menu. Expand the Example starter markup below to get started.'),
   ];
-  $form['uw_boundless_barrio_theme_menus']['quicklinks_menu']['starter_markup'] = [
+  $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['starter_markup'] = [
     '#type' => 'details',
     '#title' => t('Example starter markup'),
     '#description' => t("Copy this starter markup into the QuickLinks markup text area field above. This markup is the same as that in the theme's page.html.twig template file, so it's a good starting point."),
     '#open' => FALSE,
   ];
-  $form['uw_boundless_barrio_theme_menus']['quicklinks_menu']['starter_markup']['markup'] = [
+  $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['starter_markup']['markup'] = [
     '#type' => 'html_tag',
     '#tag' => 'code',
     '#value' => t('@code', [
@@ -470,61 +465,61 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
     '#suffix' => '</pre>',
   ];
 
-  $form['uw_boundless_barrio_theme_menus']['uw_boundless_barrio_top_links_to_dropdowns'] = [
+  $form['uw_drupal_theme_theme_menus']['uw_drupal_theme_top_links_to_dropdowns'] = [
     '#type' => 'checkbox',
     '#title' => t('Add top-level links to drop-down menus'),
     '#tree' => FALSE,
-    '#default_value' => theme_get_setting('uw_boundless_barrio_top_links_to_dropdowns'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_top_links_to_dropdowns'),
     '#description' => t('When a top-level navigation item has a node associated with it, add the top-level Menu link to the drop-down menu.'),
   ];
 
   // Color settings.
   $url = Url::fromUri('https://www.washington.edu/brand/graphic-elements/primary-color-palette/');
-  $form['uw_boundless_barrio_colors'] = [
+  $form['uw_drupal_theme_colors'] = [
     '#type' => 'details',
     '#title' => t('Color settings'),
-    '#group' => 'uw_boundless_barrio',
+    '#group' => 'uw_drupal_theme',
     '#description' => t('Set the color display of certain page elements. For color references, see:') . ' ' . (Link::fromTextAndUrl(t('UW brand color palette'), $url))->toString(),
   ];
-  $form['uw_boundless_barrio_colors']['front_page'] = [
+  $form['uw_drupal_theme_colors']['front_page'] = [
     '#type' => 'fieldset',
     '#title' => t('Front page elements'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
   // Front page title color.
-  $form['uw_boundless_barrio_colors']['front_page']['uw_boundless_barrio_front_page_title_color'] = [
+  $form['uw_drupal_theme_colors']['front_page']['uw_drupal_theme_front_page_title_color'] = [
     '#type' => 'select',
     '#title' => t('Site name'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_front_page_title_color'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_front_page_title_color'),
     '#options' => $_colors,
   ];
   // Front page slant color.
-  $form['uw_boundless_barrio_colors']['front_page']['uw_boundless_barrio_front_page_slant_color'] = [
+  $form['uw_drupal_theme_colors']['front_page']['uw_drupal_theme_front_page_slant_color'] = [
     '#type' => 'select',
     '#title' => t('Slant'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_front_page_slant_color'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_front_page_slant_color'),
     '#options' => $_colors,
   ];
   // Front page slogan color.
-  $form['uw_boundless_barrio_colors']['front_page']['uw_boundless_barrio_front_sass_page_slogan_color'] = [
+  $form['uw_drupal_theme_colors']['front_page']['uw_drupal_theme_front_sass_page_slogan_color'] = [
     '#type' => 'select',
     '#title' => t('Site slogan'),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_front_page_slogan_color'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_front_page_slogan_color'),
     '#options' => $_colors,
   ];
 
   // Login url settings.
-  $form['uw_boundless_barrio_login'] = [
+  $form['uw_drupal_theme_login'] = [
     '#type' => 'details',
     '#title' => t('Login settings'),
-    '#group' => 'uw_boundless_barrio',
+    '#group' => 'uw_drupal_theme',
   ];
-  $form['uw_boundless_barrio_login']['uw_boundless_barrio_login_url'] = [
+  $form['uw_drupal_theme_login']['uw_drupal_theme_login_url'] = [
     '#type' => 'textfield',
     '#title' => t('Login url'),
     '#description' => t("Enter the url for the login link (lead with a forward slash '/'). The date in the footer will be linked to this url. Leave empty to not link the date in the footer to a login url."),
-    '#default_value' => theme_get_setting('uw_boundless_barrio_login_url'),
+    '#default_value' => theme_get_setting('uw_drupal_theme_login_url'),
   ];
   // @todo Figure out if ['components']['navbar'] background options needed;
   // these came from starter theme:
@@ -554,9 +549,9 @@ function uw_boundless_barrio_form_system_theme_settings_alter(&$form, FormStateI
  *   Returns a render array of the menu if we should render the menu.
  *   Returns false if we shouldn't render it.
  */
-function _uw_boundless_barrio_build_uw_sidebar_menu() {
+function _uw_drupal_theme_build_uw_sidebar_menu() {
   // If the theme setting is not set to 1 (Visible), then we don't need to go any further.
-  if(!theme_get_setting('uw_boundless_barrio_sidebar_menu_visibility')) {
+  if(!theme_get_setting('uw_drupal_theme_sidebar_menu_visibility')) {
     return false;
   }
 
@@ -620,9 +615,9 @@ function _uw_boundless_barrio_build_uw_sidebar_menu() {
   // Update the items in the $build
   // We at least want to add a class for the active menu item <li>
   // we'll do this by walking through the array (if additional manipulations
-  // are needed in the future, the _uw_boundless_barrio_walk_tree
+  // are needed in the future, the _uw_drupal_theme_walk_tree
   // function could be enhanced).
-  $build_items_walked = _uw_boundless_barrio_walk_tree($build['#items'], $where_are_we_id);
+  $build_items_walked = _uw_drupal_theme_walk_tree($build['#items'], $where_are_we_id);
   if (!$build_items_walked) {
     return false;
   }
@@ -647,7 +642,7 @@ function _uw_boundless_barrio_build_uw_sidebar_menu() {
  * @return array
  *   The returned array consists of render array #items
  */
-function _uw_boundless_barrio_walk_tree($build_items, $menuLinkPluginId): array {
+function _uw_drupal_theme_walk_tree($build_items, $menuLinkPluginId): array {
   $build_items_revised = [];
 
   foreach ($build_items as $index => $item) {
@@ -666,7 +661,7 @@ function _uw_boundless_barrio_walk_tree($build_items, $menuLinkPluginId): array 
     if ($item['below']) {
       // MenuLinkContent has items below it, so we need to run each of those
       // through same function passing in our compare menuLinkPluginId again.
-      $build_items_revised[$index]['below'] = _uw_boundless_barrio_walk_tree($item['below'], $menuLinkPluginId);
+      $build_items_revised[$index]['below'] = _uw_drupal_theme_walk_tree($item['below'], $menuLinkPluginId);
     }
   }
   return $build_items_revised;
@@ -679,27 +674,27 @@ function _uw_boundless_barrio_walk_tree($build_items, $menuLinkPluginId): array 
  *   String containing a hex value.
  *
  * @return string
- *   The theme setting value for uw_boundless_text_shadow_black or
- *   uw_boundless_text_shadow_white.
+ *   The theme setting value for uw_drupal_theme_text_shadow_black or
+ *   uw_drupal_theme_text_shadow_white.
  */
-function _uw_boundless_barrio_get_text_shadow($color) {
+function _uw_drupal_theme_get_text_shadow($color) {
   $retval = '';
   switch ($color) {
     case UwColor::WHITE:
     case UwColor::LIGHT_GREY:
     case UwColor::GOLD:
-      $retval = theme_get_setting('uw_boundless_barrio_text_shadow_black');
+      $retval = theme_get_setting('uw_drupal_theme_text_shadow_black');
       break;
 
     case UwColor::PURPLE:
     case UwColor::METALLIC_GOLD:
     case UwColor::DARK_GREY:
     case UwColor::BLACK:
-      $retval = theme_get_setting('uw_boundless_text_sass_shadow_white');
+      $retval = theme_get_setting('uw_drupal_theme_text_sass_shadow_white');
       break;
 
     default:
-      $retval = theme_get_setting('uw_boundless_text_sass_shadow_black');
+      $retval = theme_get_setting('uw_drupal_theme_text_sass_shadow_black');
       break;
   }
   return $retval;

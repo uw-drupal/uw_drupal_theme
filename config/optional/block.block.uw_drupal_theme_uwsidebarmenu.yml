@@ -4,17 +4,17 @@ dependencies:
   config:
     - system.menu.main
   theme:
-    - uw_boundless_barrio
-id: uw_boundless_barrio_uwsidebarmenu
-theme: uw_boundless_barrio
+    - uw_drupal_theme
+id: uw_drupal_theme_uwsidebarmenu
+theme: uw_drupal_theme
 region: sidebar_first
 weight: 0
 provider: null
-plugin: 'system_menu_block:main'
+plugin: "system_menu_block:main"
 settings:
-  id: 'system_menu_block:main'
-  label: 'Main navigation'
-  label_display: '0'
+  id: "system_menu_block:main"
+  label: "Main navigation"
+  label_display: "0"
   level: 2
   depth: 0
   expand_all_items: false

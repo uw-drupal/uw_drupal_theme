@@ -4,19 +4,19 @@ dependencies:
   config:
     - system.menu.footer
   theme:
-    - uw_boundless_barrio
-id: uw_boundless_barrio_footermenu
-theme: uw_boundless_barrio
+    - uw_drupal_theme
+id: uw_drupal_theme_footermenu
+theme: uw_drupal_theme
 region: uwfooter
 weight: 0
 provider: null
-plugin: 'system_menu_block:footer'
+plugin: "system_menu_block:footer"
 settings:
-  id: 'system_menu_block:footer'
+  id: "system_menu_block:footer"
   label: Footer
-  label_display: '0'
+  label_display: "0"
   provider: system
   level: 1
   depth: 0
   expand_all_items: false
-visibility: {  }
+visibility: {}

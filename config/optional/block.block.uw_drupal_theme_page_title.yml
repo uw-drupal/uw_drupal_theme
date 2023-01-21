@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - uw_boundless_barrio
-id: uw_boundless_barrio_page_title
-theme: uw_boundless_barrio
+    - uw_drupal_theme
+id: uw_drupal_theme_page_title
+theme: uw_drupal_theme
 region: content
 weight: -50
 provider: null
 plugin: page_title_block
 settings:
   id: page_title_block
-  label: 'Page title'
+  label: "Page title"
   provider: core
-  label_display: '0'
-visibility: {  }
+  label_display: "0"
+visibility: {}

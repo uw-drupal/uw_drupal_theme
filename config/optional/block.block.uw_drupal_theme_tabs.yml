@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - uw_boundless_barrio
-id: uw_boundless_barrio_tabs
-theme: uw_boundless_barrio
+    - uw_drupal_theme
+id: uw_drupal_theme_tabs
+theme: uw_drupal_theme
 region: content
 weight: -2
 provider: null
@@ -13,7 +13,7 @@ settings:
   id: local_tasks_block
   label: Tabs
   provider: core
-  label_display: '0'
+  label_display: "0"
   primary: true
   secondary: true
-visibility: {  }
+visibility: {}

@@ -11,12 +11,12 @@
  * - title_suffix: Additional output populated by modules, intended to be
  *   displayed after the main title tag that appears in the template.
  * - is_front:
- * - uw_boundless_barrio_hero_template_front:
- * - uw_boundless_barrio_hero_template_other:
+ * - uw_drupal_theme_hero_template_front:
+ * - uw_drupal_theme_hero_template_other:
  * @see template_preprocess_page_title()
  */
 #}
-{% set hero_template_type = is_front ? uw_boundless_barrio_hero_template_front : uw_boundless_barrio_hero_template_other %}
+{% set hero_template_type = is_front ? uw_drupal_theme_hero_template_front : uw_drupal_theme_hero_template_other %}
 {% if hero_template_type not in ['big_hero', 'small_hero', 'no_title'] %}
 {{ title_prefix }}
 {% if title %}

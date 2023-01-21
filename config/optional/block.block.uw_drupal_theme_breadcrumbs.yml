@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - uw_boundless_barrio
-id: uw_boundless_barrio_breadcrumbs
-theme: uw_boundless_barrio
+    - uw_drupal_theme
+id: uw_drupal_theme_breadcrumbs
+theme: uw_drupal_theme
 region: breadcrumb
 weight: 0
 provider: null
@@ -14,11 +14,10 @@ plugin: system_breadcrumb_block
 settings:
   id: system_breadcrumb_block
   label: Breadcrumbs
-  label_display: '0'
+  label_display: "0"
   provider: system
 visibility:
   request_path:
     id: request_path
     negate: true
-    pages: '<front>'
-
+    pages: "<front>"

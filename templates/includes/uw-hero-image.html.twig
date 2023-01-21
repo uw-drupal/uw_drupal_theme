@@ -8,7 +8,7 @@
 *          no_title
 */
 /#}
-{% set hero_template_type = is_front ? uw_boundless_barrio_hero_template_front : uw_boundless_barrio_hero_template_other %}
+{% set hero_template_type = is_front ? uw_drupal_theme_hero_template_front : uw_drupal_theme_hero_template_other %}
 {% set uw_hero_image = is_front ? uw_hero_image_front_path : uw_hero_image_other_path %}
 {% set uw_hero_image_mobile = is_front ? uw_hero_image_front_mobile_path : uw_hero_image_other_mobile_path %}
 {% set use_uw_hero_image_mobile = false %}
@@ -45,8 +45,8 @@
         <div id="hashtag"><span><span>{{ site_slogan }}</span></span></div>
       {% endif %}
 
-      <h1 {{ attributes.addClass(uw_site_title_classes)}}" style="color:{{ uw_boundless_front_page_title_color }};text-shadow:2px 2px 2px {{ uw_front_title_text_shadow }};">{{ node.label }}</h1>
-      <span class="udub-slant"><span style="background-color:{{ uw_boundless_front_page_slant_color }};"></span></span>
+      <h1 {{ attributes.addClass(uw_site_title_classes)}}" style="color:{{ uw_drupal_theme_front_page_title_color }};text-shadow:2px 2px 2px {{ uw_front_title_text_shadow }};">{{ node.label }}</h1>
+      <span class="udub-slant"><span style="background-color:{{ uw_drupal_theme_front_page_slant_color }};"></span></span>
     </div>
   </div>
 
