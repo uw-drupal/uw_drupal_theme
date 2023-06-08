@@ -79,6 +79,11 @@ function uw_drupal_theme_preprocess_block(&$variables) {
     $variables['base_path'] = base_path();
     $variables['content'] = _uw_drupal_theme_build_uw_sidebar_menu();
   }
+  // Load the default search options from settings.
+  global $base_url;
+  $variables['base_path'] = $base_url;
+  $variables['default_search_scope'] = theme_get_setting('uw_drupal_theme_default_search_scope');
+  $variables['default_search_page_path'] = theme_get_setting('uw_drupal_theme_default_search_page_path');
 }
 
 /**
@@ -91,9 +96,13 @@ function uw_drupal_theme_preprocess_page(&$variables) {
   // kint($theme_path);
   // Set base path so it's usable in templates beyond page.html.twig;
   // also set the current year.
-  // $variables['base_path'] = $base_url;
+  $variables['base_path'] = $base_url;
   $variables['current_year'] = date("Y");
 
+  // Need the default search options in page.html.twig.
+  $variables['default_search_scope'] = theme_get_setting('uw_drupal_theme_default_search_scope');
+  $variables['default_search_page_path'] = theme_get_setting('uw_drupal_theme_default_search_page_path');
+  
   // shib_auth_get_login_link is the function for the new D9 shib module
   // Jeanna Vogt worked on.
   // $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
@@ -234,6 +243,16 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     'yes_default' => t('Yes and use the default mobile hero-image supplied with the theme.'),
     'yes_upload' => t("Yes and use an image file that I'll upload here."),
   ];
+
+  // Get configuration for default search to load as default value in search options. 
+  $_default_search_page = \Drupal::config('search.settings')->get('default_page');
+  $_default_search_page_path = \Drupal::config('search.page.' . $_default_search_page)->get('path');
+  // kint($_default_search_page_path);
+  // TODO: figure out what default is w/o the theme messing with anything; then see if that can be read
+  //       in from the Block settings here; then do away with the theme settings field to explicitly set this so 
+  //       it's managed via the Block settings.
+  $_default_value_search_page_path = (empty(theme_get_setting('uw_drupal_theme_default_search_page_path'))) ? ('/search/' . $_default_search_page_path) : theme_get_setting('uw_drupal_theme_default_search_page_path');
+  // $variables['search_default_page_path'] = '/search/' . $search_default_page_path;
 
   // Set form fields for UW Drupal Theme Settings.
   $form['uw_drupal_theme'] = [
@@ -521,6 +540,30 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#description' => t("Enter the url for the login link (lead with a forward slash '/'). The date in the footer will be linked to this url. Leave empty to not link the date in the footer to a login url."),
     '#default_value' => theme_get_setting('uw_drupal_theme_login_url'),
   ];
+
+  // Search settings.
+  $form['uw_drupal_theme_search'] = [
+    '#type' => 'details',
+    '#title' => t('Search settings'),
+    '#group' => 'uw_drupal_theme',
+  ];
+  $form['uw_drupal_theme_search']['uw_drupal_theme_default_search_scope'] = [
+    '#type' => 'select',
+    '#title' => t('Choose default search scope'),
+    '#options' => [
+       'uw' => t('All the UW'),
+       'site' => t('Current site'),
+    ],
+    '#default_value' => theme_get_setting('uw_drupal_theme_default_search_scope'),
+  ];
+  // $search_default_page_path
+  $form['uw_drupal_theme_search']['uw_drupal_theme_default_search_page_path'] = [
+    '#type' => 'textfield',
+    '#title' => t('Default search page path'),
+    '#description' => t('The theme will read the configuration for --- to give a default value. If you need to ovverride this, go for it. Results not guaranteed.'),
+    '#default_value' => $_default_value_search_page_path,
+  ];
+
   // @todo Figure out if ['components']['navbar'] background options needed;
   // these came from starter theme:
   // https://www.drupal.org/project/bootstrap_sass.
@@ -541,6 +584,117 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     'bg-transparent' => t('Transparent'),
   ];
 }
+
+
+/**
+ * Search form and whatnot.
+ */
+function uw_drupal_theme_preprocess_form(&$variables) {
+
+  if ($variables['attributes']['id'] == 'search-block-form') {
+      kint($variables);
+    global $base_url;
+    $default_search_page_path = theme_get_setting('uw_drupal_theme_default_search_page_path');
+    $default_search_scope = theme_get_setting('uw_drupal_theme_default_search_scope');
+
+
+    $variables['attributes']['class'][] = 'uw-search';
+    // $variables['attributes']['data-sitesearch'] = "{$base_url}{$default_search_page_path}"; // need to set this to the block's settings
+    // attempting to set this to block's settings
+    $variables['attributes']['data-sitesearch'] = $variables['attributes']['action'];
+    // $variables['attributes']['data-sitesearch'] = "{$base_url}{$_default_search_page_path}";
+
+    // Setting the form action if the default search scope theme setting is set to 'uw'.
+    // This needs to happen after setting the data-sitesearch attribute.
+    if ($default_search_scope == 'uw') {
+      $variables['attributes']['action'] = "https://uw.edu/search";
+    }
+    // kint($default_search_page_path);
+    //  $variables['attributes']['data-sitesearch'] = "doesitwork";
+    // $variables['keys']['attributes']->addAttribute('data-sitesearch', theme_get_setting('uw_drupal_theme_default_search_page_path'));
+  }
+}
+
+function uw_drupal_theme_preprocess_radios(&$variables) {
+  // kint($variables);
+  if($variables['attributes']['id'] == 'search-labels') {
+    $variables['attributes']['class'][] = 'labels';
+    $variables['attributes']['class'][] = 'hidden-xs';
+  }
+}
+
+function uw_drupal_theme_form_search_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  global $base_url;
+  $variables['base_path'] = $base_url;
+  $default_search_scope = theme_get_setting('uw_drupal_theme_default_search_scope');
+  // kint($default_search_scope);
+  // kint($form); // $form#action is available here and is responding to what's in block settings
+  $default_search_page_path = theme_get_setting('uw_drupal_theme_default_search_page_path');
+  if ($default_search_scope == 'site') {
+    $scope_search_options = [
+      'site' => t('Current site'),
+      'uw' => t('All the UW'),
+    ];
+    $form['keys']['#attributes']['name'] = "keys"; // TODO: get from theme settings
+  } else {
+    $scope_search_options = [
+      'uw' => t('All the UW'),
+      'site' => t('Current site'),
+    ];
+    $form['keys']['#attributes']['name'] = "q"; // This is the default for uw.edu search
+  }
+
+  $form['actions']['submit']['#attributes']['class'][] = 'search';
+  
+  $form['keys']['#attributes']['placeholder'] = t('Search');
+  $form['keys']['#attributes']['id'] = "uw-search-bar";
+  $form['keys']['#prefix'] = '<div class="search-form-wrapper">';
+  $form['keys']['#suffix'] = '</div>';
+  
+  // $form['#action'] = $base_url . $default_search_page_path; 
+  
+  $form['mobile-search-select'] = [
+    '#type' => 'select',
+    '#default_value' =>  $default_search_scope,
+    '#weight' => '50',
+    '#attributes' => [ 
+      'class' => ['visible-xs'],
+      'id' => 'mobile-search-select',
+      'aria-label' => 'Search scope',
+    ],
+    '#options' => $scope_search_options,
+  ];
+  $form['scope'] = [
+    '#type' => 'fieldset',
+    '#weight' => 100,
+    '#title' => t('Search scope'),
+    '#title_display' => 'invisible',
+    '#attributes' => [
+      'class' => ['search-scope-wrapper'],
+    ]
+  ];
+  $form['scope']['search'] = [
+    '#type' => 'radios',
+    '#default_value' => $default_search_scope, 
+    '#options' => $scope_search_options,
+    '#id' => 'search-labels',
+    '#attributes' => [
+      'class' => ['radiobtn'],
+    ],
+  ];
+}
+
+// TODO: if we don't need the '#after_build' for radios, then you can delete this; keeping here for now
+// See: https://drupal.stackexchange.com/questions/127795/how-to-add-class-to-individual-radio-item-inside-radios
+function uw_drupal_theme_custom_process_radios($element, $form_state) {
+  // kint($element);
+  $options = array_keys($element['#options']);
+  foreach($options as $values) {
+    $element[$values]['#attributes']['class'][] = 'radiobtn';
+  }
+  return $element;
+}
+
 
 /**
  * Builds the sidebar menu.
