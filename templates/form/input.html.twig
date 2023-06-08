@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Theme override for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ */
+#}
+{# 
+  For the search submit button.
+#}
+{% if 'edit-submit' in attributes['id'] %}
+<input{{ attributes.removeClass("form-text") }} />{{ children }}
+{% else %}
+<input{{ attributes.addClass("form-control").removeClass("form-text") }} />{{ children }}
+{% endif %}
