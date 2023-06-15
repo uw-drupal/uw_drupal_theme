@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Template\Attribute;
+use Drupal\block\Entity\Block;
 use Drupal\file\Entity\File;
 
 /**
@@ -72,9 +73,17 @@ function uw_drupal_theme_preprocess_html(&$variables) {
 }
 
 /**
- * Implements template_preprocess_block().
+ * Implements hook_preprocess_block().
  */
 function uw_drupal_theme_preprocess_block(&$variables) {
+  // Add the region value as an attribute so it can be referenced
+  // or targeted later.
+  if (isset($variables['elements']['#id'])) {
+    $region = Block::load($variables['elements']['#id'])->getRegion();
+    // kint($region);
+    $variables['content']['#attributes']['region'] = $region;
+  }
+
   if ($variables['attributes']['id'] === 'block-uw-drupal-theme-uwsidebarmenu') {
     $variables['base_path'] = base_path();
     $variables['content'] = _uw_drupal_theme_build_uw_sidebar_menu();
@@ -574,16 +583,28 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
 /**
  * Search form and whatnot.
  */
+function uw_drupal_theme_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+  // kint($variables);
+  
+  // Check first that the input is a submit.
+  if ($variables['theme_hook_original'] == 'input__submit') {
+    // kint($variables);
+    $element = $variables['element'];
+
+    if($element['#attributes']['id'] == 'uw-search-submit') {
+      $suggestions[] = 'input__submit__' . strtr('uw-search-submit', '-', '_');
+    }
+  }
+}
+
 function uw_drupal_theme_preprocess_form(&$variables) {
 
   if ($variables['attributes']['id'] == 'search-block-form') {
-      // kint($variables);
-    // global $base_url;
-    $default_search_scope = theme_get_setting('uw_drupal_theme_default_search_scope');
 
+    $default_search_scope = theme_get_setting('uw_drupal_theme_default_search_scope');
     $variables['attributes']['class'][] = 'uw-search';
 
-    // attempting to set this to block's settings
+    // Set this to the form's settings.
     $variables['attributes']['data-sitesearch'] = $variables['attributes']['action'];
 
     // Setting the form action if the default search scope theme setting is set to 'uw'.
@@ -624,10 +645,13 @@ function uw_drupal_theme_form_search_block_form_alter(&$form, FormStateInterface
   // kint($form);
   $form['actions']['submit']['#attributes']['class'][] = 'search';
   
+  // Setting the id for the <submit> here so we can target it in 
+  // uw_drupal_theme_theme_suggestions_input_alter(). From there we suggest
+  // a specific twig template file to use just for the search block form.
+  $form['actions']['submit']['#attributes']['id'] = 'uw-search-submit';
+
   $form['keys']['#attributes']['placeholder'] = t('Search');
   $form['keys']['#attributes']['id'] = "uw-search-bar";
-  $form['keys']['#prefix'] = '<div class="search-form-wrapper">';
-  $form['keys']['#suffix'] = '</div>';
   
   $form['mobile-search-select'] = [
     '#type' => 'select',
@@ -658,6 +682,7 @@ function uw_drupal_theme_form_search_block_form_alter(&$form, FormStateInterface
       'class' => ['radiobtn'],
     ],
   ];
+  kint($form);
 }
 
 // TODO: if we don't need the '#after_build' for radios, then you can delete this; keeping here for now

@@ -10,7 +10,19 @@
  * @see template_preprocess_form()
  */
 #}
-
+{% block wrapper %}
+{# {{ kint(element) }} #}
+{% set form = element %}
+  {# {{ kint(form.actions.submit) }} #}
 <form{{ attributes }}>
-  {{ children }}
+  <div class="search-form-wrapper">
+    {{ form.keys }} 
+  </div>
+  {{ attribute(form, 'mobile-search-select') }}
+  {# {{ kint(form.actions.submit['#attributes']) }} #}
+  {{ form.actions }}
+
+  {{ form.scope }}
 </form>
+{# </div> #}
+{% endblock wrapper %}

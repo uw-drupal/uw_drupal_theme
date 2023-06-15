@@ -13,8 +13,4 @@
 {# 
   For the search submit button.
 #}
-{% if 'edit-submit' in attributes['id'] %}
 <input{{ attributes.removeClass("form-text") }} />{{ children }}
-{% else %}
-<input{{ attributes.addClass("form-control").removeClass("form-text") }} />{{ children }}
-{% endif %}

@@ -7,7 +7,7 @@
     mobileSelect = document.getElementById("mobile-search-select"),
     form = document.querySelector("form.uw-search"),
     searchLabels = document.getElementById("search-labels"),
-    submitButton = document.querySelector("button.search"), // change from WP theme
+    submitButton = document.querySelector("input.search"), // change from WP theme
     radioLabel = document.getElementsByClassName("radio"),
     url = window.location.href,
     searchSite = searchArea.dataset.search,

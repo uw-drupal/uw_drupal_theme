@@ -37,8 +37,8 @@
 %}
 
 {# {{ kint(configuration) }}
-{{ kint(attributes) }}
-{{ kint(content) }} #}
+{{ kint(attributes) }} #}
+{# {{ kint(content) }} #}
 <div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if label %}
@@ -46,7 +46,6 @@
   {% endif %}
   {{ title_suffix }}
   {% block content %}
-   {# action is: {{ content['#action'] }} #}
     {{ content }}
   {% endblock %}
 </div>
