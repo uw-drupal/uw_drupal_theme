@@ -10,19 +10,18 @@
  * @see template_preprocess_form()
  */
 #}
-{% block wrapper %}
-{# {{ kint(element) }} #}
-{% set form = element %}
-  {# {{ kint(form.actions.submit) }} #}
-<form{{ attributes }}>
-  <div class="search-form-wrapper">
-    {{ form.keys }} 
-  </div>
-  {{ attribute(form, 'mobile-search-select') }}
-  {# {{ kint(form.actions.submit['#attributes']) }} #}
-  {{ form.actions }}
-
-  {{ form.scope }}
-</form>
-{# </div> #}
-{% endblock wrapper %}
+{# 
+  For the mobile-search-select field in the search block we don't
+  want these added classes. There may be better ways to do this. Until
+  we know more about whether we even want the Bootstrap Barrio added options, 
+  this will suffice.
+#}
+{% if attributes['region'] == 'search' %}
+  <form{{ attributes }}>
+    {{ children }}
+  </form>
+{% else %}
+  <form{{ attributes.addClass('search-form', 'search-block-form', 'form-row') }}>
+    {{ children }}
+  </form>
+{% endif %}
