@@ -1,52 +1,10 @@
 {% if page.search %}
-{#  {{ attach_library('uw_drupal_theme/search') }}#}
-{{ attach_library('uw_drupal_theme/searchtoggleonly') }}
-<div id="uwsearcharea" aria-hidden="true" class="uw-search-bar-container" data-search="" hidden>
-
+ {{ attach_library('uw_drupal_theme/search') }}
+<div id="uwsearcharea" aria-hidden="true" class="uw-search-bar-container" data-search="{{ default_search_scope }}" hidden>
   <div class="container no-height" role="search">
-    <div class="center-block uw-search-wrapper">
-{#<div id="uwsearcharea" aria-hidden="true" class="uw-search-bar-container" data-search="" hidden>#}
-{#  <div class="container no-height">#}
     {{ page.search }}
-{#  </div>#}
-{#</div>#}
-    </div>
   </div>
 </div>
 {% else %}
-{{ attach_library('uw_drupal_theme/search') }}
-<div id="uwsearcharea" aria-hidden="true" class="uw-search-bar-container" data-search="" hidden>
-
-  <div class="container no-height" role="search">
-    <div class="center-block uw-search-wrapper">
-      <form class="uw-search" data-sitesearch="/" action="/">
-
-        <div class="search-form-wrapper">
-          <label class="screen-reader" for="uw-search-bar">Enter search text</label>
-          <input id="uw-search-bar" type="search"
-                 name="keys"
-                 value="" autocomplete="off" placeholder="Search" />
-        </div>
-        <select id="mobile-search-select" class="visible-xs" aria-label="Search scope">
-          <option value="site" >Current site</option>
-          <option value="uw">All the UW</option>
-        </select>
-        <input type="submit" value="search" class="search" tabindex="0"/>
-        <fieldset style="margin: 0; padding: 0; border: 1px solid #ffffff;">
-          <legend id="uw-search-label">Search scope</legend>
-          <div id="search-labels" class="labels hidden-xs">
-            <!--load these labels and input if UW is selected in Theme Settings -->
-{#            <?php if ( $toggle_option === 'uw' ) { ?>#}
-{#            <label id="uw" class="radio checked"><input class="radiobtn" type="radio" name="search" value="uw" data-toggle="radio" checked />All the UW</label>#}
-{#            <label id="site" class="radio"><input  class="radiobtn" type="radio" name="search" value="site" data-toggle="radio" />Current site</label>#}
-
-            <!--OR load these labels and input if Site is selected in Theme Settings -->
-            <label id="site" class="radio checked"><input class="radiobtn" type="radio" name="search" value="site" data-toggle="radio" checked/>Current site</label>
-            <label id="uw" class="radio"><input class="radiobtn" type="radio" name="search" value="uw" data-toggle="radio" />All the UW</label>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-  </div>
-</div>
+  {{ attach_library('uw_drupal_theme/searchtoggleonly') }}
 {% endif %}

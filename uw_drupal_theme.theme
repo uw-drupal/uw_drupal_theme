@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Template\Attribute;
+use Drupal\block\Entity\Block;
 use Drupal\file\Entity\File;
 
 /**
@@ -72,13 +73,25 @@ function uw_drupal_theme_preprocess_html(&$variables) {
 }
 
 /**
- * Implements template_preprocess_block().
+ * Implements hook_preprocess_block().
  */
 function uw_drupal_theme_preprocess_block(&$variables) {
+  // Add the region value as an attribute so it can be referenced
+  // or targeted later.
+  if (isset($variables['elements']['#id'])) {
+    $region = Block::load($variables['elements']['#id'])->getRegion();
+    // kint($region);
+    $variables['content']['#attributes']['region'] = $region;
+  }
+
   if ($variables['attributes']['id'] === 'block-uw-drupal-theme-uwsidebarmenu') {
     $variables['base_path'] = base_path();
     $variables['content'] = _uw_drupal_theme_build_uw_sidebar_menu();
   }
+  // Load the default search options from settings.
+  global $base_url;
+  $variables['base_path'] = $base_url;
+  $variables['default_search_scope'] = theme_get_setting('uw_drupal_theme_default_search_scope');
 }
 
 /**
@@ -88,16 +101,17 @@ function uw_drupal_theme_preprocess_page(&$variables) {
   global $base_url;
   $theme = \Drupal::theme()->getActiveTheme();
   $theme_path = $theme->getPath();
-  // kint($theme_path);
+
   // Set base path so it's usable in templates beyond page.html.twig;
   // also set the current year.
-  // $variables['base_path'] = $base_url;
+  $variables['base_path'] = $base_url;
   $variables['current_year'] = date("Y");
 
-  // shib_auth_get_login_link is the function for the new D9 shib module
-  // Jeanna Vogt worked on.
-  // $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
-  // $variables['login_link'] = $variables['show_shib_link'] ? 'super cool link' : Url::fromUri('internal:/user/login')->toString();
+  // Need the default search options in page.html.twig.
+  $variables['default_search_scope'] = theme_get_setting('uw_drupal_theme_default_search_scope');
+
+  // Get the setting for this site's login path. This gets used in the
+  // footer teamplate.
   $variables['login_url'] = theme_get_setting('uw_drupal_theme_login_url');
 
   // Load the site name out of configuration.
@@ -374,15 +388,15 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_drupal_theme_theme_menus']['sidebar_menu']['uw_drupal_theme_sidebar_menu_visibility']= array(
+  $form['uw_drupal_theme_theme_menus']['sidebar_menu']['uw_drupal_theme_sidebar_menu_visibility'] = [
     '#type' => 'select',
     '#title' => t('Sidebar menu visibility'),
     '#default_value' => theme_get_setting('uw_drupal_theme_sidebar_menu_visibility'),
-    '#options' => array(
+    '#options' => [
       0 => t('Hidden'),
       1 => t('Visible'),
-    ),
-  );
+    ],
+  ];
   $form['uw_drupal_theme_theme_menus']['thinstrip_menu'] = [
     '#type' => 'details',
     '#title' => t('Thinstrip menu'),
@@ -521,6 +535,23 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#description' => t("Enter the url for the login link (lead with a forward slash '/'). The date in the footer will be linked to this url. Leave empty to not link the date in the footer to a login url."),
     '#default_value' => theme_get_setting('uw_drupal_theme_login_url'),
   ];
+
+  // Search settings.
+  $form['uw_drupal_theme_search'] = [
+    '#type' => 'details',
+    '#title' => t('Search settings'),
+    '#group' => 'uw_drupal_theme',
+  ];
+  $form['uw_drupal_theme_search']['uw_drupal_theme_default_search_scope'] = [
+    '#type' => 'select',
+    '#title' => t('Choose default search scope'),
+    '#options' => [
+      'uw' => t('All the UW'),
+      'site' => t('Current site'),
+    ],
+    '#default_value' => theme_get_setting('uw_drupal_theme_default_search_scope'),
+  ];
+
   // @todo Figure out if ['components']['navbar'] background options needed;
   // these came from starter theme:
   // https://www.drupal.org/project/bootstrap_sass.
@@ -543,6 +574,147 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
 }
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function uw_drupal_theme_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+  // Check first that the input is a submit.
+  if ($variables['theme_hook_original'] == 'input__submit') {
+    // kint($variables);
+    $element = $variables['element'];
+
+    // We want to target the #uw-search-submit only so we can use a
+    // template file to remove some classes from it.
+    if ($element['#attributes']['id'] == 'uw-search-submit') {
+      $suggestions[] = 'input__submit__' . strtr('uw-search-submit', '-', '_');
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_form_element_label().
+ */
+function uw_drupal_theme_preprocess_form_element_label(&$variables) {
+
+  $element = $variables['element'];
+  // Target the label for the search input (keys).
+  if ($element['#id'] == 'edit-keys') {
+    // Change the for attribute to match the id we're overriding elsewhere
+    // to uw-search-bar.
+    $variables['attributes']['for'] = 'uw-search-bar';
+  }
+}
+
+/**
+ * Implements template_preprocess_form().
+ */
+function uw_drupal_theme_preprocess_form(&$variables) {
+
+  // Check if the form's id starts with 'search-block-form' because we're
+  // only trying to target the search block form with this.
+  if (str_contains($variables['attributes']['id'], 'search-block-form')) {
+
+    $default_search_scope = theme_get_setting('uw_drupal_theme_default_search_scope');
+    $variables['attributes']['class'][] = 'uw-search';
+
+    // Set this to the form's curemt action.
+    $variables['attributes']['data-sitesearch'] = $variables['attributes']['action'];
+
+    // Setting the form action if the default search scope theme setting is
+    // set to 'uw'. This needs to happen after setting the data-sitesearch
+    // attribute.
+    if ($default_search_scope == 'uw') {
+      $variables['attributes']['action'] = "https://uw.edu/search";
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_radios().
+ */
+function uw_drupal_theme_preprocess_radios(&$variables) {
+  // We're targeting the #search-labels div to add two classes
+  // for the search block form.
+  if ($variables['attributes']['id'] == 'search-labels') {
+    $variables['attributes']['class'][] = 'labels';
+    $variables['attributes']['class'][] = 'hidden-xs';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Here we're adding $scope_search_options radio buttons and mobile
+ * select list. In addition, there we're customizing the form's attributes
+ * so the final HMTL output closely resembles what's output in the UW WP theme.
+ */
+function uw_drupal_theme_form_search_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $default_search_scope = theme_get_setting('uw_drupal_theme_default_search_scope');
+  // kint($default_search_scope);
+  if ($default_search_scope == 'site') {
+    $scope_search_options = [
+      'site' => t('Current site'),
+      'uw' => t('All the UW'),
+    ];
+    // @todo get from theme settings
+    $form['keys']['#attributes']['name'] = "keys";
+  }
+  else {
+    $scope_search_options = [
+      'uw' => t('All the UW'),
+      'site' => t('Current site'),
+    ];
+    // This is the default for uw.edu search.
+    $form['keys']['#attributes']['name'] = "q";
+  }
+  // kint($form);
+  $form['actions']['submit']['#attributes']['class'][] = 'search';
+
+  // Setting the id for the <submit> here so we can target it in
+  // uw_drupal_theme_theme_suggestions_input_alter(). From there we suggest
+  // a specific twig template file to use just for the search block form.
+  $form['actions']['submit']['#attributes']['id'] = 'uw-search-submit';
+
+  $form['keys']['#attributes']['placeholder'] = t('Search');
+  $form['keys']['#attributes']['id'] = "uw-search-bar";
+
+  $form['keys']['#prefix'] = '<div class="search-form-wrapper">';
+  $form['keys']['#suffix'] = '</div>';
+
+  $form['mobile-search-select'] = [
+    '#type' => 'select',
+    '#default_value' => $default_search_scope,
+    '#weight' => '50',
+    '#attributes' => [
+      'class' => ['visible-xs'],
+      'id' => 'mobile-search-select',
+      'aria-label' => 'Search scope',
+      'name' => '',
+    ],
+    '#options' => $scope_search_options,
+    '#required' => TRUE,
+  ];
+  $form['scope'] = [
+    '#type' => 'fieldset',
+    '#weight' => 100,
+    '#title' => t('Search scope'),
+    '#title_display' => 'invisible',
+    '#attributes' => [
+      'class' => ['search-scope-wrapper'],
+    ],
+  ];
+  $form['scope']['search'] = [
+    '#type' => 'radios',
+    '#default_value' => $default_search_scope,
+    '#options' => $scope_search_options,
+    '#id' => 'search-labels',
+    '#attributes' => [
+      'class' => ['radiobtn'],
+    ],
+  ];
+  // kint($form);
+}
+
+/**
  * Builds the sidebar menu.
  *
  * @return bool|array
@@ -550,9 +722,10 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
  *   Returns false if we shouldn't render it.
  */
 function _uw_drupal_theme_build_uw_sidebar_menu() {
-  // If the theme setting is not set to 1 (Visible), then we don't need to go any further.
-  if(!theme_get_setting('uw_drupal_theme_sidebar_menu_visibility')) {
-    return false;
+  // If the theme setting is not set to 1 (Visible), then we don't need to
+  // go any further.
+  if (!theme_get_setting('uw_drupal_theme_sidebar_menu_visibility')) {
+    return FALSE;
   }
 
   $menu_name = 'main';
@@ -561,29 +734,25 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
   $where_are_we = \Drupal::service('menu.active_trail')->getActiveLink($menu_name);
   $where_are_we_id = ($where_are_we) ? $where_are_we->getPluginId() : '';
 
-  //  kint($where_are_we);
-  //  kint($where_are_we_id);
-  //  kint($parameters);
-
+  // kint($where_are_we);
+  // kint($where_are_we_id);
+  // kint($parameters);
   // If we have an empty string for $where_are_we, which is the
   // current ActiveLink, then we're at the menu root. We don't need
   // to show the sidebar menu, so return false.
-  if(empty($where_are_we_id)) {
-    return false;
+  if (empty($where_are_we_id)) {
+    return FALSE;
   }
-  // Set the level to where we
+  // Set the level to where we.
   $level = count($parameters->activeTrail);
-//  kint($level);
-
+  // kint($level);
   // Only show the menu items for the current active trail and adjust the root
   // according to the current position in the menu in order to determine if we
   // can show the subtree.
-
   // Active trail array is child-first. Reverse it and pull the new menu
   // root based on the parent of the start level.
   $menu_trail_ids = array_reverse(array_values($parameters->activeTrail));
-//  kint($menu_trail_ids);
-
+  // kint($menu_trail_ids);
   // Set the offset to 2 if we are past $level of 2 to prevent siblings
   // from showing if we're only 1 level beneath the main menu.
   $offset = ($level > 2 ? 2 : 1);
@@ -606,8 +775,8 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
   // The start of the tree is one above the level that we're on because of the
   // offset accomplished above.
   $tree_root_has_children = array_values($tree)[0]->hasChildren;
-  if(!$tree_root_has_children) {
-    return false;
+  if (!$tree_root_has_children) {
+    return FALSE;
   }
 
   $build = $menu_tree->build($tree);
@@ -619,7 +788,7 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
   // function could be enhanced).
   $build_items_walked = _uw_drupal_theme_walk_tree($build['#items'], $where_are_we_id);
   if (!$build_items_walked) {
-    return false;
+    return FALSE;
   }
   else {
     $build['#items'] = $build_items_walked;
@@ -627,7 +796,7 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
       '#markup' => 'UW Sidebar Menu',
     ];
     $build['#theme'] = 'menu__main__uwsidebarmenu';
-//    kint($build);
+    // kint($build);
     return $build;
   }
 }
@@ -637,12 +806,15 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
  *
  * Builds a side menu based on the current path.
  *
- * @param array $build_items render array #items to walk through
- * @param string $menuLinkPluginId the string for the id of the current menu item we're on
+ * @param array $build_items
+ *   Render array #items to walk through.
+ * @param string $menuLinkPluginId
+ *   The string for the id of the current menu item we're on.
+ *
  * @return array
- *   The returned array consists of render array #items
+ *   The returned array consists of render array #items.
  */
-function _uw_drupal_theme_walk_tree($build_items, $menuLinkPluginId): array {
+function _uw_drupal_theme_walk_tree(array $build_items, $menuLinkPluginId): array {
   $build_items_revised = [];
 
   foreach ($build_items as $index => $item) {
@@ -650,7 +822,8 @@ function _uw_drupal_theme_walk_tree($build_items, $menuLinkPluginId): array {
     // to find.
     $compare = $index;
     if ($compare == $menuLinkPluginId) {
-      // Since the menuLinkPluginId matches, add the .active class for its attributes.
+      // Since the menuLinkPluginId matches, add the .active class for
+      // its attributes.
       $item['attributes']->addClass('active');
       $build_items_revised[$index] = $item;
     }

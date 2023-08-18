@@ -1,0 +1,50 @@
+/* Overrides for: */
+/* UW Search */
+.uw-search-bar-container 
+  { 
+    // button.search {
+    //   border: none;
+    //   font-size: 0;
+    //   float: left;
+    //   display: block;
+    //   height: 54px;
+    //   outline: 2px solid gray;
+    //   background: url(../assets/svg/search.svg) no-repeat 50% #4b2e83;
+    //   position: relative;
+    //   background-size: 22px;
+    //   border-radius: 0;
+    //   padding: 0 60px 0 0;
+    //   margin: 0; // needed to override bootstrap button styles which barrio template adds
+    // }
+    // button.search:focus {
+    //   background-color: #85754d;
+    //   border: 1px solid #000;
+    // }
+    .form-group {
+      margin-bottom: 0;
+    }
+    .search-scope-wrapper {
+      legend {
+        margin: 0;
+      }
+      .radio {
+        label {
+          font-family: Encode Sans Compressed;
+          font-size: 16px;
+          font-weight: 800;
+          margin-bottom: 0;
+        }
+      }
+      .radiobtn:checked ~ label {
+        color: #4b2e83;
+      }
+    }
+  }
+@media only screen and (max-width : 767px) {
+  .uw-search {
+    fieldset {
+      display: block;
+      width: 100%;
+    }
+  }
+}

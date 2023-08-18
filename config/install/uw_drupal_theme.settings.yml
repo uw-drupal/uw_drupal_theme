@@ -25,6 +25,7 @@ uw_drupal_theme_theme_quicklinks_markup: ""
 uw_drupal_theme_custom_quicklinks_menu: 0
 uw_drupal_theme_top_links_to_dropdowns: 0
 uw_drupal_theme_login_url: "/user/login"
+uw_drupal_theme_default_search_scope: "site"
 
 # Library.
 # ----------------------------
@@ -61,14 +62,14 @@ bootstrap_barrio_navbar_background: "bg-primary"
 
 # Messages.
 # ----------------------------
-bootstrap_barrio_messages_widget: "toasts"
+bootstrap_barrio_messages_widget: "default"
 
 # Form.
 # ----------------------------
-bootstrap_barrio_radio: "custom"
-bootstrap_barrio_checkbox: "switch"
-bootstrap_barrio_select: "custom"
-bootstrap_barrio_file: "custom"
+bootstrap_barrio_radio: "standard"
+bootstrap_barrio_checkbox: "standard"
+bootstrap_barrio_select: "standard"
+bootstrap_barrio_file: "standard"
 
 # Colors.
 # ----------------------------
