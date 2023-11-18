@@ -27,7 +27,8 @@ global-styling:
     - core/jquery
     - core/drupal
     - core/popperjs
-    - core/backbone
+    - core/internal.backbone
+    - core/internal.underscore
 
 search:
   js:

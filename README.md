@@ -1,6 +1,6 @@
 # UW Drupal theme (formerly, UW Boundless Barrio theme)
 
-![UW Drupal theme version 0.0.3](https://img.shields.io/static/v1?label=version&message=v0.0.3&color=green)
+![UW Drupal theme version 0.0.4](https://img.shields.io/static/v1?label=version&message=v0.0.4&color=green)
 
 This is a port of the (new) [UW WordPress Theme](https://github.com/uweb/uw_wp_theme) which utilizes Bootstrap 4 built by the UMAC web team.
 
