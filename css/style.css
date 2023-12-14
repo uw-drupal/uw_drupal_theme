@@ -15185,7 +15185,7 @@ header.site-header div.navbar #search-quicklinks button.uw-quicklinks svg {
   padding: 0;
   margin: 0;
   outline: 0 !important;
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .gfield_checkbox br, .gform_wrapper .fui-radio-checked:before, .gform_wrapper .fui-radio-unchecked:before, .wpcf7 .fui-radio-checked:before, .wpcf7 .fui-radio-unchecked:before {
