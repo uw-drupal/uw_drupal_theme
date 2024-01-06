@@ -3,6 +3,7 @@ global-styling:
   js:
     js/skip-link-focus-fix.js: {}
     js/keyboard-navmenu.js: {}
+    js/keyboard-button.js: {}
     js/libs/bootstrap.min.js: { minified: true }
     js/barrio.js: {}
     js/2014/2014.js: {}
