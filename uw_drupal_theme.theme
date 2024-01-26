@@ -105,9 +105,7 @@ function uw_drupal_theme_preprocess_page(&$variables) {
   $variables['site_name'] = $config->get('name');
   $variables['site_slogan'] = $config->get('slogan');
 
-  $variables['uw_drupal_theme_custom_quicklinks_menu'] = theme_get_setting('uw_drupal_theme_custom_quicklinks_menu');
   $variables['uw_drupal_theme_top_links_to_dropdowns'] = theme_get_setting('uw_drupal_theme_top_links_to_dropdowns');
-  $variables['uw_quicklinks_markup'] = theme_get_setting('uw_drupal_theme_theme_quicklinks_markup');
 
   // Set hero image paths.
   $variables['uw_hero_image_front_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_front_default_path');
@@ -417,48 +415,42 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['uw_drupal_theme_custom_quicklinks_menu'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Use the custom markup below for the QuickLinks menu'),
-    '#tree' => FALSE,
-    '#default_value' => theme_get_setting('uw_drupal_theme_custom_quicklinks_menu'),
-    '#description' => t('If this is checked, the content you enter below will be shown in the QuickLinks area. If unchecked, the standard UW WordPress theme QuickLinks will show.'),
-  ];
-  $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['uw_drupal_theme_theme_quicklinks_markup'] = [
-    '#type' => 'textarea',
-    '#title' => t('Enter markup for the QuickLinks menu'),
-    '#default_value' => theme_get_setting('uw_drupal_theme_theme_quicklinks_markup'),
-    '#description' => t('Adjust the QuickLinks markup as needed. Since the markup is complex with link classes for specific icons, it is not handled as a menu. Expand the Example starter markup below to get started.'),
+  $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['description'] = [
+    '#type' => 'markup',
+    '#markup' => t("<p><strong>Instructions</strong><br/>The QuickLinks menu is handled as a block in the QuickLinks region. When the theme is first installed the QuickLinks Content block won't exist.</p><ul><li>Use the Example starter markup below to @content_block_link that will hold the QuickLinks menu content.</li><li>@block_layout_link to assign the Content block to the QuickLinks region.</li></ul><p><strong>Note:</strong> the 'Quick Links' button doesn't appear unless there is something in the QuickLinks region.", [
+      '@content_block_link' => Link::fromTextAndUrl('add a Content block', Url::fromUri('internal:/block/add'))->toString(),
+      '@block_layout_link' => Link::fromTextAndUrl('Manage blocks', Url::fromUri('internal:/admin/structure/block'))->toString(),
+    ]),
   ];
   $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['starter_markup'] = [
     '#type' => 'details',
     '#title' => t('Example starter markup'),
-    '#description' => t("Copy this starter markup into the QuickLinks markup text area field above. This markup is the same as that in the theme's page.html.twig template file, so it's a good starting point."),
+    '#description' => t("Copy this starter markup into a Content block inside the QuickLinks region."),
     '#open' => FALSE,
   ];
   $form['uw_drupal_theme_theme_menus']['quicklinks_menu']['starter_markup']['markup'] = [
     '#type' => 'html_tag',
     '#tag' => 'code',
     '#value' => t('@code', [
-      '@code' => '    <ul id="big-links">
-      <li><span class="icon-myuw" tabindex="-1"></span><a href="https://my.uw.edu">MyUW</a></li>
-      <li><span class="icon-calendar" tabindex="-1"></span><a href="https://uw.edu/calendar/">Calendar</a></li>
-      <li><span class="icon-directories" tabindex="-1"></span><a href="https://uw.edu/directory/">Directories</a></li>
-      <li><span class="icon-libraries" tabindex="-1"></span><a href="https://lib.washington.edu">Libraries</a></li>
-      <li><span class="icon-medicine" tabindex="-1"></span><a href="https://uwmedicine.org">UW Medicine</a></li>
-      <li><span class="icon-maps" tabindex="-1"></span><a href="https://uw.edu/maps/">Maps</a></li>
-      <li><span class="icon-uwtoday" tabindex="-1"></span><a href="https://uw.edu/news/">UW Today</a></li>
-    </ul>
-    <h3>Helpful Links</h3>
-    <ul id="little-links">
-      <li><span class="false" tabindex="-1"></span><a href="https://itconnect.uw.edu">Computing/IT</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://isc.uw.edu/">Employee Self Service</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://hfs.uw.edu/Husky-Card-Services/">Husky Card</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://uwb.edu">UW Bothell</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://tacoma.uw.edu">UW Tacoma</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://facebook.com/UofWA">UW Facebook</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://twitter.com/UW">UW Twitter</a></li>
-    </ul>',
+      '@code' => '<ul id="big-links">
+  <li><span class="icon-myuw" tabindex="-1"></span><a href="https://my.uw.edu">MyUW</a></li>
+  <li><span class="icon-calendar" tabindex="-1"></span><a href="https://uw.edu/calendar/">Calendar</a></li>
+  <li><span class="icon-directories" tabindex="-1"></span><a href="https://uw.edu/directory/">Directories</a></li>
+  <li><span class="icon-libraries" tabindex="-1"></span><a href="https://lib.washington.edu">Libraries</a></li>
+  <li><span class="icon-medicine" tabindex="-1"></span><a href="https://uwmedicine.org">UW Medicine</a></li>
+  <li><span class="icon-maps" tabindex="-1"></span><a href="https://uw.edu/maps/">Maps</a></li>
+  <li><span class="icon-uwtoday" tabindex="-1"></span><a href="https://uw.edu/news/">UW Today</a></li>
+</ul>
+<h3>Helpful Links</h3>
+<ul id="little-links">
+  <li><span class="false" tabindex="-1"></span><a href="https://itconnect.uw.edu">Computing/IT</a></li>
+  <li><span class="false" tabindex="-1"></span><a href="https://isc.uw.edu/">Employee Self Service</a></li>
+  <li><span class="false" tabindex="-1"></span><a href="https://hfs.uw.edu/Husky-Card-Services/">Husky Card</a></li>
+  <li><span class="false" tabindex="-1"></span><a href="https://uwb.edu">UW Bothell</a></li>
+  <li><span class="false" tabindex="-1"></span><a href="https://tacoma.uw.edu">UW Tacoma</a></li>
+  <li><span class="false" tabindex="-1"></span><a href="https://facebook.com/UofWA">UW Facebook</a></li>
+  <li><span class="false" tabindex="-1"></span><a href="https://twitter.com/UW">UW Twitter</a></li>
+</ul>',
     ]),
     '#description' => t('Use this'),
     '#prefix' => '<pre>',

@@ -50,36 +50,18 @@
 {% endif %}
 {% set sidebar = (sidebar_first or page.sidebar_second) ? true : false %}
 {% set hero_template_type = is_front ? uw_drupal_theme_hero_template_front : uw_drupal_theme_hero_template_other %}
+{% if page.quicklinks|render|striptags|trim|length >=1 %}
+  {% set quicklinks_show = true %}
+{% endif %}
 
 {% include '@uw_drupal_theme/includes/uwsearcharea.html.twig' %}
 
 <div id="page" class="site">
+  {% if quicklinks_show %}
   <nav id="quicklinks" aria-label="quick links" aria-hidden="true">
     {{ page.quicklinks }}
-    {% if uw_drupal_theme_custom_quicklinks_menu %}
-      {{ uw_quicklinks_markup|raw }}
-    {% else %}
-    <ul id="big-links">
-      <li><span class="icon-myuw" tabindex="-1"></span><a href="https://my.uw.edu">MyUW</a></li>
-      <li><span class="icon-calendar" tabindex="-1"></span><a href="https://uw.edu/calendar/">Calendar</a></li>
-      <li><span class="icon-directories" tabindex="-1"></span><a href="https://uw.edu/directory/">Directories</a></li>
-      <li><span class="icon-libraries" tabindex="-1"></span><a href="https://lib.washington.edu">Libraries</a></li>
-      <li><span class="icon-medicine" tabindex="-1"></span><a href="https://uwmedicine.org">UW Medicine</a></li>
-      <li><span class="icon-maps" tabindex="-1"></span><a href="https://uw.edu/maps/">Maps</a></li>
-      <li><span class="icon-uwtoday" tabindex="-1"></span><a href="https://uw.edu/news/">UW Today</a></li>
-    </ul>
-    <h3>Helpful Links</h3>
-    <ul id="little-links">
-      <li><span class="false" tabindex="-1"></span><a href="https://itconnect.uw.edu">Computing/IT</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://isc.uw.edu/">Employee Self Service</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://hfs.uw.edu/Husky-Card-Services/">Husky Card</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://uwb.edu">UW Bothell</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://tacoma.uw.edu">UW Tacoma</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://facebook.com/UofWA">UW Facebook</a></li>
-      <li><span class="false" tabindex="-1"></span><a href="https://twitter.com/UW">UW Twitter</a></li>
-    </ul>
-    {% endif %}
   </nav>
+  {% endif %}
   <div id="page-inner">
     <header id="masthead" class="site-header">
       <div class="navbar navbar-expand-lg">
@@ -114,12 +96,14 @@
               </svg>
             </button>
 {#            {% endif %}#}
+            {% if quicklinks_show %}
             <button class="uw-quicklinks" aria-haspopup="true" aria-expanded="false" aria-label="Open quick links" aria-controls="quicklinks" aria-owns="quicklinks">Quick Links
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15.63px" height="69.13px" viewBox="0 0 15.63 69.13" enable-background="new 0 0 15.63 69.13" xml:space="preserve" focusable="false">
                 <polygon fill="#FFFFFF" points="12.8,7.776 12.803,7.773 5.424,0 3.766,1.573 9.65,7.776 3.766,13.98 5.424,15.553 12.803,7.78"></polygon>
                 <polygon fill="#FFFFFF" points="9.037,61.351 9.036,61.351 14.918,55.15 13.26,53.577 7.459,59.689 1.658,53.577 0,55.15 5.882,61.351 5.882,61.351 5.884,61.353 0,67.557 1.658,69.13 7.459,63.019 13.26,69.13 14.918,67.557 9.034,61.353"></polygon>
               </svg>
             </button>
+            {% endif %}
           </div><!-- search-quicklinks -->
         </div><!-- #site-navigation -->
       </div><!-- .navbar.navbar-expand-lg -->
