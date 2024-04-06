@@ -1,17 +1,27 @@
 uw_drupal_theme_hero_image_front_default_path: "/assets/headers/suzzallo.jpg"
 uw_drupal_theme_hero_image_front_default: 1
 uw_drupal_theme_hero_image_front_path: ""
-uw_drupal_theme_hero_image_front_mobile: "no"
-uw_drupal_theme_hero_image_front_mobile_default_path: "/assets/headers/suzzallo-purple-mobile.jpg"
-uw_drupal_theme_hero_image_front_mobile_default: 1
+# uw_drupal_theme_hero_image_front_mobile: "no"
+# uw_drupal_theme_hero_image_front_mobile_default_path: "/assets/headers/suzzallo-purple-mobile.jpg"
+# uw_drupal_theme_hero_image_front_mobile_default: 1
 uw_drupal_theme_hero_image_front_mobile_path: ""
+uw_drupal_theme_hero_front_banner: ""
+uw_drupal_theme_hero_front_button_text: ""
+uw_drupal_theme_hero_front_button_link: ""
+uw_drupal_theme_hero_front_subhead_text: ""
+uw_drupal_theme_hero_front_title_below: 0
 uw_drupal_theme_hero_image_other_default_path: "/assets/headers/suzzallo.jpg"
 uw_drupal_theme_hero_image_other_default: 1
 uw_drupal_theme_hero_image_other_path: ""
-uw_drupal_theme_hero_image_other_mobile: "no"
-uw_drupal_theme_hero_image_other_mobile_default_path: "/assets/headers/suzzallo-mobile.jpg"
-uw_drupal_theme_hero_image_other_mobile_default: 1
+# uw_drupal_theme_hero_image_other_mobile: "no"
+# uw_drupal_theme_hero_image_other_mobile_default_path: "/assets/headers/suzzallo-mobile.jpg"
+# uw_drupal_theme_hero_image_other_mobile_default: 1
 uw_drupal_theme_hero_image_other_mobile_path: ""
+uw_drupal_theme_hero_other_banner: ""
+uw_drupal_theme_hero_other_button_text: ""
+uw_drupal_theme_hero_other_button_link: ""
+uw_drupal_theme_hero_other_subhead_text: ""
+uw_drupal_theme_hero_other_title_below: 0
 uw_drupal_theme_hero_template_front: "default"
 uw_drupal_theme_hero_template_other: "default"
 uw_drupal_theme_long_site_name: 0

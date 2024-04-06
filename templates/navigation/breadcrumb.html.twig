@@ -13,12 +13,13 @@
   <nav class='uw-breadcrumbs' aria-label='breadcrumbs'>
     <ul>
       {% for item in breadcrumb %}
-        <li {{ item.attributes }}>
-        {% if item.url %}
-          <a href="{{ item.url }}">{{ item.text }}</a>
-        {% else %}
-          <span>{{ item.text }}{% endif %}</span>
-        </li>
+      <li {{ item.attributes }}>
+      {% if item.url %}
+        <a href="{{ item.url }}">{{ item.text }}</a>
+      {% else %}
+        <span>{{ item.text }}</span>
+      {% endif %}
+      </li>
       {% endfor %}
     </ul>
   </nav>

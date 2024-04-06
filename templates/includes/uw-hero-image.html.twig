@@ -4,6 +4,7 @@
 * options: default
 *          big_hero
 *          small_hero
+*          jumbotron
 *          no_hero
 *          no_title
 */
@@ -12,53 +13,84 @@
 {% set uw_hero_image = is_front ? uw_hero_image_front_path : uw_hero_image_other_path %}
 {% set uw_hero_image_mobile = is_front ? uw_hero_image_front_mobile_path : uw_hero_image_other_mobile_path %}
 {% set use_uw_hero_image_mobile = false %}
-{% if is_front and uw_hero_image_front_mobile != 'no' %}
+{# {{ kint(uw_hero_image_front_mobile) }}  #}
+{% if is_front and hero_template_type in ['big_hero', 'small_hero', 'jumbotron'] and uw_hero_image_front_mobile != FALSE %}
 {%   set use_uw_hero_image_mobile = true %}
-{% elseif not is_front and uw_hero_image_other_mobile != 'no' %}
+{% elseif not is_front and hero_template_type in ['big_hero', 'small_hero', 'jumbotron'] and uw_hero_image_other_mobile != FALSE %}
 {%   set use_uw_hero_image_mobile = true %}
 {% endif %}
-
+{# {{ kint(use_uw_hero_image_mobile) }}  #}
 {% set uw_hero_image_attributes = create_attribute() %}
 {%
   set uw_hero_image_classes = [
     'uw-hero-image',
     hero_template_type == 'big_hero' ? 'hero-height',
     hero_template_type == 'small_hero' ? 'hero-height2',
+    hero_template_type == 'jumbotron' ? 'hero-heightjumbo',
     use_uw_hero_image_mobile ? 'hero-mobile-image'
   ]
 %}
 {%
   set uw_site_title_classes = [
     hero_template_type == 'big_hero' ? 'uw-site-title',
-    hero_template_type == 'small_hero' ? 'uw-site-title2'
+    hero_template_type == 'small_hero' ? 'uw-site-title2',
+    hero_template_type == 'jumbotron' ? 'uw-site-title jumbo',
   ]
 %}
 
-{% if hero_template_type in ['big_hero', 'small_hero'] %}
+{% if hero_template_type in ['big_hero', 'small_hero', 'jumbotron'] %}
   <div{{ uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image }}');">
     {% if use_uw_hero_image_mobile %}
       <div class="mobile-image" style="background-image: url('{{ uw_hero_image_mobile }}');"></div>
     {% endif %}
     <div class="container-fluid">
-
-      {% if site_slogan %}
-        <div id="hashtag"><span><span>{{ site_slogan }}</span></span></div>
+      {% if hero_template_type == 'jumbotron' %} {# this is the jumbotron style hero #}
+      {% if hero_banner %}
+      <div id="banner"><span><span>{{ hero_banner }}</span></span></div>
       {% endif %}
+      <div class="row col-sm-6 jumbo">
+        <h1 {{ attributes.addClass(uw_site_title_classes) }}>{{ node.label }}</h1>
+      </div>
+      <div class="row col-sm-6 jumbo">
+        <p class="jumbo-subhead">{{hero_subhead_text}}</p>
+      </div>
+        {% if hero_button_text and hero_button_link %}
+        <a class="btn btn-lg arrow white" href="{{ hero_button_link }}"><span>{{ hero_button_text }}</span><span class="arrow-box"><span class="arrow"></span></span></a>
+        {% endif %}
+      {% endif %}
+        
+      {% if hero_template_type in ['big_hero', 'small_hero'] %} {# this is the other hero types #}
+        {% if hero_banner %}
+        <div id="hashtag"><span><span>{{ hero_banner }}</span></span></div>
+        {% endif %}
+        {% if not hero_title_below %} {# show the title and slant if hero_title_below is not checked #}
+        <h1 {{ attributes.addClass(uw_site_title_classes) }} style="color:{{ uw_drupal_theme_front_page_title_color }};text-shadow:2px 2px 2px {{ uw_front_title_text_shadow }};">{{ node.label }}</h1>
+        <span class="udub-slant"><span style="background-color:{{ uw_drupal_theme_front_page_slant_color }};"></span></span>
+        {% endif %}
+        {% if hero_button_text and hero_button_link %}
+          <a class="btn btn-lg arrow white" href="{{ hero_button_link }}"><span>{{ hero_button_text }}</span><span class="arrow-box"><span class="arrow"></span></span></a>
+        {% endif %}
 
-      <h1 {{ attributes.addClass(uw_site_title_classes)}}" style="color:{{ uw_drupal_theme_front_page_title_color }};text-shadow:2px 2px 2px {{ uw_front_title_text_shadow }};">{{ node.label }}</h1>
-      <span class="udub-slant"><span style="background-color:{{ uw_drupal_theme_front_page_slant_color }};"></span></span>
+      {% endif %}  
     </div>
   </div>
+
+  {# TODO: check for flag to show page title below #}
+  {% if hero_template_type in ['big_hero', 'small_hero'] and hero_title_below %}
+  <div class="container-fluid mt-3">
+    <h1 {{ attributes.addClass(uw_site_title_classes).addClass(['below-hero']) }}>{{ node.label }}</h1>
+  </div>
+  {% endif %}
 
 {% elseif hero_template_type == 'no_hero' %}
 
 {% elseif hero_template_type == 'no_title' %}
 
-{% else %}
-  <div class="uw-hero-image" style="background-image: url('{{ uw_hero_image }}');">
+{% else %} {# this is the default hero type #}
+  <div{{ uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image }}');">
     <div class="container-fluid">
-      <a href="{{ front_page }}" title="{{ node.label }}"><div class="uw-site-title">{{ site_name }}</div></a>
-      <div class="udub-slant-divider gold"><span></span></div>
+      <a href="{{ front_page }}" title="{{ site_name }}"><div class="uw-site-title">{{ site_name }}</div></a>
+      <div class="udub-slant-divider gold"><span style="background-color:{{ uw_drupal_theme_front_page_slant_color }};"></span></div>
     </div>
   </div>
 {% endif %}
