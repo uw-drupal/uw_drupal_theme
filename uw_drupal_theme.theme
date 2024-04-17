@@ -374,7 +374,7 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_drupal_theme_theme_menus']['sidebar_menu']['uw_drupal_theme_sidebar_menu_visibility']= array(
+  $form['uw_drupal_theme_theme_menus']['sidebar_menu']['uw_drupal_theme_sidebar_menu_visibility'] = array(
     '#type' => 'select',
     '#title' => t('Sidebar menu visibility'),
     '#default_value' => theme_get_setting('uw_drupal_theme_sidebar_menu_visibility'),
@@ -540,6 +540,31 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     'bg-white' => t('White'),
     'bg-transparent' => t('Transparent'),
   ];
+
+  // From submission handler.
+  $form['#submit'][] = 'uw_drupal_theme_form_system_theme_settings_submit';
+}
+
+/**
+ * Sumbission handler for the theme's form settings.
+ */
+function uw_drupal_theme_form_system_theme_settings_submit(&$form, FormStateInterface &$form_state, $form_id = NULL) {
+
+  $field_uploads_to_check = [
+    'hero_image_front_upload',
+    'hero_image_other_upload',
+    'hero_image_front_mobile_upload',
+  ];
+
+  foreach ($field_uploads_to_check as $field_upload) {
+    if ($form_state->getValue([$field_upload, '0'])) {
+      $file_id = $form_state->getValue([$field_upload, '0']);
+      $file = File::load($file_id);
+      // Set status to permanent so that it's not deleted.
+      $file->setPermanent();
+      $file->save();
+    }
+  }
 }
 
 /**
@@ -550,9 +575,10 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
  *   Returns false if we shouldn't render it.
  */
 function _uw_drupal_theme_build_uw_sidebar_menu() {
-  // If the theme setting is not set to 1 (Visible), then we don't need to go any further.
-  if(!theme_get_setting('uw_drupal_theme_sidebar_menu_visibility')) {
-    return false;
+  // If the theme setting is not set to 1 (Visible), then we don't need
+  // to go any further.
+  if (!theme_get_setting('uw_drupal_theme_sidebar_menu_visibility')) {
+    return FALSE;
   }
 
   $menu_name = 'main';
@@ -561,29 +587,25 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
   $where_are_we = \Drupal::service('menu.active_trail')->getActiveLink($menu_name);
   $where_are_we_id = ($where_are_we) ? $where_are_we->getPluginId() : '';
 
-  //  kint($where_are_we);
-  //  kint($where_are_we_id);
-  //  kint($parameters);
-
+  // kint($where_are_we);
+  // kint($where_are_we_id);
+  // kint($parameters);
   // If we have an empty string for $where_are_we, which is the
   // current ActiveLink, then we're at the menu root. We don't need
   // to show the sidebar menu, so return false.
-  if(empty($where_are_we_id)) {
-    return false;
+  if (empty($where_are_we_id)) {
+    return FALSE;
   }
-  // Set the level to where we
+  // Set the level to where we are.
   $level = count($parameters->activeTrail);
-//  kint($level);
-
+  // kint($level);
   // Only show the menu items for the current active trail and adjust the root
   // according to the current position in the menu in order to determine if we
   // can show the subtree.
-
   // Active trail array is child-first. Reverse it and pull the new menu
   // root based on the parent of the start level.
   $menu_trail_ids = array_reverse(array_values($parameters->activeTrail));
-//  kint($menu_trail_ids);
-
+  // kint($menu_trail_ids);
   // Set the offset to 2 if we are past $level of 2 to prevent siblings
   // from showing if we're only 1 level beneath the main menu.
   $offset = ($level > 2 ? 2 : 1);
@@ -606,8 +628,8 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
   // The start of the tree is one above the level that we're on because of the
   // offset accomplished above.
   $tree_root_has_children = array_values($tree)[0]->hasChildren;
-  if(!$tree_root_has_children) {
-    return false;
+  if (!$tree_root_has_children) {
+    return FALSE;
   }
 
   $build = $menu_tree->build($tree);
@@ -619,7 +641,7 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
   // function could be enhanced).
   $build_items_walked = _uw_drupal_theme_walk_tree($build['#items'], $where_are_we_id);
   if (!$build_items_walked) {
-    return false;
+    return FALSE;
   }
   else {
     $build['#items'] = $build_items_walked;
@@ -627,7 +649,7 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
       '#markup' => 'UW Sidebar Menu',
     ];
     $build['#theme'] = 'menu__main__uwsidebarmenu';
-//    kint($build);
+    // kint($build);
     return $build;
   }
 }
@@ -637,8 +659,11 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
  *
  * Builds a side menu based on the current path.
  *
- * @param array $build_items render array #items to walk through
- * @param string $menuLinkPluginId the string for the id of the current menu item we're on
+ * @param array $build_items
+ *   The render array #items to walk through.
+ * @param string $menuLinkPluginId
+ *   The string for the id of the current menu item we're on.
+ *
  * @return array
  *   The returned array consists of render array #items
  */
@@ -650,7 +675,8 @@ function _uw_drupal_theme_walk_tree($build_items, $menuLinkPluginId): array {
     // to find.
     $compare = $index;
     if ($compare == $menuLinkPluginId) {
-      // Since the menuLinkPluginId matches, add the .active class for its attributes.
+      // Since the menuLinkPluginId matches, add the .active class for its
+      // attributes.
       $item['attributes']->addClass('active');
       $build_items_revised[$index] = $item;
     }
