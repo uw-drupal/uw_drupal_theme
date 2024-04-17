@@ -13,7 +13,7 @@
   <nav class='uw-breadcrumbs' aria-label='breadcrumbs'>
     <ul>
       {% for item in breadcrumb %}
-      <li {{ item.attributes }}>
+      <li{{ item.attributes }}>
       {% if item.url %}
         <a href="{{ item.url }}">{{ item.text }}</a>
       {% else %}
