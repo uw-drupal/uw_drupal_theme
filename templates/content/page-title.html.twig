@@ -11,11 +11,11 @@
  * - title_suffix: Additional output populated by modules, intended to be
  *   displayed after the main title tag that appears in the template.
  * Provided by uw_drupal_theme:
- * - hero_template_type: The type of hero selected (default, big_hero, small_hero, etc.).
+ * - uw_hero_template_type: The type of hero selected (default, big_hero, small_hero, etc.).
  * @see template_preprocess_page_title()
  */
 #}
-{% if hero_template_type not in ['big_hero', 'small_hero', 'jumbotron', 'no_title'] %}
+{% if uw_hero_template_type not in ['big_hero', 'small_hero', 'jumbotron', 'no_title'] %}
 {{ title_prefix }}
 {% if title %}
 <header class="entry-header">
@@ -24,4 +24,3 @@
 {% endif %}
 {{ title_suffix }}
 {% endif %}
-
