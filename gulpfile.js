@@ -59,7 +59,7 @@ const paths = {
 // Compile sass into CSS & auto-inject into browsers
 function styles () {
   return gulp.src([paths.scss.src])
-    .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())
     .pipe(sass({
       includePaths: [
         // './node_modules/bootstrap/scss',
@@ -79,7 +79,7 @@ function styles () {
         'Android >= 4',
         'Opera >= 12']
     })]))
-    .pipe(sourcemaps.write())
+    // .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.scss.dest))
     .pipe(cleanCss())
     .pipe(rename({ suffix: '.min' }))
