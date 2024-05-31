@@ -10,14 +10,12 @@
  * - title: The page title, for use in the actual content.
  * - title_suffix: Additional output populated by modules, intended to be
  *   displayed after the main title tag that appears in the template.
- * - is_front:
- * - uw_drupal_theme_hero_template_front:
- * - uw_drupal_theme_hero_template_other:
+ * Provided by uw_drupal_theme:
+ * - uw_hero_template_type: The type of hero selected (default, big_hero, small_hero, etc.).
  * @see template_preprocess_page_title()
  */
 #}
-{% set hero_template_type = is_front ? uw_drupal_theme_hero_template_front : uw_drupal_theme_hero_template_other %}
-{% if hero_template_type not in ['big_hero', 'small_hero', 'no_title'] %}
+{% if uw_hero_template_type not in ['big_hero', 'small_hero', 'jumbotron', 'no_title'] %}
 {{ title_prefix }}
 {% if title %}
 <header class="entry-header">
@@ -26,4 +24,3 @@
 {% endif %}
 {{ title_suffix }}
 {% endif %}
-

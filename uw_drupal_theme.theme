@@ -44,27 +44,31 @@ function uw_drupal_theme_preprocess_html(&$variables) {
   switch ($hero_template) {
     case 'default':
       $classes[] = 'page-template-default';
-      $classes[] = 'page-templatespage-template-default';
       break;
 
     case 'big_hero':
+      $classes[] = 'page-template-template-big-hero';
       $classes[] = 'page-template-big-hero';
-      $classes[] = 'page-templatestemplate-big-hero-php';
       break;
 
     case 'small_hero':
+      $classes[] = 'page-template-template-small-hero';
       $classes[] = 'page-template-small-hero';
-      $classes[] = 'page-templatestemplate-small-hero-php';
+      break;
+
+    case 'jumbotron':
+      $classes[] = 'page-template-template-jumbotron';
+      $classes[] = 'page-template-jumbotron';
       break;
 
     case 'no_hero':
+      $classes[] = 'page-template-template-no-hero';
       $classes[] = 'page-template-no-hero';
-      $classes[] = 'page-templatestemplate-no-hero-php';
       break;
 
     case 'no_title':
+      $classes[] = 'page-template-template-no-title';
       $classes[] = 'page-template-no-title';
-      $classes[] = 'page-templatestemplate-no-title-php';
       break;
   }
 
@@ -85,16 +89,18 @@ function uw_drupal_theme_preprocess_block(&$variables) {
  * Implements template_preprocess_page().
  */
 function uw_drupal_theme_preprocess_page(&$variables) {
+  // kint($variables);
   global $base_url;
   $theme = \Drupal::theme()->getActiveTheme();
   $theme_path = $theme->getPath();
+
   // kint($theme_path);
   // Set base path so it's usable in templates beyond page.html.twig;
   // also set the current year.
-  // $variables['base_path'] = $base_url;
+  // $variables['base_path'] = $base_url;.
   $variables['current_year'] = date("Y");
 
-  // shib_auth_get_login_link is the function for the new D9 shib module
+  // shib_auth_get_login_link is the function for the new D9+ shib module
   // Jeanna Vogt worked on.
   // $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
   // $variables['login_link'] = $variables['show_shib_link'] ? 'super cool link' : Url::fromUri('internal:/user/login')->toString();
@@ -113,55 +119,85 @@ function uw_drupal_theme_preprocess_page(&$variables) {
   $variables['uw_hero_image_other_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_other_default_path');
   $variables['uw_hero_image_other_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_other_mobile_default_path');
 
-  // Set flags for whether we're using mobile hero images.
-  $variables['uw_hero_image_front_mobile'] = theme_get_setting('uw_drupal_theme_hero_image_front_mobile');
-  $variables['uw_hero_image_other_mobile'] = theme_get_setting('uw_drupal_theme_hero_image_other_mobile');
-
-  // If the default is overridden with a file upload, reset the hero paths.
-  if ((theme_get_setting('uw_drupal_theme_hero_image_front_default') === 0) && !empty(theme_get_setting('hero_image_front_upload'))) {
-    $hero_front = theme_get_setting('hero_image_front_upload');
+  // If the default is overridden with a file upload,
+  // reset the hero image paths.
+  if ((theme_get_setting('uw_drupal_theme_hero_image_front_default') === 0) && !empty(theme_get_setting('uw_drupal_theme_hero_image_front_upload'))) {
+    $hero_front = theme_get_setting('uw_drupal_theme_hero_image_front_upload');
     $fid = reset($hero_front);
     if ($file = File::load($fid)) {
       $variables['uw_hero_image_front_path'] = $file->createFileUrl(TRUE);
     }
   }
-  if ((theme_get_setting('uw_drupal_theme_hero_image_default') === 0) && !empty(theme_get_setting('hero_image_other_upload'))) {
-    $hero_other = theme_get_setting('hero_image_other_upload');
+  if ((theme_get_setting('uw_drupal_theme_hero_image_default') === 0) && !empty(theme_get_setting('uw_drupal_theme_hero_image_other_upload'))) {
+    $hero_other = theme_get_setting('uw_drupal_theme_hero_image_other_upload');
     $fid_other = reset($hero_other);
     if ($file_other = File::load($fid_other)) {
       $variables['uw_hero_image_other_path'] = $file_other->createFileUrl(TRUE);
     }
   }
-  if (theme_get_setting('uw_drupal_theme_hero_image_front_mobile') == 'yes_upload' && !empty(theme_get_setting('hero_image_front_mobile_upload'))) {
-    $hero_front_mobile = theme_get_setting('hero_image_front_mobile_upload');
+  if (!empty(theme_get_setting('uw_drupal_theme_hero_image_front_mobile_upload'))) {
+    $hero_front_mobile = theme_get_setting('uw_drupal_theme_hero_image_front_mobile_upload');
     $fid = reset($hero_front_mobile);
     if ($file = File::load($fid)) {
       $variables['uw_hero_image_front_mobile_path'] = $file->createFileUrl(TRUE);
+      $variables['uw_hero_image_front_mobile'] = TRUE;
     }
   }
-  if (theme_get_setting('uw_drupal_theme_hero_image_other_mobile') == 'yes_upload' && !empty(theme_get_setting('hero_image_other_mobile_upload'))) {
-    $hero_other_mobile = theme_get_setting('hero_image_other_mobile_upload');
+  else {
+    $variables['uw_hero_image_front_mobile'] = FALSE;
+  }
+  if (!empty(theme_get_setting('uw_drupal_theme_hero_image_other_mobile_upload'))) {
+    $hero_other_mobile = theme_get_setting('uw_drupal_theme_hero_image_other_mobile_upload');
     $fid = reset($hero_other_mobile);
     if ($file = File::load($fid)) {
       $variables['uw_hero_image_other_mobile_path'] = $file->createFileUrl(TRUE);
+      $variables['uw_hero_image_other_mobile'] = TRUE;
     }
+  }
+  else {
+    $variables['uw_hero_image_other_mobile'] = FALSE;
   }
 
   // Set hero template styles.
-  $variables['uw_drupal_theme_hero_template_front'] = theme_get_setting('uw_drupal_theme_hero_template_front');
-  $variables['uw_drupal_theme_hero_template_other'] = theme_get_setting('uw_drupal_theme_hero_template_other');
+  $variables['uw_hero_template_type'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_template_front') : theme_get_setting('uw_drupal_theme_hero_template_other');
+  $variables['uw_hero_image_path'] = $variables['is_front'] ? $variables['uw_hero_image_front_path'] : $variables['uw_hero_image_other_path'];
+
+  if (in_array($variables['uw_hero_template_type'],
+    [
+      'big_hero',
+      'small_hero',
+      'jumbotron',
+    ]
+  )) {
+    $variables['use_uw_hero_image_mobile'] = $variables['is_front'] ? $variables['uw_hero_image_front_mobile'] : $variables['uw_hero_image_other_mobile'];
+    $variables['uw_hero_image_mobile_path'] = $variables['is_front'] ? $variables['uw_hero_image_front_mobile_path'] : $variables['uw_hero_image_other_mobile_path'];
+  }
+  else {
+    $variables['use_uw_hero_image_mobile'] = FALSE;
+  }
+
+  // Set hero additional settings.
+  $variables['uw_hero_banner'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_banner') : theme_get_setting('uw_drupal_theme_hero_other_banner');
+  $variables['uw_hero_button_text'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_button_text') : theme_get_setting('uw_drupal_theme_hero_other_button_text');
+  $variables['uw_hero_button_link'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_button_link') : theme_get_setting('uw_drupal_theme_hero_other_button_link');
+  $variables['uw_hero_subhead_text'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_subhead_text') : theme_get_setting('uw_drupal_theme_hero_other_subhead_text');
+  $variables['uw_hero_title_below'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_title_below') : theme_get_setting('uw_drupal_theme_hero_other_title_below');
 
   // Set front page title and shadow colors.
-  $variables['uw_drupal_theme_front_page_title_color'] = theme_get_setting('uw_drupal_theme_front_page_title_color');
-  $variables['uw_front_title_text_shadow'] = _uw_drupal_theme_get_text_shadow($variables['uw_drupal_theme_front_page_title_color']);
+  $variables['uw_front_page_title_color'] = theme_get_setting('uw_drupal_theme_front_page_title_color');
+  $variables['uw_front_page_title_text_shadow'] = _uw_drupal_theme_get_text_shadow($variables['uw_front_page_title_color']);
 
-  // Set slant color.
-  $variables['uw_drupal_theme_front_page_slant_color'] = theme_get_setting('uw_drupal_theme_front_page_slant_color');
+  // Set front slant color.
+  $variables['uw_front_page_slant_color'] = theme_get_setting('uw_drupal_theme_front_page_slant_color');
 
-  // Set front page motto and shadow colors.
-  $variables['uw_drupal_theme_front_page_slogan_color'] = theme_get_setting('uw_drupal_theme_front_page_slogan_color');
-  $variables['uw_front_slogan_text_shadow'] = _uw_drupal_theme_get_text_shadow($variables['uw_drupal_theme_front_page_slogan_color']);
+  // Set front site slogan and shadow colors.
+  $variables['uw_front_page_slogan_color'] = theme_get_setting('uw_drupal_theme_front_page_slogan_color');
+  $variables['uw_front_page_slogan_text_shadow'] = _uw_drupal_theme_get_text_shadow($variables['uw_front_page_slogan_color']);
 
+  // Set long site name flag.
+  $variables['uw_long_site_name'] = theme_get_setting('uw_drupal_theme_long_site_name');
+
+  // kint($variables);
 }
 
 /**
@@ -174,7 +210,6 @@ function uw_drupal_theme_preprocess_breadcrumb(&$variables) {
     $request = \Drupal::request();
     $route_match = \Drupal::routeMatch();
     $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
-
     if (!empty($page_title)) {
       $variables['breadcrumb'][] = [
         'text' => $page_title,
@@ -189,11 +224,14 @@ function uw_drupal_theme_preprocess_breadcrumb(&$variables) {
  * Implements template_preprocess_page_title().
  */
 function uw_drupal_theme_preprocess_page_title(&$variables) {
+  // Check if we're on the home page, then get the hero_template_type selected
+  // to have 'hero_template_type' available in page-title.html.twig.
   if (\Drupal::service('path.matcher')->isFrontPage()) {
-    $variables['is_front'] = TRUE;
+    $variables['uw_hero_template_type'] = theme_get_setting('uw_drupal_theme_hero_template_front');
   }
-  $variables['uw_drupal_theme_hero_template_front'] = theme_get_setting('uw_drupal_theme_hero_template_front');
-  $variables['uw_drupal_theme_hero_template_other'] = theme_get_setting('uw_drupal_theme_hero_template_other');
+  else {
+    $variables['uw_hero_template_type'] = theme_get_setting('uw_drupal_theme_hero_template_other');
+  }
 }
 
 /**
@@ -222,15 +260,9 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     'default' => t('Default'),
     'big_hero' => t('Big hero'),
     'small_hero' => t('Small hero'),
+    'jumbotron' => t('Jumbotron hero'),
     'no_hero' => t('No image'),
     'no_title' => t('No title/image'),
-  ];
-
-  // Set array of mobile hero options.
-  $_hero_mobile_options = [
-    'no' => t("No. Don't have the hero-image appear on mobile devices."),
-    'yes_default' => t('Yes and use the default mobile hero-image supplied with the theme.'),
-    'yes_upload' => t("Yes and use an image file that I'll upload here."),
   ];
 
   // Set form fields for UW Drupal Theme Settings.
@@ -239,18 +271,13 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#prefix' => '<h2><small>' . t('UW Drupal Theme Settings') . '</small></h2>',
     '#weight' => -11,
   ];
-  $form['toggle_breadcrumb'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Display the breadcrumb'),
-    '#default_value' => theme_get_setting('features.breadcrumb'),
-    '#description' => t('Show a trail of links from the homepage to the current page.'),
-  ];
+
   //
   // Hero image tab.
   //
   $form['uw_drupal_theme_hero_image'] = [
     '#type' => 'details',
-    '#title' => t('Hero Image'),
+    '#title' => t('Hero image area'),
     '#group' => 'uw_drupal_theme',
   ];
   // Hero image settings for the image on the default front page.
@@ -268,10 +295,10 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
   ];
   $form['uw_drupal_theme_hero_image']['front_page']['uw_drupal_theme_hero_image_front_default'] = [
     '#type' => 'checkbox',
-    '#title' => t('Use the default hero-image'),
+    '#title' => t('Use the default hero image'),
     '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_front_default'),
     '#tree' => FALSE,
-    '#description' => t('Check here if you want the theme to use the hero-image supplied with it.'),
+    '#description' => t('Check here if you want the theme to use the hero image supplied with it.'),
   ];
   $form['uw_drupal_theme_hero_image']['front_page']['settings'] = [
     '#type' => 'container',
@@ -282,36 +309,88 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
       ],
     ],
   ];
-  $form['uw_drupal_theme_hero_image']['front_page']['settings']['hero_image_front_upload'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['settings']['uw_drupal_theme_hero_image_front_upload'] = [
     '#type' => 'managed_file',
     '#title' => t('Upload front page hero image'),
     '#upload_location' => 'public://',
-    '#default_value' => theme_get_setting('hero_image_front_upload'),
-    '#description' => t("Use this field to upload your front-page hero-image."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_front_upload'),
+    '#description' => t("Use this field to upload your front page hero image."),
     '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg']],
   ];
-  $form['uw_drupal_theme_hero_image']['front_page']['uw_drupal_theme_hero_image_front_mobile'] = [
-    '#type' => 'radios',
-    '#title' => t('Include a hero image for mobile devices?'),
-    '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_front_mobile'),
-    '#options' => $_hero_mobile_options,
-    '#tree' => FALSE,
-  ];
-  $form['uw_drupal_theme_hero_image']['front_page']['mobile_settings'] = [
-    '#type' => 'container',
+  $form['uw_drupal_theme_hero_image']['front_page']['additional_settings'] = [
+    '#type' => 'details',
+    '#title' => t('Additional hero options'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
     '#states' => [
-      // Hide the header settings when using the default header.
+      // Only show the additional settings when using the 'Big hero',
+      // 'Small hero' or 'Jumbotron hero'.
       'visible' => [
-        'input[name="uw_drupal_theme_hero_image_front_mobile"]' => ['value' => 'yes_upload'],
+        'input[name="uw_drupal_theme_hero_template_front"]' => [
+          ['value' => 'big_hero'],
+          'or',
+          ['value' => 'small_hero'],
+          'or',
+          ['value' => 'jumbotron'],
+        ],
       ],
     ],
   ];
-  $form['uw_drupal_theme_hero_image']['front_page']['mobile_settings']['hero_image_front_mobile_upload'] = [
+  $form['uw_drupal_theme_hero_image']['front_page']['additional_settings']['uw_drupal_theme_hero_front_banner'] = [
+    '#type' => 'textfield',
+    '#title' => t('Banner'),
+    '#description' => t("Put your banner text here."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_front_banner'),
+  ];
+  $form['uw_drupal_theme_hero_image']['front_page']['additional_settings']['uw_drupal_theme_hero_front_button_text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Button text'),
+    '#description' => t("Put your button text here."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_front_button_text'),
+  ];
+  $form['uw_drupal_theme_hero_image']['front_page']['additional_settings']['uw_drupal_theme_hero_front_button_link'] = [
+    '#type' => 'textfield',
+    '#title' => t('Button link'),
+    '#description' => t("Put your button link here."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_front_button_link'),
+  ];
+  $form['uw_drupal_theme_hero_image']['front_page']['additional_settings']['uw_drupal_theme_hero_front_subhead_text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Subhead text'),
+    '#description' => t("Put your subhead text here."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_front_subhead_text'),
+    '#states' => [
+      // Only show the mobile settings when using the 'Big hero' or
+      // 'Small hero'.
+      'visible' => [
+        'input[name="uw_drupal_theme_hero_template_front"]' => ['value' => 'jumbotron'],
+      ],
+    ],
+  ];
+  $form['uw_drupal_theme_hero_image']['front_page']['additional_settings']['uw_drupal_theme_hero_front_title_below'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Page title'),
+    '#description' => t("Display the page title below the hero image (instead of on the hero image)."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_front_title_below'),
+    '#tree' => FALSE,
+    '#states' => [
+      // Only show the mobile settings when using the 'Big hero' or
+      // 'Small hero'.
+      'visible' => [
+        'input[name="uw_drupal_theme_hero_template_front"]' => [
+          ['value' => 'big_hero'],
+          'or',
+          ['value' => 'small_hero'],
+        ],
+      ],
+    ],
+  ];
+  $form['uw_drupal_theme_hero_image']['front_page']['additional_settings']['uw_drupal_theme_hero_image_front_mobile_upload'] = [
     '#type' => 'managed_file',
-    '#title' => t('Upload front page hero image for mobile'),
+    '#title' => t('Upload front page mobile hero image'),
     '#upload_location' => 'public://',
-    '#default_value' => theme_get_setting('hero_image_front_mobile_upload'),
-    '#description' => t("Use this field to upload your front-page mobile hero-image."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_front_mobile_upload'),
+    '#description' => t("Use this field to upload a custom front page mobile hero image (for Big hero, Small hero and Jumbotron hero template styles). If no image is uploaded, the desktop front page hero image will be used."),
     '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg']],
   ];
 
@@ -322,7 +401,6 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-
   $form['uw_drupal_theme_hero_image']['other_page']['uw_drupal_theme_hero_template_other'] = [
     '#type' => 'radios',
     '#title' => t('Select the hero template style'),
@@ -334,7 +412,7 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#title' => t('Use the default non-front page hero image'),
     '#tree' => FALSE,
     '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_default'),
-    '#description' => t('Check here if you want the theme to use the hero-image supplied with it.'),
+    '#description' => t('Check here if you want the theme to use the hero image supplied with it.'),
   ];
   $form['uw_drupal_theme_hero_image']['other_page']['settings'] = [
     '#type' => 'container',
@@ -345,17 +423,99 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
       ],
     ],
   ];
-  $form['uw_drupal_theme_hero_image']['other_page']['settings']['hero_image_other_upload'] = [
+  $form['uw_drupal_theme_hero_image']['other_page']['settings']['uw_drupal_theme_hero_image_other_upload'] = [
     '#type' => 'managed_file',
     '#title' => t('Upload a non-front page hero image'),
     '#upload_location' => 'public://',
-    '#default_value' => theme_get_setting('hero_image_other_upload'),
-    '#description' => t("Use this field to upload your non-front page hero-image."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_other_upload'),
+    '#description' => t("Use this field to upload your non-front page hero image."),
     '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg']],
+  ];
+  $form['uw_drupal_theme_hero_image']['other_page']['additional_settings'] = [
+    '#type' => 'details',
+    '#title' => t('Additional hero options'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#states' => [
+      // Only show the mobile settings when using the 'Big hero', 'Small hero'
+      // or 'Jumbotron hero'.
+      'visible' => [
+        'input[name="uw_drupal_theme_hero_template_other"]' => [
+          ['value' => 'big_hero'],
+          'or',
+          ['value' => 'small_hero'],
+          'or',
+          ['value' => 'jumbotron'],
+        ],
+      ],
+    ],
+  ];
+  $form['uw_drupal_theme_hero_image']['other_page']['additional_settings']['uw_drupal_theme_hero_other_banner'] = [
+    '#type' => 'textfield',
+    '#title' => t('Banner'),
+    '#description' => t("Put your banner text here."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_other_banner'),
+  ];
+  $form['uw_drupal_theme_hero_image']['other_page']['additional_settings']['uw_drupal_theme_hero_other_button_text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Button text'),
+    '#description' => t("Put your button text here."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_other_button_text'),
+  ];
+  $form['uw_drupal_theme_hero_image']['other_page']['additional_settings']['uw_drupal_theme_hero_other_button_link'] = [
+    '#type' => 'textfield',
+    '#title' => t('Button link'),
+    '#description' => t("Put your button link here."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_other_button_link'),
+  ];
+  $form['uw_drupal_theme_hero_image']['other_page']['additional_settings']['uw_drupal_theme_hero_other_subhead_text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Subhead text'),
+    '#description' => t("Put your subhead text here."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_other_subhead_text'),
+    '#states' => [
+      // Only show the mobile settings when using the 'Big hero' or
+      // 'Small hero'.
+      'visible' => [
+        'input[name="uw_drupal_theme_hero_template_other"]' => ['value' => 'jumbotron'],
+      ],
+    ],
+  ];
+  $form['uw_drupal_theme_hero_image']['other_page']['additional_settings']['uw_drupal_theme_hero_other_title_below'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Page title'),
+    '#description' => t("Display the page title below the hero image (instead of on the hero image)."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_other_title_below'),
+    '#tree' => FALSE,
+    '#states' => [
+      // Only show the mobile settings when using the 'Big hero' or
+      // 'Small hero'.
+      'visible' => [
+        'input[name="uw_drupal_theme_hero_template_other"]' => [
+          ['value' => 'big_hero'],
+          'or',
+          ['value' => 'small_hero'],
+        ],
+      ],
+    ],
+  ];
+  $form['uw_drupal_theme_hero_image']['other_page']['additional_settings']['uw_drupal_theme_hero_image_other_mobile_upload'] = [
+    '#type' => 'managed_file',
+    '#title' => t('Upload non-front page mobile hero image'),
+    '#upload_location' => 'public://',
+    '#default_value' => theme_get_setting('uw_drupal_theme_hero_image_other_mobile_upload'),
+    '#description' => t("Use this field to upload a custom non-front page mobile hero image (for Big hero and Small hero template styles). If no image is uploaded, the desktop non-front page hero image will be used."),
+    '#upload_validators' => ['file_validate_extensions' => ['gif png jpg jpeg']],
+  ];
+  $form['uw_drupal_theme_hero_image']['uw_drupal_theme_long_site_name'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Does your site name take two lines on desktop?'),
+    '#description' => t("When checked, the font-size for the site name will be reduced in the hero area."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_long_site_name'),
   ];
   $form['uw_drupal_theme_hero_image']['instructions'] = [
     '#type' => 'markup',
-    '#markup' => t("<div class='form-item__description'>The \"Big hero\" and \"Small hero\" options above will include the \"Slogan\" from \"Basic Site Settings\" (See:&nbsp;/admin/config/system/site-information.)</div>"),
+    '#markup' => t("<div class='form-item__description'>The \"Big hero\" and \"Small hero\" options above will include the \"Slogan\" from \"Basic Site Settings\" beneath the udub-slant (See:&nbsp;/admin/config/system/site-information.)</div>"),
   ];
 
   //
@@ -372,15 +532,15 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['uw_drupal_theme_theme_menus']['sidebar_menu']['uw_drupal_theme_sidebar_menu_visibility'] = array(
+  $form['uw_drupal_theme_theme_menus']['sidebar_menu']['uw_drupal_theme_sidebar_menu_visibility'] = [
     '#type' => 'select',
     '#title' => t('Sidebar menu visibility'),
     '#default_value' => theme_get_setting('uw_drupal_theme_sidebar_menu_visibility'),
-    '#options' => array(
+    '#options' => [
       0 => t('Hidden'),
       1 => t('Visible'),
-    ),
-  );
+    ],
+  ];
   $form['uw_drupal_theme_theme_menus']['thinstrip_menu'] = [
     '#type' => 'details',
     '#title' => t('Thinstrip menu'),
@@ -466,7 +626,7 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
   ];
 
   // Color settings.
-  $url = Url::fromUri('https://www.washington.edu/brand/graphic-elements/primary-color-palette/');
+  $url = Url::fromUri('https://www.washington.edu/brand/brand-elements/colors/');
   $form['uw_drupal_theme_colors'] = [
     '#type' => 'details',
     '#title' => t('Color settings'),
@@ -538,14 +698,17 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
 }
 
 /**
- * Sumbission handler for the theme's form settings.
+ * Submission handler for the theme's form settings.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function uw_drupal_theme_form_system_theme_settings_submit(&$form, FormStateInterface &$form_state, $form_id = NULL) {
 
   $field_uploads_to_check = [
-    'hero_image_front_upload',
-    'hero_image_other_upload',
-    'hero_image_front_mobile_upload',
+    'uw_drupal_theme_hero_image_front_upload',
+    'uw_drupal_theme_hero_image_front_mobile_upload',
+    'uw_drupal_theme_hero_image_other_upload',
+    'uw_drupal_theme_hero_image_other_mobile_upload',
   ];
 
   foreach ($field_uploads_to_check as $field_upload) {
@@ -659,7 +822,7 @@ function _uw_drupal_theme_build_uw_sidebar_menu() {
  * @return array
  *   The returned array consists of render array #items
  */
-function _uw_drupal_theme_walk_tree($build_items, $menuLinkPluginId): array {
+function _uw_drupal_theme_walk_tree(array $build_items, $menuLinkPluginId): array {
   $build_items_revised = [];
 
   foreach ($build_items as $index => $item) {
@@ -701,18 +864,18 @@ function _uw_drupal_theme_get_text_shadow($color) {
     case UwColor::WHITE:
     case UwColor::LIGHT_GREY:
     case UwColor::GOLD:
+    case UwColor::PURPLE:
+    case UwColor::METALLIC_GOLD:
       $retval = theme_get_setting('uw_drupal_theme_text_shadow_black');
       break;
 
-    case UwColor::PURPLE:
-    case UwColor::METALLIC_GOLD:
     case UwColor::DARK_GREY:
     case UwColor::BLACK:
-      $retval = theme_get_setting('uw_drupal_theme_text_sass_shadow_white');
+      $retval = theme_get_setting('uw_drupal_theme_text_shadow_white');
       break;
 
     default:
-      $retval = theme_get_setting('uw_drupal_theme_text_sass_shadow_black');
+      $retval = theme_get_setting('uw_drupal_theme_text_shadow_black');
       break;
   }
   return $retval;
