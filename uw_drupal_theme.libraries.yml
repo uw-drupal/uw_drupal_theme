@@ -5,7 +5,6 @@ global-styling:
     js/keyboard-navmenu.js: {}
     js/keyboard-button.js: {}
     js/libs/bootstrap.min.js: { minified: true }
-    js/barrio.js: {}
     js/2014/2014.js: {}
     js/2014/alert.js: {}
     js/2014/quicklinks.js: {}
@@ -13,9 +12,8 @@ global-styling:
 #    js/2014/search.js: {}
 #    js/2014/searchtoggle.js: {}
     js/2014/select.js: {}
-
-
     js/scripts.js: {}
+
   css:
     component:
       css/style.css: {}

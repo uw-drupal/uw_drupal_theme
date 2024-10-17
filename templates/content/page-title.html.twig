@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override for page titles.
+ * UW Drupal Theme override for page titles.
  *
  * Available variables:
  * - title_attributes: HTML attributes for the page title element.
@@ -16,11 +16,11 @@
  */
 #}
 {% if uw_hero_template_type not in ['big_hero', 'small_hero', 'jumbotron', 'no_title'] %}
-{{ title_prefix }}
-{% if title %}
-<header class="entry-header">
-  <h1{{ title_attributes.addClass('entry-title') }}>{{ title }}</h1>
-</header>
-{% endif %}
-{{ title_suffix }}
+  {{ title_prefix }}
+  {% if title %}
+    <header class="entry-header">
+      <h1{{title_attributes.addClass('entry-title')}}>{{ title }}</h1>
+    </header>
+  {% endif %}
+  {{ title_suffix }}
 {% endif %}

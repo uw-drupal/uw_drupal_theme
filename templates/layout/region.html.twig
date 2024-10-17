@@ -1,11 +1,11 @@
 {#
 /**
  * @file
- * Theme override to display a region.
+ * UW Drupal Theme override to display a region.
  *
  * Available variables:
  * - content: The content for this region, typically blocks.
- * - attributes: HTML attributes for the region div.
+ * - attributes: HTML attributes for the region <div>.
  * - region: The name of the region variable as defined in the theme's
  *   .info.yml file.
  *
@@ -13,5 +13,11 @@
  */
 #}
 {% if content %}
-  {{ content }}
+  {% if attributes.length %}
+    <div{{attributes}}>
+      {{ content }}
+    </div>
+  {% else %}
+    {{ content }}
+  {% endif %}
 {% endif %}

@@ -1,16 +1,13 @@
 name: "UW Drupal Theme"
 type: theme
-description: 'A Bootstrap based theme. Sub-theme of <a href="https://www.drupal.org/project/bootstrap_barrio">Bootstrap Barrio</a>. Leverages CSS, JS and HTML markup from the <a href="https://github.com/uweb/uw_wp_theme">UW WordPress theme</a> (uw_wp_theme) by the UW Marketing & Communications Web Team.'
+description: 'A Bootstrap based theme. Leverages CSS, JS and HTML markup from the <a href="https://github.com/uweb/uw_wp_theme">UW WordPress theme</a> (uw_wp_theme) by the UW Marketing & Communications Web Team.'
 version: 0.0.4
 core: 8.x
 core_version_requirement: ^8 || ^9 || ^10
-base theme: bootstrap_barrio
+base theme: stable9
 
 libraries:
   - uw_drupal_theme/global-styling
-
-libraries-override:
-  bootstrap_barrio/global-styling: false
 
 regions:
   search: "Search"
