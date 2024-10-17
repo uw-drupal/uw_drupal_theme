@@ -27,7 +27,6 @@ const paths = {
     bootstrapmap: './src/uw-theme-static-main/src/js/libs/bootstrap.min.js.map',
     popper: './node_modules/popper.js/dist/umd/popper.min.js',
     poppermap: './node_modules/popper.js/dist/umd/popper.min.js.map',
-    barrio: '../../contrib/bootstrap_barrio/js/barrio.js',
     helpers2014: './src/uw-theme-static-main/src/js/2014/*.js',
     helpers: './src/uw-theme-static-main/src/js/*.js',
     theme: './js/misc.js',
@@ -37,11 +36,11 @@ const paths = {
     destLibs: './js/libs',
   },
   twig: {
-    watch: './templates/**/*.html.twig'
+    watch: './templates/**/*.html.twig',
   },
   assets: {
     src: './src/uw-theme-static-main/assets/*/**',
-    dest: './assets/'
+    dest: './assets/',
   },
   wpcss: {
     content: './src/uw-theme-static-main/src/scss/content.css',
@@ -53,8 +52,8 @@ const paths = {
     css: './css/**.css',
     js: './js/**/*.js',
     jsSrcMaps: './js/**/*.js.map',
-  }
-}
+  },
+};
 
 const autoprefixerOptions = {
   browsers: [
@@ -66,64 +65,73 @@ const autoprefixerOptions = {
     'Safari >= 8',
     'Android 2.3',
     'Android >= 4',
-    'Opera >= 12']
+    'Opera >= 12',
+  ],
 };
 
 // Compile sass into CSS & auto-inject into browsers
-function styles () {
-  return gulp.src([paths.scss.src])
-    .pipe(sourcemaps.init())
-    .pipe(sass({
-      includePaths: [
-        // './node_modules/bootstrap/scss',
-        // '../../contrib/bootstrap_barrio/scss'
-      ]
-    }).on('error', sass.logError))
-    .pipe(postcss([autoprefixer(autoprefixerOptions)]))
-    .pipe(cleanCss({
-      format: 'beautify' // formats output in a really nice way
-    }))
-    .pipe(sourcemaps.write('./'))
-    // .pipe(cleanCss())
-    .pipe(gulp.dest(paths.scss.dest))
-    // .pipe(browserSync.stream())
+function styles() {
+  return (
+    gulp
+      .src([paths.scss.src])
+      .pipe(sourcemaps.init())
+      .pipe(
+        sass({
+          includePaths: [
+            // './node_modules/bootstrap/scss',
+          ],
+        }).on('error', sass.logError)
+      )
+      .pipe(postcss([autoprefixer(autoprefixerOptions)]))
+      .pipe(
+        cleanCss({
+          format: 'beautify', // formats output in a really nice way
+        })
+      )
+      .pipe(sourcemaps.write('./'))
+      // .pipe(cleanCss())
+      .pipe(gulp.dest(paths.scss.dest))
+  );
+  // .pipe(browserSync.stream())
 }
 
 // Copy the javascript files into our js folder
-function jsLibs () {
-  return gulp.src([paths.js.bootstrap, paths.js.bootstrapmap, paths.js.popper])
+function jsLibs() {
+  return gulp
+    .src([paths.js.bootstrap, paths.js.bootstrapmap, paths.js.popper])
     .pipe(gulp.dest(paths.js.destLibs))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream());
 }
-function js2014 () {
-  return gulp.src([paths.js.helpers2014])
+function js2014() {
+  return gulp
+    .src([paths.js.helpers2014])
     .pipe(gulp.dest(paths.js.dest2014))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream());
 }
-function jsHelpers () {
-  return gulp.src([paths.js.helpers, paths.js.wpJS])
+function jsHelpers() {
+  return gulp
+    .src([paths.js.helpers, paths.js.wpJS])
     .pipe(gulp.dest(paths.js.destRoot))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream());
 }
 
 // Clean up before a build
 // TODO: assets folder as well; directory '2014' and 'libs' in js folder should be wiped...wasn't sure how to do
-function clean () {
+function clean() {
   return del([
     paths.cleanBuild.css,
     paths.cleanBuild.js,
     paths.cleanBuild.jsSrcMaps,
     '!./css/wp-fnl-output-bootstrap.css',
-    '!./js/barrio.js',
-    '!./js/misc.js'
-  ])
+    '!./js/misc.js',
+  ]);
 }
 
 // Static Server + watching scss/html files
-function serve () {
+function serve() {
   browserSync.init({
     // proxy: put-your-local-server-address-here,
-  })
+  });
 
   gulp.watch(paths.scss.watch, styles).on('change', browserSync.reload);
   gulp.watch(paths.twig.watch).on('change', browserSync.reload);
@@ -131,23 +139,29 @@ function serve () {
 
 // Copy the assets folder from UW Theme Static Main source
 function assets() {
-  return gulp.src([paths.assets.src])
-    .pipe(gulp.dest(paths.assets.dest))
+  return gulp.src([paths.assets.src]).pipe(gulp.dest(paths.assets.dest));
 }
 
 // Copy the assets folder from UW Theme Static Main source
 function wpcss() {
-  return gulp.src([paths.wpcss.content, paths.wpcss.sidebar, paths.wpcss.widgets])
-    .pipe(gulp.dest(paths.wpcss.dest))
+  return gulp
+    .src([paths.wpcss.content, paths.wpcss.sidebar, paths.wpcss.widgets])
+    .pipe(gulp.dest(paths.wpcss.dest));
 }
 
-const build = gulp.series(clean, styles, assets, wpcss, gulp.parallel(jsLibs, js2014, jsHelpers, serve))
+const build = gulp.series(
+  clean,
+  styles,
+  assets,
+  wpcss,
+  gulp.parallel(jsLibs, js2014, jsHelpers, serve)
+);
 
-exports.styles = styles
+exports.styles = styles;
 exports.js = gulp.series(jsLibs, js2014, jsHelpers);
-exports.assets = assets
-exports.wpcss = wpcss
-exports.clean = clean
-exports.serve = serve
+exports.assets = assets;
+exports.wpcss = wpcss;
+exports.clean = clean;
+exports.serve = serve;
 
-exports.default = build
+exports.default = build;

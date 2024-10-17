@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Functions to support the UW Drupal Theme, Bootstrap Barrio subtheme.
+ * Functions to support the UW Drupal Theme.
  */
 
 use Drupal\Core\Form\FormStateInterface;
@@ -236,8 +236,6 @@ function uw_drupal_theme_preprocess_page_title(&$variables) {
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
- *
- * Replace Barrio setting options with subtheme ones.
  */
 function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
   // Work-around for a core bug affecting admin themes. See issue #943212.
@@ -672,25 +670,6 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#title' => t('Login url'),
     '#description' => t("Enter the url for the login link (lead with a forward slash '/'). The date in the footer will be linked to this url. Leave empty to not link the date in the footer to a login url."),
     '#default_value' => theme_get_setting('uw_drupal_theme_login_url'),
-  ];
-  // @todo Figure out if ['components']['navbar'] background options needed;
-  // these came from starter theme:
-  // https://www.drupal.org/project/bootstrap_sass.
-  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = [
-    'bg-primary' => t('Primary'),
-    'bg-secondary' => t('Secondary'),
-    'bg-light' => t('Light'),
-    'bg-dark' => t('Dark'),
-    'bg-white' => t('White'),
-    'bg-transparent' => t('Transparent'),
-  ];
-  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = [
-    'bg-primary' => t('Primary'),
-    'bg-secondary' => t('Secondary'),
-    'bg-light' => t('Light'),
-    'bg-dark' => t('Dark'),
-    'bg-white' => t('White'),
-    'bg-transparent' => t('Transparent'),
   ];
 
   // From submission handler.

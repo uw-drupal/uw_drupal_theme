@@ -1,7 +1,7 @@
 {
-  "name": "barrio_sass",
-  "version": "5.0.5",
-  "description": "Barrio SASS implementation",
+  "name": "uw_drupal_theme_sass",
+  "version": "1.0.0",
+  "description": "UW Drupal Theme SASS implementation",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,10 +9,9 @@
   "keywords": [
     "SASS",
     "Bootstrap",
-    "Drupal",
-    "Barrio"
+    "Drupal"
   ],
-  "author": "@hatuhay",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "bootstrap": "4.6.0",
