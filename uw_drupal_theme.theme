@@ -71,8 +71,11 @@ function uw_drupal_theme_preprocess_html(&$variables) {
       $classes[] = 'page-template-no-title';
       break;
   }
-
-  $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+  if (empty($variables['attributes']['class'])) {
+    $variables['attributes']['class'] = $classes;
+  } else {
+    $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+  }
 }
 
 /**
