@@ -1,1 +1,0 @@
-console.log('The src/scripts.js file it loaded');

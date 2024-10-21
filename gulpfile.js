@@ -16,19 +16,17 @@ let gulp = require('gulp'),
 // Establish paths object so we can reference them below in the compiling functions
 const paths = {
   scss: {
-    // this is our main entry point; within style.scss we're then referencing the uw-theme-static main
-    // entry point
+    // This is our main entry point; within style.scss we're then referencing the
+    // uw_wp_theme's final bootstrap.css and style.css files.
     src: './scss/style.scss',
     dest: './css',
     watch: ['./scss/**/*.scss', './scss/**/*.scss'],
   },
   js: {
     bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min.js',
-    bootstrapmap: './src/uw-theme-static-main/src/js/libs/bootstrap.min.js.map',
-    popper: './node_modules/popper.js/dist/umd/popper.min.js',
-    poppermap: './node_modules/popper.js/dist/umd/popper.min.js.map',
-    helpers2014: './src/uw-theme-static-main/src/js/2014/*.js',
-    helpers: './src/uw-theme-static-main/src/js/*.js',
+    bootstrapmap: './node_modules/bootstrap/dist/js/bootstrap.min.js.map',
+    popper: './node_modules/popper.js/dist/popper.min.js',
+    poppermap: './node_modules/popper.js/dist/popper.min.js.map',
     theme: './js/misc.js',
     wpJS: './src/wp-theme/js/*.js',
     dest2014: './js/2014',
@@ -41,12 +39,6 @@ const paths = {
   assets: {
     src: './src/uw-theme-static-main/assets/*/**',
     dest: './assets/',
-  },
-  wpcss: {
-    content: './src/uw-theme-static-main/src/scss/content.css',
-    sidebar: './src/uw-theme-static-main/src/scss/sidebar.css',
-    widgets: './src/uw-theme-static-main/src/scss/widgets.css',
-    dest: './css',
   },
   cleanBuild: {
     css: './css/**.css',
@@ -76,23 +68,17 @@ function styles() {
       .src([paths.scss.src])
       .pipe(sourcemaps.init())
       .pipe(
-        sass({
-          includePaths: [
-            // './node_modules/bootstrap/scss',
-          ],
-        }).on('error', sass.logError)
+        sass().on('error', sass.logError)
       )
-      .pipe(postcss([autoprefixer(autoprefixerOptions)]))
+      .pipe(postcss([autoprefixer()]))
       .pipe(
         cleanCss({
           format: 'beautify', // formats output in a really nice way
         })
       )
       .pipe(sourcemaps.write('./'))
-      // .pipe(cleanCss())
       .pipe(gulp.dest(paths.scss.dest))
   );
-  // .pipe(browserSync.stream())
 }
 
 // Copy the javascript files into our js folder
@@ -150,18 +136,14 @@ function wpcss() {
 }
 
 const build = gulp.series(
-  clean,
+  // clean,
   styles,
-  assets,
-  wpcss,
-  gulp.parallel(jsLibs, js2014, jsHelpers, serve)
+  // assets,
+  // wpcss,
+  // gulp.parallel(jsLibs, js2014, jsHelpers, serve)
 );
 
 exports.styles = styles;
 exports.js = gulp.series(jsLibs, js2014, jsHelpers);
-exports.assets = assets;
-exports.wpcss = wpcss;
-exports.clean = clean;
-exports.serve = serve;
 
 exports.default = build;

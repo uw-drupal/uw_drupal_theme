@@ -1,6 +1,6 @@
 {
   "name": "uw_drupal_theme_sass",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "UW Drupal Theme SASS implementation",
   "main": "index.js",
   "scripts": {
@@ -21,8 +21,13 @@
     "popper.js": "^1.14.3",
     "sass": "^1.49.7"
   },
+  "browserslist": [
+    "last 2 versions",
+    ">0.5%",
+    "not dead"
+  ],
   "devDependencies": {
-    "browser-sync": "^2.27.7",
+    "browserlist": "^1.0.1",
     "del": "^3.0.0",
     "gulp": "^4.0.1",
     "gulp-autoprefixer": "^8.0.0",
