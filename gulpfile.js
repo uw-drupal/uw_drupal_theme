@@ -1,7 +1,7 @@
-// TODO: update this to use the WP theme's final output as start. Need to
-// review (including JS-related steps).
-// Originally this was going to compile the scss from the uw-theme-static files.
+// TODO: update this to use the WP theme's final JS. Need to
+// review the JS-related steps.
 
+// This will compile all scss into a styles.css file.
 let gulp = require('gulp'),
   sass = require('gulp-sass')(require('sass')),
   sourcemaps = require('gulp-sourcemaps'),
@@ -13,7 +13,7 @@ let gulp = require('gulp'),
   browserSync = require('browser-sync').create(),
   del = require('del');
 
-// Establish paths object so we can reference them below in the compiling functions
+// Establish paths object to reference them below in the compiling functions.
 const paths = {
   scss: {
     // This is our main entry point; within style.scss we're then referencing the
@@ -33,32 +33,11 @@ const paths = {
     destRoot: './js',
     destLibs: './js/libs',
   },
-  twig: {
-    watch: './templates/**/*.html.twig',
-  },
-  assets: {
-    src: './src/uw-theme-static-main/assets/*/**',
-    dest: './assets/',
-  },
   cleanBuild: {
     css: './css/**.css',
     js: './js/**/*.js',
     jsSrcMaps: './js/**/*.js.map',
   },
-};
-
-const autoprefixerOptions = {
-  browsers: [
-    'Chrome >= 35',
-    'Firefox >= 38',
-    'Edge >= 12',
-    'Explorer >= 10',
-    'iOS >= 8',
-    'Safari >= 8',
-    'Android 2.3',
-    'Android >= 4',
-    'Opera >= 12',
-  ],
 };
 
 // Compile sass into CSS & auto-inject into browsers
@@ -81,65 +60,40 @@ function styles() {
   );
 }
 
-// Copy the javascript files into our js folder
+// Copy the javascript files into our js folder.
+// TODO: This hasn't been worked on since early days. Consider ways to
+// copy .js files from src/wp-theme/js were we to seed them there from
+// uw_wp_theme releases.
 function jsLibs() {
   return gulp
     .src([paths.js.bootstrap, paths.js.bootstrapmap, paths.js.popper])
     .pipe(gulp.dest(paths.js.destLibs))
-    .pipe(browserSync.stream());
 }
 function js2014() {
   return gulp
     .src([paths.js.helpers2014])
     .pipe(gulp.dest(paths.js.dest2014))
-    .pipe(browserSync.stream());
 }
 function jsHelpers() {
   return gulp
     .src([paths.js.helpers, paths.js.wpJS])
     .pipe(gulp.dest(paths.js.destRoot))
-    .pipe(browserSync.stream());
 }
 
 // Clean up before a build
 // TODO: assets folder as well; directory '2014' and 'libs' in js folder should be wiped...wasn't sure how to do
-function clean() {
-  return del([
-    paths.cleanBuild.css,
-    paths.cleanBuild.js,
-    paths.cleanBuild.jsSrcMaps,
-    '!./css/wp-fnl-output-bootstrap.css',
-    '!./js/misc.js',
-  ]);
-}
-
-// Static Server + watching scss/html files
-function serve() {
-  browserSync.init({
-    // proxy: put-your-local-server-address-here,
-  });
-
-  gulp.watch(paths.scss.watch, styles).on('change', browserSync.reload);
-  gulp.watch(paths.twig.watch).on('change', browserSync.reload);
-}
-
-// Copy the assets folder from UW Theme Static Main source
-function assets() {
-  return gulp.src([paths.assets.src]).pipe(gulp.dest(paths.assets.dest));
-}
-
-// Copy the assets folder from UW Theme Static Main source
-function wpcss() {
-  return gulp
-    .src([paths.wpcss.content, paths.wpcss.sidebar, paths.wpcss.widgets])
-    .pipe(gulp.dest(paths.wpcss.dest));
-}
+// function clean() {
+//   return del([
+//     paths.cleanBuild.css,
+//     paths.cleanBuild.js,
+//     paths.cleanBuild.jsSrcMaps,
+//     '!./css/wp-fnl-output-bootstrap.css',
+//     '!./js/misc.js',
+//   ]);
+// }
 
 const build = gulp.series(
-  // clean,
   styles,
-  // assets,
-  // wpcss,
   // gulp.parallel(jsLibs, js2014, jsHelpers, serve)
 );
 
