@@ -20,37 +20,57 @@
 %}
 
 {% if uw_hero_template_type in ['big_hero', 'small_hero', 'jumbotron'] %}
-  <div{{ uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');">
+  <div{{uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');">
     {% if use_uw_hero_image_mobile %}
       <div class="mobile-image" style="background-image: url('{{ uw_hero_image_mobile_path }}');"></div>
     {% endif %}
     <div class="container-fluid">
-      {% if uw_hero_template_type == 'jumbotron' %} {# this is the jumbotron style hero #}
-      {% if uw_hero_banner %}
-      <div id="banner"><span><span>{{ uw_hero_banner }}</span></span></div>
-      {% endif %}
-      <div class="row col-sm-6 jumbo">
-        <h1 {{ attributes.addClass(uw_site_title_classes) }}>{{ node.label }}</h1>
-      </div>
-      <div class="row col-sm-6 jumbo">
-        <p class="jumbo-subhead">{{ uw_hero_subhead_text }}</p>
-      </div>
+      {% if uw_hero_template_type == 'jumbotron' %}
+        {# this is the jumbotron style hero #}
+        {% if uw_hero_banner %}
+          <div id="banner">
+            <span>
+              <span>{{ uw_hero_banner }}</span>
+            </span>
+          </div>
+        {% endif %}
+        <div class="row col-sm-6 jumbo">
+          <h1 {{ attributes.addClass(uw_site_title_classes) }}>{{ node.label }}</h1>
+        </div>
+        <div class="row col-sm-6 jumbo">
+          <p class="jumbo-subhead">{{ uw_hero_subhead_text }}</p>
+        </div>
         {% if uw_hero_button_text and uw_hero_button_link %}
-        <a class="btn btn-lg arrow white" href="{{ uw_hero_button_link }}"><span>{{ uw_hero_button_text }}</span><span class="arrow-box"><span class="arrow"></span></span></a>
+          <a class="btn btn-lg arrow white" href="{{ uw_hero_button_link }}">
+            <span>{{ uw_hero_button_text }}</span>
+            <span class="arrow-box">
+              <span class="arrow"></span>
+            </span>
+          </a>
         {% endif %}
       {% endif %}
 
-      {% if uw_hero_template_type in ['big_hero', 'small_hero'] %} {# this is the other hero types #}
+      {% if uw_hero_template_type in ['big_hero', 'small_hero'] %}
+        {# this is the other hero types #}
         {% if uw_hero_banner %}
-        <div id="hashtag"><span><span>{{ uw_hero_banner }}</span></span></div>
+          <div id="hashtag">
+            <span>
+              <span>{{ uw_hero_banner }}</span>
+            </span>
+          </div>
         {% endif %}
-        {% if not uw_hero_title_below %} {# show the title and slant if hero_title_below is not checked #}
+        {% if not uw_hero_title_below %}
+          {# show the title and slant if hero_title_below is not checked #}
           {% if is_front %}
-          <h1 {{ attributes.addClass(uw_site_title_classes) }} style="color:{{uw_front_page_title_color }};text-shadow:{{ uw_front_page_title_text_shadow }}">{{ node.label }}</h1>
-          <span class="udub-slant"><span style="background-color:{{ uw_front_page_slant_color }}"></span></span>
+            <h1 {{ attributes.addClass(uw_site_title_classes) }} style="color:{{uw_front_page_title_color }};text-shadow:{{ uw_front_page_title_text_shadow }}">{{ node.label }}</h1>
+            <span class="udub-slant">
+              <span style="background-color:{{ uw_front_page_slant_color }}"></span>
+            </span>
           {% else %}
-          <h1 {{ attributes.addClass(uw_site_title_classes) }}>{{ node.label }}</h1>
-          <span class="udub-slant"><span></span></span>
+            <h1 {{ attributes.addClass(uw_site_title_classes) }}>{{ node.label }}</h1>
+            <span class="udub-slant">
+              <span></span>
+            </span>
           {% endif %}
         {% endif %}
         {% if site_slogan %}
@@ -58,7 +78,12 @@
             {{ site_slogan }}</p>
         {% endif %}
         {% if uw_hero_button_text and uw_hero_button_link %}
-          <a class="btn btn-lg arrow white" href="{{ uw_hero_button_link }}"><span>{{ uw_hero_button_text }}</span><span class="arrow-box"><span class="arrow"></span></span></a>
+          <a class="btn btn-lg arrow white" href="{{ uw_hero_button_link }}">
+            <span>{{ uw_hero_button_text }}</span>
+            <span class="arrow-box">
+              <span class="arrow"></span>
+            </span>
+          </a>
         {% endif %}
       {% endif %}
     </div>
@@ -66,24 +91,33 @@
 
   {# check for flag to show page title below for big_hero and small_hero hero_template_type #}
   {% if uw_hero_template_type in ['big_hero', 'small_hero'] and uw_hero_title_below %}
-  <div class="container-fluid mt-3">
-    <h1 {{ attributes.addClass(uw_site_title_classes).addClass(['below-hero']) }}>{{ node.label }}</h1>
-  </div>
+    <div class="container-fluid mt-3">
+      <h1 {{ attributes.addClass(uw_site_title_classes).addClass(['below-hero']) }}>{{ node.label }}</h1>
+    </div>
   {% endif %}
 
-{% elseif hero_template_type == 'no_hero' %}
+{% elseif uw_hero_template_type == 'no_hero' %}
+  {# don't output anything in the hero area #}
 
-{% elseif hero_template_type == 'no_title' %}
+{% elseif uw_hero_template_type == 'no_title' %}
+  {# don't output anything in the hero area #}
 
-{% else %} {# this is the default hero type #}
-  <div{{ uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');">
+{% else %}
+  {# this is the default hero type #}
+  <div{{uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');">
     <div class="container-fluid">
       {% if is_front %}
-      <div{{ attributes.addClass(uw_site_title_classes)}}>{{ site_name }}</div>
-      <div class="udub-slant-divider"><span style="background-color:{{ uw_front_page_slant_color }};"></span></div>
+        <div{{attributes.addClass(uw_site_title_classes)}}>{{ site_name }}</div>
+        <div class="udub-slant-divider">
+          <span style="background-color:{{ uw_front_page_slant_color }};"></span>
+        </div>
       {% else %}
-      <a href="{{ front_page }}" title="{{ site_name }}"><div{{ attributes.addClass(uw_site_title_classes) }}>{{ site_name }}</div></a>
-      <div class="udub-slant-divider gold"><span></span></div>
+        <a href="{{ front_page }}" title="{{ site_name }}">
+          <div{{attributes.addClass(uw_site_title_classes)}}>{{ site_name }}</div>
+        </a>
+        <div class="udub-slant-divider gold">
+          <span></span>
+        </div>
       {% endif %}
     </div>
   </div>

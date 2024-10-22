@@ -10,7 +10,7 @@ let gulp = require('gulp'),
   rename = require('gulp-rename'),
   postcss = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
-  browserSync = require('browser-sync').create(),
+  // browserSync = require('browser-sync').create(),
   del = require('del');
 
 // Establish paths object to reference them below in the compiling functions.
@@ -20,6 +20,7 @@ const paths = {
     // uw_wp_theme's final bootstrap.css and style.css files.
     src: './scss/style.scss',
     dest: './css',
+    minified: './css/style.min.css',
     watch: ['./scss/**/*.scss', './scss/**/*.scss'],
   },
   js: {
@@ -42,24 +43,26 @@ const paths = {
 
 // Compile sass into CSS & auto-inject into browsers
 function styles() {
-  return (
-    gulp
-      .src([paths.scss.src])
-      .pipe(sourcemaps.init())
-      .pipe(
-        sass().on('error', sass.logError)
-      )
-      .pipe(postcss([autoprefixer()]))
-      .pipe(
-        cleanCss({
-          format: 'beautify', // formats output in a really nice way
-        })
-      )
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest(paths.scss.dest))
-  );
+  return gulp
+    .src([paths.scss.src])
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([autoprefixer()]))
+    .pipe(
+      cleanCss({
+        format: 'beautify', // formats output in a really nice way
+      })
+    )
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(paths.scss.dest));
 }
 
+function minifyCSS() {
+  return gulp
+    .src([paths.scss.dest] + '/*.css')
+    .pipe(cleanCss())
+    .pipe(gulp.dest(paths.scss.minified));
+}
 // Copy the javascript files into our js folder.
 // TODO: This hasn't been worked on since early days. Consider ways to
 // copy .js files from src/wp-theme/js were we to seed them there from
@@ -67,17 +70,15 @@ function styles() {
 function jsLibs() {
   return gulp
     .src([paths.js.bootstrap, paths.js.bootstrapmap, paths.js.popper])
-    .pipe(gulp.dest(paths.js.destLibs))
+    .pipe(gulp.dest(paths.js.destLibs));
 }
 function js2014() {
-  return gulp
-    .src([paths.js.helpers2014])
-    .pipe(gulp.dest(paths.js.dest2014))
+  return gulp.src([paths.js.helpers2014]).pipe(gulp.dest(paths.js.dest2014));
 }
 function jsHelpers() {
   return gulp
     .src([paths.js.helpers, paths.js.wpJS])
-    .pipe(gulp.dest(paths.js.destRoot))
+    .pipe(gulp.dest(paths.js.destRoot));
 }
 
 // Clean up before a build
@@ -93,7 +94,8 @@ function jsHelpers() {
 // }
 
 const build = gulp.series(
-  styles,
+  styles
+  // minifyCSS
   // gulp.parallel(jsLibs, js2014, jsHelpers, serve)
 );
 
