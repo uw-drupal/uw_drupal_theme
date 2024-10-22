@@ -17,10 +17,7 @@ global-styling:
   css:
     component:
       css/style.css: {}
-#      css/style.min.css: { minified: true}
-      css/content.css: {}
-      css/sidebar.css: {}
-#      css/widgets.css: {}
+      css/style.min.css: { minified: true}
 
   dependencies:
     - core/jquery

@@ -1,7 +1,7 @@
 name: "UW Drupal Theme"
 type: theme
 description: 'A Bootstrap based theme. Leverages CSS, JS and HTML markup from the <a href="https://github.com/uweb/uw_wp_theme">UW WordPress theme</a> (uw_wp_theme) by the UW Marketing & Communications Web Team.'
-version: 0.0.4
+version: 0.0.5
 core: 8.x
 core_version_requirement: ^8 || ^9 || ^10
 base theme: stable9

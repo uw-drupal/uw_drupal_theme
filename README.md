@@ -24,7 +24,7 @@ directory).
     * Add top-level nav links to the drop-down menu.
     * Hero area for the home page.
     * Hero area for interior (non-home page) pages.
-    * Login link url. 
+    * Login link url.
 
 ## History
 
@@ -33,4 +33,3 @@ directory).
 (https://github.com/uw-drupal/uw_drupal_theme.git)
 - 2022-08-09: Private Bitbucket Repo cleaned and moved to github
 8/9/2022: git@github.com:uw-drupal/uw_boundless_barrio.git
-
