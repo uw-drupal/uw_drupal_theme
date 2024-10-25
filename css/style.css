@@ -44121,4 +44121,8 @@ ul.shortcode-blogroll-mini {
 #body a:hover {
   outline: 0
 }
+.checkbox input,
+.radio input {
+  opacity: 1
+}
 /*# sourceMappingURL=style.css.map */
