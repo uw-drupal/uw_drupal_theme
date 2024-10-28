@@ -436,16 +436,26 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
   ];
 
   // Login url settings.
-  $form['uw_drupal_theme_login'] = [
+  $form['uw_drupal_theme_login_search'] = [
     '#type' => 'details',
-    '#title' => t('Login settings'),
+    '#title' => t('Login and search settings'),
     '#group' => 'uw_drupal_theme',
   ];
-  $form['uw_drupal_theme_login']['uw_drupal_theme_login_url'] = [
+  $form['uw_drupal_theme_login_search']['uw_drupal_theme_login_url'] = [
     '#type' => 'textfield',
     '#title' => t('Login url'),
     '#description' => t("Enter the url for the login link (lead with a forward slash '/'). The date in the footer will be linked to this url. Leave empty to not link the date in the footer to a login url."),
     '#default_value' => theme_get_setting('uw_drupal_theme_login_url'),
+  ];
+  $form['uw_drupal_theme_login_search']['uw_drupal_theme_search_toggle_option'] = [
+    '#type' => 'select',
+    '#title' => t('Change the default search scope.'),
+    '#description' => t("By default, there's a simple search form available in the #uwsearcharea. Choose the scope for those searches: this site or the UW main site (https://www.washington.edu/)."),
+    '#default_value' => theme_get_setting('uw_drupal_theme_search_toggle_option'),
+    '#options' => [
+      'site' => t('Current site'),
+      'uw' => t('All the UW'),
+    ],
   ];
   // @todo Figure out if ['components']['navbar'] background options needed;
   // these came from starter theme:

@@ -29,6 +29,8 @@ global-styling:
 search:
   js:
     js/2014/search.js: {}
+  dependencies:
+    - core/drupalSettings
 searchtoggleonly:
   js:
     js/searchtoggleonly.js: {}

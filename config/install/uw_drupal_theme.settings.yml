@@ -27,3 +27,4 @@ uw_drupal_theme_text_shadow_white: "1px 1px 3px rgba(255, 255, 255, 0.5)"
 uw_drupal_theme_sidebar_menu_visibility: 1
 uw_drupal_theme_top_links_to_dropdowns: 0
 uw_drupal_theme_login_url: "/user/login"
+uw_drupal_theme_search_toggle_option: "site"

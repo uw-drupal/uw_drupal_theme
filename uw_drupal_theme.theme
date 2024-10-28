@@ -86,7 +86,7 @@ function uw_drupal_theme_preprocess_page(array &$variables): void {
   // kint($theme_path);
   // Set base path so it's usable in templates beyond page.html.twig;
   // also set the current year.
-  // $variables['base_path'] = $base_url;.
+  $variables['base_path'] = $base_url;
   $variables['current_year'] = date("Y");
 
   // shib_auth_get_login_link is the function for the new D9+ shib module
@@ -101,6 +101,9 @@ function uw_drupal_theme_preprocess_page(array &$variables): void {
   $variables['site_slogan'] = $config->get('slogan');
 
   $variables['uw_drupal_theme_top_links_to_dropdowns'] = theme_get_setting('uw_drupal_theme_top_links_to_dropdowns');
+
+  // Load the default search option out of settings.
+  $variables['uw_search_toggle_option'] = theme_get_setting('uw_drupal_theme_search_toggle_option');
 
   // Set hero image paths.
   $variables['uw_hero_image_front_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_front_default_path');

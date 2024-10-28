@@ -1,4 +1,4 @@
-(function (Drupal, $) {
+(function (Drupal, drupalSettings, $) {
   'use strict';
   var body = document.getElementsByTagName('body'),
     searchArea = document.getElementById('uwsearcharea'),
@@ -10,9 +10,11 @@
     submitButton = document.querySelector('input.search'),
     radioLabel = document.getElementsByClassName('radio'),
     url = window.location.href, searchSite = searchArea.dataset.search,
-    searchBar = document.getElementById('uw-search-bar');
+    searchBar = document.getElementById('uw-search-bar'),
+    searchName = drupalSettings.search.searchName;
 
-  function switchAction() {'uw' === searchSite ? (form.action = 'https://uw.edu/search', searchBar.setAttribute('name', 'q')) : (form.action = $('form.uw-search').data('sitesearch'), searchBar.setAttribute('name', 's'));}
+  console.log(searchName);
+  function switchAction() {'uw' === searchSite ? (form.action = 'https://uw.edu/search', searchBar.setAttribute('name', 'q')) : (form.action = $('form.uw-search').data('sitesearch'), searchBar.setAttribute('name', 'keys'));}
 
   function toggleSearchArea() {document.body.classList.toggle('search-open');}
 
@@ -37,7 +39,7 @@
     url = window.location.href, searchSite = searchArea.dataset.search,
     searchBar = document.getElementById('uw-search-bar');
 
-  function switchAction() {'uw' === searchSite ? (form.action = 'https://uw.edu/search', searchBar.setAttribute('name', 'q')) : (form.action = $('form.uw-search').data('sitesearch'), searchBar.setAttribute('name', 's'));}
+  function switchAction() {'uw' === searchSite ? (form.action = 'https://uw.edu/search', searchBar.setAttribute('name', 'q')) : (form.action = $('form.uw-search').data('sitesearch'), searchBar.setAttribute('name', 'keys'));}
 
   function toggleSearchArea() {document.body.classList.toggle('search-open');}
 
@@ -61,4 +63,4 @@
   }
 
   function submitForm(e) {return form.submit(), !1}
-})(Drupal, jQuery);
+})(Drupal, drupalSettings, jQuery);
