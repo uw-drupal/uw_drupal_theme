@@ -441,40 +441,36 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
     '#title' => t('Login and search settings'),
     '#group' => 'uw_drupal_theme',
   ];
-  $form['uw_drupal_theme_login_search']['uw_drupal_theme_login_url'] = [
+  $form['uw_drupal_theme_login_search']['login'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Login settings'),
+  ];
+  $form['uw_drupal_theme_login_search']['login']['uw_drupal_theme_login_url'] = [
     '#type' => 'textfield',
     '#title' => t('Login url'),
     '#description' => t("Enter the url for the login link (lead with a forward slash '/'). The date in the footer will be linked to this url. Leave empty to not link the date in the footer to a login url."),
     '#default_value' => theme_get_setting('uw_drupal_theme_login_url'),
   ];
-  $form['uw_drupal_theme_login_search']['uw_drupal_theme_search_toggle_option'] = [
+  $form['uw_drupal_theme_login_search']['search'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Default search settings'),
+  ];
+  $form['uw_drupal_theme_login_search']['search']['details'] = [
+    '#type' => 'markup',
+    '#markup' => t("<p><strong>Instructions</strong><br/>There's a simple search form that comes with the theme in the #uwsearcharea. Use the select below to change the default search scope for that search form. For the Current site, the form will post to the setting for default node searches (@config_search_pages_link).</p><p>Don't want that? You can place any block in the Search region. It will replace the default search. @block_layout_link</p>", [
+      '@config_search_pages_link' => Link::fromTextAndUrl('configure Search pages', Url::fromUri('internal:/admin/config/search/pages'))->toString(),
+      '@block_layout_link' => Link::fromTextAndUrl('Manage blocks', Url::fromUri('internal:/admin/structure/block'))->toString(),
+    ]),
+  ];
+  $form['uw_drupal_theme_login_search']['search']['uw_drupal_theme_search_toggle_option'] = [
     '#type' => 'select',
     '#title' => t('Change the default search scope.'),
-    '#description' => t("By default, there's a simple search form available in the #uwsearcharea. Choose the scope for those searches: this site or the UW main site (https://www.washington.edu/)."),
+    '#description' => t("When #uwsearcharea is open, this is the radio button option that will be selected."),
     '#default_value' => theme_get_setting('uw_drupal_theme_search_toggle_option'),
     '#options' => [
       'site' => t('Current site'),
       'uw' => t('All the UW'),
     ],
-  ];
-  // @todo Figure out if ['components']['navbar'] background options needed;
-  // these came from starter theme:
-  // https://www.drupal.org/project/bootstrap_sass.
-  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = [
-    'bg-primary' => t('Primary'),
-    'bg-secondary' => t('Secondary'),
-    'bg-light' => t('Light'),
-    'bg-dark' => t('Dark'),
-    'bg-white' => t('White'),
-    'bg-transparent' => t('Transparent'),
-  ];
-  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = [
-    'bg-primary' => t('Primary'),
-    'bg-secondary' => t('Secondary'),
-    'bg-light' => t('Light'),
-    'bg-dark' => t('Dark'),
-    'bg-white' => t('White'),
-    'bg-transparent' => t('Transparent'),
   ];
 
   // From submission handler.
