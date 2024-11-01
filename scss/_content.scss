@@ -24,7 +24,12 @@
   }
 }
 
-// What's up with checkbox and radio
-.checkbox input, .radio input {
-  opacity: 1;
+//// What's up with checkbox and radio
+//.checkbox input, .radio input {
+//  opacity: 1;
+//}
+
+// uw_wp_theme has this margin for <article>.
+.layout-content {
+  margin-top: 1.5em;
 }

@@ -114,7 +114,7 @@
         </div>
         <!-- .site-branding -->
 
-        <div id="site-navigation" class="main-navigation" aria-label="Main menu">
+        <div id="site-navigation" class="main-navigation" aria-label="{{ 'audience menu' | t }}" role="navigation">
           <div class="audience-menu-container collapse navbar-collapse">
             {% if page.thinstrip %}
               {{ page.thinstrip }}
@@ -192,14 +192,14 @@
         </main>
 
         {% if sidebar %}
-          <aside id="secondary" class="primary-sidebar uw-sidebar col-md-4">
+          <aside id="secondary" aria-label="sidebar" class="primary-sidebar uw-sidebar col-md-4">
             {% if sidebar_first %}
-              <section class="layout-sidebar-first" role="complementary">
+              <section class="layout-sidebar-first">
                 {{ sidebar_first }}
               </section>
             {% endif %}
             {% if page.sidebar_second %}
-              <section class="layout-sidebar-second" role="complementary">
+              <section class="layout-sidebar-second">
                 {{ page.sidebar_second }}
               </section>
             {% endif %}

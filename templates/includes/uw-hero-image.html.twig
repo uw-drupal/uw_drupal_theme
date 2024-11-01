@@ -20,7 +20,7 @@
 %}
 
 {% if uw_hero_template_type in ['big_hero', 'small_hero', 'jumbotron'] %}
-  <div{{uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');">
+  <div{{uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');" {{ uw_hero_template_type != 'jumbotron' ? 'role="region" aria-label="page title and banner"' : 'role="presentation"'}}>
     {% if use_uw_hero_image_mobile %}
       <div class="mobile-image" style="background-image: url('{{ uw_hero_image_mobile_path }}');"></div>
     {% endif %}
@@ -91,7 +91,7 @@
 
   {# check for flag to show page title below for big_hero and small_hero hero_template_type #}
   {% if uw_hero_template_type in ['big_hero', 'small_hero'] and uw_hero_title_below %}
-    <div class="container-fluid mt-3">
+    <div role="region" aria-label="page title" class="container-fluid mt-3">
       <h1 {{ attributes.addClass(uw_site_title_classes).addClass(['below-hero']) }}>{{ node.label }}</h1>
     </div>
   {% endif %}
@@ -104,7 +104,7 @@
 
 {% else %}
   {# this is the default hero type #}
-  <div{{uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');">
+  <div{{uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');"  role="region" aria-label="site title and banner">
     <div class="container-fluid">
       {% if is_front %}
         <div{{attributes.addClass(uw_site_title_classes)}}>{{ site_name }}</div>
