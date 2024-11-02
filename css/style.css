@@ -6,7 +6,7 @@ GitHub Theme URI: https://github.com/uweb/uw_wp_theme
 Author: UW Web Strategy Team
 Author URI: https://github.com/uweb
 Description: A modern, branded UW theme
-Version: 3.2.1
+Version: 3.3.0
 License: GNU General Public License v3 or later
 License URI: LICENSE
 Text Domain: uw_wp_theme
@@ -11650,6 +11650,9 @@ h4 {
   font-size: 20px;
   color: #4b2e83
 }
+.widget h2,
+h2.widget-title,
+h2.widget-title.h4,
 h4.widget-title {
   font-family: "Encode Sans Compressed",sans-serif;
   font-weight: 800;
@@ -11941,7 +11944,8 @@ figure.quote-block div.text-center figcaption:before {
 .text-white-50.bg-dark {
   color: rgba(255,255,255,.55)!important
 }
-.bg-success {
+.bg-success,
+.btn-success {
   background-color: #398439!important
 }
 a,
@@ -30379,6 +30383,9 @@ form p:has(button) {
 #page .custom-control.custom-checkbox .custom-control-input[type=checkbox] {
   display: none!important
 }
+#page .custom-control.custom-checkbox .custom-control-label {
+  margin-left: 25px
+}
 .custom-control.custom-radio {
   padding-left: 0;
   left: -.5rem
@@ -31653,6 +31660,19 @@ a.badge.badge-light,
 a.badge.badge-warning {
   color: #373a3c
 }
+.archive article .categories-tags .cat-links a.badge-success,
+.archive article .categories-tags .tags-links a.badge-success,
+.blog article .categories-tags .cat-links a.badge-success,
+.blog article .categories-tags .tags-links a.badge-success,
+.category article .categories-tags .cat-links a.badge-success,
+.category article .categories-tags .tags-links a.badge-success,
+.single-post article .categories-tags .cat-links a.badge-success,
+.single-post article .categories-tags .tags-links a.badge-success,
+.tag article .categories-tags .cat-links a.badge-success,
+.tag article .categories-tags .tags-links a.badge-success,
+a.badge.badge-success {
+  background-color: #398439
+}
 .pagination {
   margin-bottom: 20px
 }
@@ -32863,7 +32883,7 @@ header.site-header div.navbar .site-branding .uw-patch:hover {
   background: url(../assets/svg/uw-sprite-focus.svg) no-repeat 0 0 transparent
 }
 header.site-header div.navbar .site-branding .uw-patch:focus {
-  outline: #b7a57a 2px solid
+  outline: #e8e3d3 2px solid
 }
 header.site-header div.navbar .site-branding .uw-patch:before {
   content: url(../assets/svg/uw-sprite-focus.svg);
@@ -32994,12 +33014,12 @@ header.site-header div.navbar #site-navigation .audience-menu-container ul li a:
 header.site-header div.navbar #site-navigation .audience-menu-container ul li a:hover,
 header.site-header div.navbar #site-navigation .audience-menu-container ul li a:visited:focus,
 header.site-header div.navbar #site-navigation .audience-menu-container ul li a:visited:hover {
-  color: #b7a57a;
+  color: #e8e3d3;
   text-decoration: underline
 }
 header.site-header div.navbar #site-navigation .audience-menu-container ul li a:focus,
 header.site-header div.navbar #site-navigation .audience-menu-container ul li a:visited:focus {
-  outline: #85754d solid 2px
+  outline: #e8e3d3 solid 2px
 }
 header.site-header div.navbar #search-quicklinks {
   display: flex;
@@ -33040,17 +33060,16 @@ header.site-header div.navbar #search-quicklinks button.uw-search {
 @media (max-width:769px) {
   header.site-header div.navbar #search-quicklinks button.uw-search {
     top: 0;
-    right: 36px;
+    right: 50px;
     height: 43px;
     width: 45px;
     margin-right: 30px;
-    border: none;
+    border: 2px solid transparent;
     overflow: hidden;
     position: absolute
   }
   header.site-header div.navbar #search-quicklinks button.uw-search:hover {
-    background-color: transparent!important;
-    border: none!important
+    background-color: transparent!important
   }
   header.site-header div.navbar #search-quicklinks button.uw-search svg {
     top: 14px;
@@ -33061,9 +33080,19 @@ header.site-header div.navbar #search-quicklinks button.uw-search:active,
 header.site-header div.navbar #search-quicklinks button.uw-search:focus,
 header.site-header div.navbar #search-quicklinks button.uw-search:focus-visible,
 header.site-header div.navbar #search-quicklinks button.uw-search:focus-within {
-  border: 2px solid #b7a57a;
+  border: 2px solid #e8e3d3;
   background-color: #402770;
   transition: all .1s linear
+}
+header.site-header div.navbar #search-quicklinks button.uw-search:active svg path,
+header.site-header div.navbar #search-quicklinks button.uw-search:active svg rect,
+header.site-header div.navbar #search-quicklinks button.uw-search:focus svg path,
+header.site-header div.navbar #search-quicklinks button.uw-search:focus svg rect,
+header.site-header div.navbar #search-quicklinks button.uw-search:focus-visible svg path,
+header.site-header div.navbar #search-quicklinks button.uw-search:focus-visible svg rect,
+header.site-header div.navbar #search-quicklinks button.uw-search:focus-within svg path,
+header.site-header div.navbar #search-quicklinks button.uw-search:focus-within svg rect {
+  fill: #e8e3d3
 }
 header.site-header div.navbar #search-quicklinks button.uw-search:after {
   display: none
@@ -33072,6 +33101,15 @@ header.site-header div.navbar #search-quicklinks button.uw-search svg {
   position: absolute;
   top: 12px;
   left: 11px
+}
+header.site-header div.navbar #search-quicklinks button.uw-search[aria-expanded=true] {
+  border: 2px solid #e8e3d3;
+  background-color: #402770;
+  transition: all .1s linear
+}
+header.site-header div.navbar #search-quicklinks button.uw-search[aria-expanded=true] svg path,
+header.site-header div.navbar #search-quicklinks button.uw-search[aria-expanded=true] svg rect {
+  fill: #e8e3d3
 }
 header.site-header div.navbar #search-quicklinks button.uw-quicklinks {
   height: 45px;
@@ -33928,28 +33966,31 @@ footer.site-footer {
   position: relative
 }
 footer.site-footer .footer-wordmark {
-  display: inline-block;
+  display: block;
   color: #fff;
   width: 335px;
-  background: url(../assets/svg/uw-sprite.svg) no-repeat 0 -434px transparent;
+  background: url(../assets/svg/uw-sprite.svg) no-repeat 0 -430px transparent;
   text-indent: -9999px;
   overflow: hidden;
-  margin-top: 50px
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto
 }
 footer.site-footer .footer-wordmark:focus,
 footer.site-footer .footer-wordmark:hover {
-  background: url(../assets/svg/uw-sprite-focus.svg) no-repeat 0 -434px transparent
+  background: url(../assets/svg/uw-sprite-focus.svg) no-repeat 0 -430px transparent
 }
 footer.site-footer .footer-wordmark:focus {
-  outline: #85754d solid 2px
+  outline: #fff solid 2px
 }
 footer.site-footer .be-boundless {
   line-height: 24px;
+  width: 170px;
   color: #fff;
   background: url(../assets/images/boundless.png) no-repeat center top transparent;
   display: block;
   text-indent: -99999px;
-  margin: 10px 0 60px;
+  margin: 20px auto 60px;
   opacity: 1;
   transition: opacity .25s
 }
@@ -33958,7 +33999,7 @@ footer.site-footer .be-boundless:hover {
   opacity: .6
 }
 footer.site-footer .be-boundless:focus {
-  outline: #85754d solid 2px
+  outline: #fff solid 2px
 }
 footer.site-footer .h4,
 footer.site-footer h4 {
@@ -33990,85 +34031,94 @@ footer.site-footer h4:after {
   bottom: -85px
 }
 footer.site-footer ul.footer-social {
-  margin: 0
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center
 }
 footer.site-footer ul.footer-social li {
-  list-style: none;
-  display: inline-block
+  list-style: none
 }
 footer.site-footer ul.footer-social li a {
   color: #fff;
   text-indent: -9999px;
   overflow: hidden;
-  display: inline-block;
+  display: block;
   background: url(../assets/svg/uw-sprite.svg) no-repeat 0 -185px transparent;
-  padding: 8px 21px
+  margin: 8px 5px;
+  width: 27px;
+  height: 27px
 }
 footer.site-footer ul.footer-social li a.facebook {
-  background-position: 0 -185px
+  background-position: 1px -195px
 }
 footer.site-footer ul.footer-social li a.twitter {
-  background-position: -46px -185px
+  background-position: -46px -195px
 }
 footer.site-footer ul.footer-social li a.tumblr {
-  background-position: -366px -185px
+  background-position: -366px -195px
 }
 footer.site-footer ul.footer-social li a.youtube {
-  background-position: -138px -185px
+  background-position: -138px -195px
 }
 footer.site-footer ul.footer-social li a.linkedin {
-  background-position: -184px -185px
+  background-position: -184px -195px
 }
 footer.site-footer ul.footer-social li a.pinterest {
-  background-position: -92px -185px
+  background-position: -92px -195px
 }
 footer.site-footer ul.footer-social li a.vine {
-  background-position: -230px -185px
+  background-position: -230px -195px
 }
 footer.site-footer ul.footer-social li a.google {
-  background-position: -275px -185px
+  background-position: -275px -195px
 }
 footer.site-footer ul.footer-social li a.instagram {
-  background-position: -322px -185px
+  background-position: -322px -195px
 }
 footer.site-footer ul.footer-social li a:focus.facebook,
 footer.site-footer ul.footer-social li a:hover.facebook {
-  background-position: 0 -225px
+  background-position: 1px -235px
 }
 footer.site-footer ul.footer-social li a:focus.twitter,
 footer.site-footer ul.footer-social li a:hover.twitter {
-  background-position: -46px -225px
+  background-position: -46px -235px
 }
 footer.site-footer ul.footer-social li a:focus.tumblr,
 footer.site-footer ul.footer-social li a:hover.tumblr {
-  background-position: -366px -225px
+  background-position: -366px -235px
 }
 footer.site-footer ul.footer-social li a:focus.youtube,
 footer.site-footer ul.footer-social li a:hover.youtube {
-  background-position: -138px -225px
+  background-position: -138px -235px
 }
 footer.site-footer ul.footer-social li a:focus.linkedin,
 footer.site-footer ul.footer-social li a:hover.linkedin {
-  background-position: -184px -225px
+  background-position: -184px -235px
 }
 footer.site-footer ul.footer-social li a:focus.pinterest,
 footer.site-footer ul.footer-social li a:hover.pinterest {
-  background-position: -92px -225px
+  background-position: -92px -235px
 }
 footer.site-footer ul.footer-social li a:focus.vine,
 footer.site-footer ul.footer-social li a:hover.vine {
-  background-position: -230px -225px
+  background-position: -230px -235px
 }
 footer.site-footer ul.footer-social li a:focus.google,
 footer.site-footer ul.footer-social li a:hover.google {
-  background-position: -275px -225px
+  background-position: -275px -235px
 }
 footer.site-footer ul.footer-social li a:focus.instagram,
 footer.site-footer ul.footer-social li a:hover.instagram {
-  background-position: -322px -225px
+  background-position: -322px -235px
+}
+footer.site-footer ul.footer-social li a:focus {
+  outline: #fff solid 2px
 }
 footer.site-footer ul.footer-links {
-  margin: 45px 0 0 0;
+  margin: 45px 10px 0 10px;
   padding-left: 0
 }
 footer.site-footer ul.footer-links li {
@@ -34085,22 +34135,31 @@ footer.site-footer ul.footer-links li:last-child:after {
   display: none
 }
 footer.site-footer ul.footer-links li:after {
-  color: #fff;
-  content: "/";
-  opacity: .5;
+  display: inline-block;
+  content: "";
   position: relative;
-  right: 10px;
+  right: 8px;
+  height: 1rem;
+  width: 2px;
+  top: 2px;
+  line-height: 1;
+  border-right: 1px solid #fff;
+  transform: rotate(15deg);
   text-decoration: none
 }
 footer.site-footer ul.footer-links li a {
   color: #fff;
   position: relative;
-  margin-right: 20px
+  margin-right: 20px;
+  line-height: 2;
+  text-decoration: none;
+  border-bottom: 1px solid #fff
 }
 footer.site-footer ul.footer-links li a:focus,
 footer.site-footer ul.footer-links li a:hover {
-  color: #b7a57a;
-  text-decoration: none
+  color: #e8e3d3;
+  text-decoration: none;
+  border-bottom: 0 none
 }
 footer.site-footer ul.footer-links li a:focus:after,
 footer.site-footer ul.footer-links li a:hover:after {
@@ -34109,7 +34168,7 @@ footer.site-footer ul.footer-links li a:hover:after {
   outline: 0
 }
 footer.site-footer ul.footer-links li a:focus {
-  outline: #85754d solid 2px
+  outline: #e8e3d3 solid 2px
 }
 footer.site-footer .site-info p {
   color: #fff;
@@ -34622,7 +34681,11 @@ hr {
   display: block
 }
 .uw-search fieldset {
-  display: block
+  display: block;
+  width: 240px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #fff
 }
 body.search-open #uwsearcharea {
   transform: matrix(1,0,0,1,0,0)
@@ -34637,7 +34700,7 @@ body.search-open #page {
 body.search-open .uw-search-bar-container .container.no-height {
   position: relative;
   padding: 40px 0 0;
-  margin-bottom: -40px
+  max-width: 100%
 }
 #uwsearcharea {
   transform: matrix(1,0,0,1,0,-100);
@@ -34660,6 +34723,7 @@ body.search-open .uw-search-bar-container .container.no-height {
 .uw-search-bar-container .radio input[type=radio] {
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   margin-right: 10px;
   opacity: 1
 }
@@ -34706,14 +34770,20 @@ body.search-open .uw-search-bar-container .container.no-height {
   width: 100%;
   padding: 40px 0 50px
 }
+.uw-search-bar-container form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center
+}
 .uw-search-bar-container .uw-search-wrapper {
   position: relative;
   width: 890px;
   margin-top: 30px
 }
 .uw-search-bar-container div.search-form-wrapper {
-  float: left;
-  width: calc(100% - 240px);
+  width: 100%;
   outline: 2px solid #adadad
 }
 .uw-search-bar-container div.search-form-wrapper:focus-within {
@@ -34757,9 +34827,9 @@ body.search-open .uw-search-bar-container .container.no-height {
   font-weight: 700
 }
 .uw-search-bar-container div.labels {
-  float: left;
-  display: block;
-  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-top: -10px;
   color: #707070
 }
@@ -34919,8 +34989,8 @@ body #page {
   .uw-search-bar-container {
     padding: 0
   }
-  .uw-search-bar-container div.search-form-wrapper {
-    width: 100%
+  .uw-search-bar-container div.search-form-wrapper input {
+    width: calc(100% - 60px)
   }
   .uw-search-bar-container .container.no-height {
     padding: 0 10px;
@@ -34934,16 +35004,12 @@ body #page {
   .uw-search-bar-container .uw-search-wrapper .search {
     position: absolute;
     right: 0;
-    top: 0
+    top: 3px
   }
   .uw-search-bar-container .uw-search-wrapper div.labels {
     margin-top: 20px;
     margin-left: 10px;
     margin-bottom: 20px
-  }
-  .uw-search-bar-container select {
-    width: 100%;
-    margin: 0 0 15px
   }
   .uw-search-bar-container form {
     width: 100%;
@@ -34958,6 +35024,13 @@ body #page {
   }
   #mobile-search-select.visible-xs {
     display: block
+  }
+  #mobile-search-select.custom-select {
+    width: 40%;
+    height: 60px;
+    border: 2px solid #adadad;
+    margin-bottom: 0;
+    margin-right: 10px
   }
   .uw-results h4 {
     padding: 15px 60px 15px 14px
@@ -35769,7 +35842,7 @@ body #page {
   position: relative;
   margin-right: 25px
 }
-.uw-breadcrumbs li:first-child a:before {
+.uw-breadcrumbs li:first-child a:after {
   right: -18px
 }
 .uw-breadcrumbs li:first-child a:active,
@@ -35778,31 +35851,33 @@ body #page {
   border-bottom: 1px solid #85754d;
   margin-bottom: -1px
 }
-.uw-breadcrumbs li:first-child:before {
-  top: 10px
+.uw-breadcrumbs li:first-child:after {
+  top: .9rem
 }
 .uw-breadcrumbs li.current span {
-  color: #6c757d
+  color: #373a3c
 }
-.uw-breadcrumbs li.current:before {
+.uw-breadcrumbs li.current:after {
   display: none
 }
-.uw-breadcrumbs li:before {
-  content: "/";
-  color: #6c757d;
+.uw-breadcrumbs li:after {
+  content: "";
   position: absolute;
-  height: 29px;
-  width: 25px;
-  right: 0;
-  top: 5px;
-  padding-left: .5rem
+  height: 1rem;
+  width: 2px;
+  right: .8rem;
+  top: .6rem;
+  line-height: 1;
+  border-right: 1px solid #373a3c;
+  transform: rotate(15deg)
 }
 .uw-breadcrumbs li:empty {
   display: none
 }
 .uw-breadcrumbs li a:hover {
   border-bottom: none;
-  text-decoration: underline
+  text-decoration: underline;
+  color: #85754d
 }
 .uw-breadcrumbs a,
 .uw-breadcrumbs span {
@@ -37139,22 +37214,34 @@ a.more:after {
   padding-top: 1rem
 }
 .card.step .card-body .card-title {
-  margin-top: 20px
+  margin-top: 20px;
+  order: 3
 }
 .card.step .card-body .subtitle {
   color: #85754d;
   margin-top: 3px;
-  max-width: 80%
+  max-width: 80%;
+  order: 1
 }
 .card.step .card-body [class*=" ic-"],
 .card.step .card-body [class^=ic-] {
   position: absolute;
   top: .5rem;
-  right: 1.5rem
+  right: 1.5rem;
+  order: 2
 }
 .card.step .card-body [class*=" ic-"]:before,
 .card.step .card-body [class^=ic-]:before {
   font-size: 50px
+}
+.card.step .card-body .udub-slant-divider {
+  order: 4
+}
+.card.step .card-body .card-content {
+  order: 5
+}
+.card.step .card-body .link-with-arrow-box {
+  order: 6
 }
 .card.image-top.purple,
 .card.inset.purple,
@@ -37164,16 +37251,28 @@ a.more:after {
 .card.image-top.purple .card-title,
 .card.image-top.purple a,
 .card.image-top.purple div,
+.card.image-top.purple h3,
+.card.image-top.purple h4,
+.card.image-top.purple h5,
+.card.image-top.purple h6,
 .card.image-top.purple li,
 .card.image-top.purple p,
 .card.inset.purple .card-title,
 .card.inset.purple a,
 .card.inset.purple div,
+.card.inset.purple h3,
+.card.inset.purple h4,
+.card.inset.purple h5,
+.card.inset.purple h6,
 .card.inset.purple li,
 .card.inset.purple p,
 .card.no-image.purple .card-title,
 .card.no-image.purple a,
 .card.no-image.purple div,
+.card.no-image.purple h3,
+.card.no-image.purple h4,
+.card.no-image.purple h5,
+.card.no-image.purple h6,
 .card.no-image.purple li,
 .card.no-image.purple p {
   color: #fff
@@ -37459,12 +37558,16 @@ a.more:after {
 .card.full-width.purple h2,
 .card.full-width.purple h3,
 .card.full-width.purple h4,
+.card.full-width.purple h5,
+.card.full-width.purple h6,
 .card.full-width.purple li,
 .card.full-width.purple p,
 .card.large.purple a,
 .card.large.purple h2,
 .card.large.purple h3,
 .card.large.purple h4,
+.card.large.purple h5,
+.card.large.purple h6,
 .card.large.purple li,
 .card.large.purple p {
   color: #fff
@@ -37672,6 +37775,19 @@ a.more:after {
 }
 .card.full-width .slant-pattern {
   height: 60px
+}
+.card .card-body h3:not(.card-title) {
+  font-size: 24px
+}
+.card .card-body h4:not(.card-title) {
+  font-size: 20px
+}
+.card .card-body h5:not(.card-title) {
+  font-size: 18px
+}
+.card .card-body h6:not(.card-title) {
+  font-size: 17px;
+  font-weight: 400
 }
 .entry-content .info-box {
   width: 310px;
@@ -39933,14 +40049,13 @@ ul.shortcode-blogroll-mini {
   line-height: 1.5;
   margin-bottom: 20px
 }
-.pic-text-widget h3 {
-  margin-top: 29px;
-  margin-bottom: 14.5px
-}
-.pic-text-widget a.pic-text-more,
 .pic-text-widget a.pic-title {
-  color: #0074bb;
   text-decoration: none
+}
+.pic-text-widget a.pic-title:active,
+.pic-text-widget a.pic-title:focus,
+.pic-text-widget a.pic-title:hover {
+  color: #b7a57a
 }
 .widget h4.widget-title {
   clear: left;
@@ -39977,6 +40092,12 @@ ul.shortcode-blogroll-mini {
 }
 .widget ul.uw-widget-rss a.widget-link span {
   padding-bottom: 20px
+}
+.widget ul.uw-widget-rss a.widget-link:active,
+.widget ul.uw-widget-rss a.widget-link:focus,
+.widget ul.uw-widget-rss a.widget-link:hover {
+  color: #b7a57a;
+  border-bottom: none
 }
 .uw-sidebar .widget_archive ul,
 .uw-sidebar .widget_categories ul,

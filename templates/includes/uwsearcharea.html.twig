@@ -9,7 +9,7 @@
   </div>
 {% else %}
   {% set this_site_form_action_path = base_path ~ '/search/' ~ this_site_node_search_path_segment %}
-  {% set form_action_path = (uw_search_toggle_option in 'site') ? this_site_form_action_path : 'https://www.washington.edu/search/' %}
+  {% set form_action_path = (uw_search_toggle_option == 'site') ? this_site_form_action_path : 'https://www.washington.edu/search/' %}
   {% set drupal_settings = {
     '#attached': {
       'drupalSettings': {
@@ -25,18 +25,8 @@
     <div class="container no-height" role="search">
       <div class="center-block uw-search-wrapper">
         <form class="uw-search" data-sitesearch="{{ this_site_form_action_path }}" action="{{ form_action_path }}">
-          <div class="search-form-wrapper">
-            <label class="screen-reader" for="uw-search-bar">Enter search text</label>
-            <input id="uw-search-bar" type="search"
-                   {% if uw_search_toggle_option in 'site' %}
-                   name="keys"
-                   {% else %}
-                   name="q"
-                   {% endif %}
-                   value="" autocomplete="off" placeholder="Search" />
-          </div>
-          <select id="mobile-search-select" class="visible-xs" aria-label="Search scope">
-            {% if uw_search_toggle_option in 'uw' %}
+          <select id="mobile-search-select" class="visible-xs custom-select" aria-label="Search scope">
+            {% if uw_search_toggle_option == 'uw' %}
               <option value="uw">All the UW</option>
               <option value="site" >Current site</option>
             {% else %}
@@ -44,21 +34,32 @@
               <option value="uw">All the UW</option>
             {% endif %}
           </select>
-          <input type="submit" value="search" class="search" tabindex="0"/>
-          <fieldset style="margin: 0; padding: 0; border: 1px solid #ffffff;">
+
+          <fieldset id="search-options">
             <legend id="uw-search-label">Search scope</legend>
             <div id="search-labels" class="labels hidden-xs">
               <!--load these labels and input if UW is selected in Theme Settings -->
-              {% if uw_search_toggle_option in 'uw' %}
-              <label id="uw" class="radio checked"><input class="radiobtn" type="radio" name="search" value="uw" data-toggle="radio" checked />All the UW</label>
-              <label id="site" class="radio"><input  class="radiobtn" type="radio" name="search" value="site" data-toggle="radio" />Current site</label>
-              <!--OR load these labels and input if Site is selected in Theme Settings -->
+              {% if uw_search_toggle_option == 'uw' %}
+                <label id="uw" class="radio checked"><input class="radiobtn" type="radio" name="search" value="uw" data-toggle="radio" checked />All the UW</label>
+                <label id="site" class="radio"><input class="radiobtn" type="radio" name="search" value="site" data-toggle="radio" />Current site</label>
+                <!--OR load these labels and input if Site is selected in Theme Settings -->
               {% else %}
-              <label id="site" class="radio checked"><input class="radiobtn" type="radio" name="search" value="site" data-toggle="radio" checked />Current site</label>
-              <label id="uw" class="radio"><input class="radiobtn" type="radio" name="search" value="uw" data-toggle="radio" />All the UW</label>
+                <label id="site" class="radio checked"><input class="radiobtn" type="radio" name="search" value="site" data-toggle="radio" checked />Current site</label>
+                <label id="uw" class="radio"><input class="radiobtn" type="radio" name="search" value="uw" data-toggle="radio" />All the UW</label>
               {% endif %}
             </div>
           </fieldset>
+          <div class="search-form-wrapper">
+            <label class="screen-reader" for="uw-search-bar">Enter search text</label>
+            <input id="uw-search-bar" type="search"
+                   {% if uw_search_toggle_option == 'site' %}
+                   name="keys"
+                   {% else %}
+                   name="q"
+                   {% endif %}
+                   value="" autocomplete="off" placeholder="Search" />
+          </div>
+          <input type="submit" value="search" class="search" tabindex="0"/>
         </form>
       </div>
     </div>

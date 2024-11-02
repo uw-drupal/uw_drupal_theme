@@ -34,8 +34,7 @@
 #}
 
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
-<nav id="desktop-relative" role="navigation" aria-label="mobile menu that is not visible in the desktop version"
-     aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
+<nav id="desktop-relative" role="navigation" aria-label="mobile menu that is not visible in the desktop version" aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
   {# Label. If not displayed, we still provide it for screen readers.#}
   {% if not configuration.label_display %}
     {% set title_attributes = title_attributes.addClass('visually-hidden') %}
@@ -45,6 +44,7 @@
   {{ title_suffix }}
   <ul class="uw-sidebar-menu first-level">
     <li class="pagenav">
+      <a class="homelink" href="{{ base_path }}" title="Section home">Home</a>
       {% block content %}
         {{ content }}
       {% endblock %}
