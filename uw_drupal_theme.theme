@@ -208,6 +208,17 @@ function uw_drupal_theme_preprocess_block(array &$variables): void {
   if (str_starts_with($variables['attributes']['id'], 'block-uw-drupal-theme-uwsidebarmenu')) {
     $variables['base_path'] = base_path();
     $variables['content'] = _uw_drupal_theme_build_uw_sidebar_menu();
+
+    // Find the title of the top-level item, so it's available in the block.
+    // This is so we can set the aria-label of the <nav> landmark with it.
+    // @Todo: find a better way to do this.
+    $pattern = '/^menu_link_content:/';
+    $items_keys = array_keys($variables['content']['#items']);
+    $result = preg_grep($pattern, $items_keys);
+    // kint($result); //da73539b-c5d5-4f29-88bd-b59980881b2f
+    if (!empty($result)) {
+      $variables['top_level_item_title'] = $variables['content']['#items'][$result[0]]['title'];
+    }
   }
 }
 

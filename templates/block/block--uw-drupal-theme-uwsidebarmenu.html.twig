@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override for a menu block.
+ * UW Drupal Theme override for a menu block.
  *
  * Available variables:
  * - plugin_id: The ID of the block implementation.
@@ -21,7 +21,8 @@
  * - title_suffix: Additional output populated by modules, intended to be
  *   displayed after the main title tag that appears in the template.
  * - base_path: The site's base path
- *
+ * - top_level_item_title (string): The title of the top level item in the
+ *   sidebar menu.
  * Headings should be used on navigation menus that consistently appear on
  * multiple pages. When this menu block's label is configured to not be
  * displayed, it is automatically made invisible using the 'visually-hidden' CSS
@@ -34,7 +35,7 @@
 #}
 
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
-<nav id="desktop-relative" role="navigation" aria-label="mobile menu that is not visible in the desktop version" aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
+<nav id="desktop-relative" role="navigation" aria-label="{{ top_level_item_title }}" aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
   {# Label. If not displayed, we still provide it for screen readers.#}
   {% if not configuration.label_display %}
     {% set title_attributes = title_attributes.addClass('visually-hidden') %}
@@ -46,6 +47,7 @@
     <li class="pagenav">
       <a class="homelink" href="{{ base_path }}" title="Section home">Home</a>
       {% block content %}
+{#        {{ kint(content) }}#}
         {{ content }}
       {% endblock %}
     </li>

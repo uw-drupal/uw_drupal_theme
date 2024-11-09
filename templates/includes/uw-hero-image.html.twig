@@ -20,7 +20,8 @@
 %}
 
 {% if uw_hero_template_type in ['big_hero', 'small_hero', 'jumbotron'] %}
-  <div{{uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');" {{ uw_hero_template_type != 'jumbotron' ? 'role="region" aria-label="page title and banner"' : 'role="presentation"'}}>
+  {# In this opening if this is a big_hero or small_hero and the page title shows below, set the role to presentation with no aria-label. #}
+  <div{{uw_hero_image_attributes.addClass(uw_hero_image_classes)}} style="background-image: url('{{ uw_hero_image_path }}');" {{ (uw_hero_template_type in ['big_hero', 'small_hero'] and uw_hero_title_below == false) ? 'role="region" aria-label="page title and banner"' : 'role="presentation"'}}>
     {% if use_uw_hero_image_mobile %}
       <div class="mobile-image" style="background-image: url('{{ uw_hero_image_mobile_path }}');"></div>
     {% endif %}
