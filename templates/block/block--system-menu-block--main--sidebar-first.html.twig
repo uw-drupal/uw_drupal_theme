@@ -23,6 +23,7 @@
  * - base_path: The site's base path
  * - top_level_item_title (string): The title of the top level item in the
  *   sidebar menu.
+ *
  * Headings should be used on navigation menus that consistently appear on
  * multiple pages. When this menu block's label is configured to not be
  * displayed, it is automatically made invisible using the 'visually-hidden' CSS
@@ -34,6 +35,7 @@
  */
 #}
 
+{% if content %}
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
 <nav id="desktop-relative" role="navigation" aria-label="{{ top_level_item_title }}" aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
   {# Label. If not displayed, we still provide it for screen readers.#}
@@ -47,9 +49,9 @@
     <li class="pagenav">
       <a class="homelink" href="{{ base_path }}" title="Section home">Home</a>
       {% block content %}
-{#        {{ kint(content) }}#}
         {{ content }}
       {% endblock %}
     </li>
   </ul>
 </nav>
+{% endif %}

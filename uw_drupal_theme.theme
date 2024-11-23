@@ -33,10 +33,10 @@ function uw_drupal_theme_preprocess_html(array &$variables): void {
   $classes[] = 'page-templates';
   $classes[] = 'page';
   if (\Drupal::service('path.matcher')->isFrontPage()) {
-    $hero_template = theme_get_setting('uw_drupal_theme_hero_template_front');
+    $hero_template = theme_get_setting('hero_template_front');
   }
   else {
-    $hero_template = theme_get_setting('uw_drupal_theme_hero_template_other');
+    $hero_template = theme_get_setting('hero_template_other');
   }
   switch ($hero_template) {
     case 'default':
@@ -78,12 +78,10 @@ function uw_drupal_theme_preprocess_html(array &$variables): void {
  * Implements hook_preprocess_HOOK() for page.html.twig.
  */
 function uw_drupal_theme_preprocess_page(array &$variables): void {
-  // kint($variables);
   global $base_url;
   $theme = \Drupal::theme()->getActiveTheme();
   $theme_path = $theme->getPath();
 
-  // kint($theme_path);
   // Set base path so it's usable in templates beyond page.html.twig;
   // also set the current year.
   $variables['base_path'] = $base_url;
@@ -93,43 +91,43 @@ function uw_drupal_theme_preprocess_page(array &$variables): void {
   // Jeanna Vogt worked on.
   // $variables['show_shib_link'] = function_exists('shib_auth_get_login_link') ? shib_auth_get_login_link() : FALSE;
   // $variables['login_link'] = $variables['show_shib_link'] ? 'super cool link' : Url::fromUri('internal:/user/login')->toString();
-  $variables['login_url'] = theme_get_setting('uw_drupal_theme_login_url');
+  $variables['login_url'] = theme_get_setting('login_url');
 
   // Load the site name out of configuration.
   $config = \Drupal::config('system.site');
   $variables['site_name'] = $config->get('name');
   $variables['site_slogan'] = $config->get('slogan');
 
-  $variables['uw_drupal_theme_top_links_to_dropdowns'] = theme_get_setting('uw_drupal_theme_top_links_to_dropdowns');
+  $variables['uw_top_links_to_dropdowns'] = theme_get_setting('top_links_to_dropdowns');
 
   // Load the default search option out of settings.
-  $variables['uw_search_toggle_option'] = theme_get_setting('uw_drupal_theme_search_toggle_option');
+  $variables['uw_search_toggle_option'] = theme_get_setting('search_toggle_option');
   $variables['this_site_node_search_path_segment'] = \Drupal::config('search.page.node_search')->get('path');
 
   // Set hero image paths.
-  $variables['uw_hero_image_front_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_front_default_path');
-  $variables['uw_hero_image_front_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_front_mobile_default_path');
-  $variables['uw_hero_image_other_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_other_default_path');
-  $variables['uw_hero_image_other_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('uw_drupal_theme_hero_image_other_mobile_default_path');
+  $variables['uw_hero_image_front_path'] = $base_url . '/' . $theme_path . theme_get_setting('hero_image_front_default_path');
+  $variables['uw_hero_image_front_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('hero_image_front_mobile_default_path');
+  $variables['uw_hero_image_other_path'] = $base_url . '/' . $theme_path . theme_get_setting('hero_image_other_default_path');
+  $variables['uw_hero_image_other_mobile_path'] = $base_url . '/' . $theme_path . theme_get_setting('hero_image_other_mobile_default_path');
 
   // If the default is overridden with a file upload,
   // reset the hero image paths.
-  if ((theme_get_setting('uw_drupal_theme_hero_image_front_default') === 0) && !empty(theme_get_setting('uw_drupal_theme_hero_image_front_upload'))) {
-    $hero_front = theme_get_setting('uw_drupal_theme_hero_image_front_upload');
+  if ((theme_get_setting('hero_image_front_default') === 0) && !empty(theme_get_setting('hero_image_front_upload'))) {
+    $hero_front = theme_get_setting('hero_image_front_upload');
     $fid = reset($hero_front);
     if ($file = File::load($fid)) {
       $variables['uw_hero_image_front_path'] = $file->createFileUrl(TRUE);
     }
   }
-  if ((theme_get_setting('uw_drupal_theme_hero_image_default') === 0) && !empty(theme_get_setting('uw_drupal_theme_hero_image_other_upload'))) {
-    $hero_other = theme_get_setting('uw_drupal_theme_hero_image_other_upload');
+  if ((theme_get_setting('hero_image_other_default') === 0) && !empty(theme_get_setting('hero_image_other_upload'))) {
+    $hero_other = theme_get_setting('hero_image_other_upload');
     $fid_other = reset($hero_other);
     if ($file_other = File::load($fid_other)) {
       $variables['uw_hero_image_other_path'] = $file_other->createFileUrl(TRUE);
     }
   }
-  if (!empty(theme_get_setting('uw_drupal_theme_hero_image_front_mobile_upload'))) {
-    $hero_front_mobile = theme_get_setting('uw_drupal_theme_hero_image_front_mobile_upload');
+  if (!empty(theme_get_setting('hero_image_front_mobile_upload'))) {
+    $hero_front_mobile = theme_get_setting('hero_image_front_mobile_upload');
     $fid = reset($hero_front_mobile);
     if ($file = File::load($fid)) {
       $variables['uw_hero_image_front_mobile_path'] = $file->createFileUrl(TRUE);
@@ -139,8 +137,8 @@ function uw_drupal_theme_preprocess_page(array &$variables): void {
   else {
     $variables['uw_hero_image_front_mobile'] = FALSE;
   }
-  if (!empty(theme_get_setting('uw_drupal_theme_hero_image_other_mobile_upload'))) {
-    $hero_other_mobile = theme_get_setting('uw_drupal_theme_hero_image_other_mobile_upload');
+  if (!empty(theme_get_setting('hero_image_other_mobile_upload'))) {
+    $hero_other_mobile = theme_get_setting('hero_image_other_mobile_upload');
     $fid = reset($hero_other_mobile);
     if ($file = File::load($fid)) {
       $variables['uw_hero_image_other_mobile_path'] = $file->createFileUrl(TRUE);
@@ -152,7 +150,7 @@ function uw_drupal_theme_preprocess_page(array &$variables): void {
   }
 
   // Set hero template styles.
-  $variables['uw_hero_template_type'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_template_front') : theme_get_setting('uw_drupal_theme_hero_template_other');
+  $variables['uw_hero_template_type'] = $variables['is_front'] ? theme_get_setting('hero_template_front') : theme_get_setting('hero_template_other');
   $variables['uw_hero_image_path'] = $variables['is_front'] ? $variables['uw_hero_image_front_path'] : $variables['uw_hero_image_other_path'];
 
   if (in_array($variables['uw_hero_template_type'],
@@ -170,27 +168,39 @@ function uw_drupal_theme_preprocess_page(array &$variables): void {
   }
 
   // Set hero additional settings.
-  $variables['uw_hero_banner'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_banner') : theme_get_setting('uw_drupal_theme_hero_other_banner');
-  $variables['uw_hero_button_text'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_button_text') : theme_get_setting('uw_drupal_theme_hero_other_button_text');
-  $variables['uw_hero_button_link'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_button_link') : theme_get_setting('uw_drupal_theme_hero_other_button_link');
-  $variables['uw_hero_subhead_text'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_subhead_text') : theme_get_setting('uw_drupal_theme_hero_other_subhead_text');
-  $variables['uw_hero_title_below'] = $variables['is_front'] ? theme_get_setting('uw_drupal_theme_hero_front_title_below') : theme_get_setting('uw_drupal_theme_hero_other_title_below');
+  $variables['uw_hero_banner'] = $variables['is_front'] ? theme_get_setting('hero_front_banner') : theme_get_setting('hero_other_banner');
+  $variables['uw_hero_button_text'] = $variables['is_front'] ? theme_get_setting('hero_front_button_text') : theme_get_setting('hero_other_button_text');
+  $variables['uw_hero_button_link'] = $variables['is_front'] ? theme_get_setting('hero_front_button_link') : theme_get_setting('hero_other_button_link');
+  $variables['uw_hero_subhead_text'] = $variables['is_front'] ? theme_get_setting('hero_front_subhead_text') : theme_get_setting('hero_other_subhead_text');
+  $variables['uw_hero_title_below'] = $variables['is_front'] ? theme_get_setting('hero_front_title_below') : theme_get_setting('hero_other_title_below');
 
   // Set front page title and shadow colors.
-  $variables['uw_front_page_title_color'] = theme_get_setting('uw_drupal_theme_front_page_title_color');
+  $variables['uw_front_page_title_color'] = theme_get_setting('front_page_title_color');
   $variables['uw_front_page_title_text_shadow'] = _uw_drupal_theme_get_text_shadow($variables['uw_front_page_title_color']);
 
   // Set front slant color.
-  $variables['uw_front_page_slant_color'] = theme_get_setting('uw_drupal_theme_front_page_slant_color');
+  $variables['uw_front_page_slant_color'] = theme_get_setting('front_page_slant_color');
 
   // Set front site slogan and shadow colors.
-  $variables['uw_front_page_slogan_color'] = theme_get_setting('uw_drupal_theme_front_page_slogan_color');
+  $variables['uw_front_page_slogan_color'] = theme_get_setting('front_page_slogan_color');
   $variables['uw_front_page_slogan_text_shadow'] = _uw_drupal_theme_get_text_shadow($variables['uw_front_page_slogan_color']);
 
   // Set long site name flag.
-  $variables['uw_long_site_name'] = theme_get_setting('uw_drupal_theme_long_site_name');
+  $variables['uw_long_site_name'] = theme_get_setting('long_site_name');
 
   // kint($variables);
+}
+
+/**
+ * Implements hook_theme_suggestions
+ */
+function uw_drupal_theme_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  if (!empty($variables['elements']['#id'])) {
+//    kint($variables['elements']);
+    /** @var \Drupal\block\BlockInterface $block */
+    $block = \Drupal::entityTypeManager()->getStorage('block')->load($variables['elements']['#id']);
+    $suggestions[] = 'block__' . $variables['elements']['#base_plugin_id'] . '__' . $variables['elements']['#derivative_plugin_id'] . '__' . $block->getRegion();
+  }
 }
 
 /**
@@ -204,22 +214,95 @@ function uw_drupal_theme_preprocess_node(array &$variables): void {
  * Implements template_preprocess_block().
  */
 function uw_drupal_theme_preprocess_block(array &$variables): void {
-  // If this is the uwsidebarmenu block then we build the menu.
-  if (str_starts_with($variables['attributes']['id'], 'block-uw-drupal-theme-uwsidebarmenu')) {
-    $variables['base_path'] = base_path();
-    $variables['content'] = _uw_drupal_theme_build_uw_sidebar_menu();
+  if (!empty($variables['elements']['#id'])) {
+    /** @var \Drupal\block\BlockInterface $block */
+    $block = \Drupal::entityTypeManager()
+      ->getStorage('block')
+      ->load($variables['elements']['#id']);
+    if ($block) {
+      $region = $block->getRegion();
+    // If this is the uwsidebarmenu block then we build the menu.
+      if ($variables['base_plugin_id'] === 'system_menu_block') {
+        $variables['content']['#attributes']['region'] = $region;
+        if ($region === 'sidebar_first') {
 
-    // Find the title of the top-level item, so it's available in the block.
-    // This is so we can set the aria-label of the <nav> landmark with it.
-    // @Todo: find a better way to do this.
-    $pattern = '/^menu_link_content:/';
-    $items_keys = array_keys($variables['content']['#items']);
-    $result = preg_grep($pattern, $items_keys);
-    // kint($result); //da73539b-c5d5-4f29-88bd-b59980881b2f
-    if (!empty($result)) {
-      $variables['top_level_item_title'] = $variables['content']['#items'][$result[0]]['title'];
+          $variables['base_path'] = base_path();
+          $variables['content'] = _uw_drupal_theme_build_uw_sidebar_menu();
+
+          // If we have sidebar menu items, find the title of the top-level item,
+          // so it's available in the block.
+          // This is so we can set the aria-label of the <nav> landmark with it.
+          if ($variables['content']) {
+            // @Todo: find a better way to do this.
+            $pattern = '/^menu_link_content:/';
+            $items_keys = array_keys($variables['content']['#items']);
+            $result = preg_grep($pattern, $items_keys);
+            if (!empty($result)) {
+              $variables['top_level_item_title'] = $variables['content']['#items'][$result[0]]['title'];
+            }
+          }
+        }
+      }
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form elements.
+ */
+function uw_drupal_theme_preprocess_form_element(&$variables): void {
+  if (isset($variables['label']['#title'])) {
+    if (is_object($variables['label']['#title']) && !$variables['label']['#title'] instanceof MarkupInterface) {
+      $variables['input_title'] = NULL;
+    }
+    elseif (is_object($variables['label']['#title'])) {
+      $variables['input_title'] = $variables['label']['#title'];
+    }
+    else {
+      $variables['input_title'] = $variables['label']['#title'];
+    }
+  }
+  if (isset($variables['element']['#attributes'])) {
+    $variables['input_attributes'] = new Attribute($variables['element']['#attributes']);
+  }
+  if (isset($variables['type'])) {
+    switch ($variables['type']) {
+      case 'checkbox':
+        $variables['customtype'] = theme_get_setting('input_checkbox');
+        break;
+      case 'radio':
+        $variables['customtype'] = theme_get_setting('input_radio');
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_select() for adding classes to select elements.
+ */
+function uw_drupal_theme_preprocess_select(&$variables): void {
+  $variables['customtype'] = theme_get_setting('input_select');
+  if (isset($variables['attributes']['class'])) {
+    if (is_object($variables['attributes']['class'])) {
+      if (in_array('error', $variables['attributes']['class']->value())) {
+        $variables['attributes']['class']->addClass('is-invalid');
+      }
+    }
+    elseif (is_array($variables['attributes']['class'])) {
+      if (in_array('error', $variables['attributes']['class'])) {
+        $variables['attributes']['class'][] = 'is-invalid';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for file-managed-file.html.twig.
+ */
+function uw_drupal_theme_preprocess_file_managed_file(&$variables): void {
+  $variables['customtype'] = theme_get_setting('input_file');
 }
 
 /**
@@ -249,10 +332,10 @@ function uw_drupal_theme_preprocess_page_title(&$variables) : void {
   // Check if we're on the home page, then get the hero_template_type selected
   // to have 'hero_template_type' available in page-title.html.twig.
   if (\Drupal::service('path.matcher')->isFrontPage()) {
-    $variables['uw_hero_template_type'] = theme_get_setting('uw_drupal_theme_hero_template_front');
+    $variables['uw_hero_template_type'] = theme_get_setting('hero_template_front');
   }
   else {
-    $variables['uw_hero_template_type'] = theme_get_setting('uw_drupal_theme_hero_template_other');
+    $variables['uw_hero_template_type'] = theme_get_setting('hero_template_other');
   }
 }
 
@@ -266,7 +349,7 @@ function uw_drupal_theme_preprocess_page_title(&$variables) : void {
 function _uw_drupal_theme_build_uw_sidebar_menu() {
   // If the theme setting is not set to 1 (Visible), then we don't need
   // to go any further.
-  if (!theme_get_setting('uw_drupal_theme_sidebar_menu_visibility')) {
+  if (!theme_get_setting('sidebar_menu_visibility')) {
     return FALSE;
   }
 
@@ -400,16 +483,16 @@ function _uw_drupal_theme_get_text_shadow($color) {
     case UwColor::GOLD:
     case UwColor::PURPLE:
     case UwColor::METALLIC_GOLD:
-      $retval = theme_get_setting('uw_drupal_theme_text_shadow_black');
+      $retval = theme_get_setting('text_shadow_black');
       break;
 
     case UwColor::DARK_GREY:
     case UwColor::BLACK:
-      $retval = theme_get_setting('uw_drupal_theme_text_shadow_white');
+      $retval = theme_get_setting('text_shadow_white');
       break;
 
     default:
-      $retval = theme_get_setting('uw_drupal_theme_text_shadow_black');
+      $retval = theme_get_setting('text_shadow_black');
       break;
   }
   return $retval;

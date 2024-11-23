@@ -2234,10 +2234,6 @@ pre code {
   color: #6c757d;
   opacity: 1
 }
-.form-control:-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1
-}
 .form-control::placeholder {
   color: #6c757d;
   opacity: 1
@@ -2662,7 +2658,6 @@ textarea.form-control.is-invalid {
   vertical-align: middle;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
@@ -9417,13 +9412,11 @@ button.bg-dark:hover {
 .user-select-auto {
   -webkit-user-select: auto!important;
   -moz-user-select: auto!important;
-  -ms-user-select: auto!important;
   user-select: auto!important
 }
 .user-select-none {
   -webkit-user-select: none!important;
   -moz-user-select: none!important;
-  -ms-user-select: none!important;
   user-select: none!important
 }
 .overflow-auto {
@@ -30482,7 +30475,6 @@ form input[type=submit] {
   vertical-align: middle;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   font-family: "Encode Sans Compressed",sans-serif;
   font-weight: 600;
@@ -30539,7 +30531,6 @@ form.wpcf7-form input[type=submit] {
   vertical-align: middle;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   font-family: "Encode Sans Compressed",sans-serif;
   font-weight: 600;
@@ -30714,7 +30705,6 @@ form.wpcf7-form .wpcf7-spinner {
   vertical-align: middle;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   font-family: "Encode Sans Compressed",sans-serif!important;
   font-weight: 600!important;
@@ -34799,10 +34789,6 @@ body.search-open .uw-search-bar-container .container.no-height {
   background-color: #f1f1f1
 }
 .uw-search-bar-container .uw-search ::-moz-placeholder {
-  color: #373a3c;
-  opacity: 1
-}
-.uw-search-bar-container .uw-search :-ms-input-placeholder {
   color: #373a3c;
   opacity: 1
 }
@@ -39977,10 +39963,6 @@ ul.shortcode-blogroll-mini {
   outline: 2px solid #000
 }
 #searchform ::-moz-placeholder {
-  color: #373a3c;
-  opacity: 1
-}
-#searchform :-ms-input-placeholder {
   color: #373a3c;
   opacity: 1
 }

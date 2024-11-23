@@ -31,6 +31,7 @@
  * http://www.w3.org/TR/WCAG-TECHS/H42.html for more information.
  */
 #}
+
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
 <nav class="navbar navbar-expand-md navbar-light white-bar" aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
   {# Label. If not displayed, we still provide it for screen readers. #}

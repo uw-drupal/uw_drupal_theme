@@ -1,0 +1,20 @@
+name: STARTER
+type: theme
+description: This is a sub-theme of the uw_drupal_theme.
+core_version_requirement: ^9 || ^10
+base theme: uw_drupal_theme
+libraries:
+  - STARTER/global-styling
+
+regions:
+  search: "Search"
+  thinstrip: "Thinstrip"
+  navigation: "Navigation"
+  highlighted: "Highlighted"
+  help: "Help"
+  breadcrumb: "Breadcrumb"
+  content: "Content"
+  sidebar_first: "Primary"
+  sidebar_second: "Secondary"
+  uwfooter: "UW Footer"
+  quicklinks: "Quicklinks"
