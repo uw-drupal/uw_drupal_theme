@@ -34,7 +34,7 @@ We call a macro which calls itself to render the full tree.
     {% if menu_level == 0 %}
 <ul{{ attributes.setAttribute('id', 'menu-dropdowns').removeClass('clearfix').addClass(['navbar-nav','classic-menu-nav']) }}>
   {% else %}
-  <ul{{ attributes.removeClass(['navbar-nav','classic-menu-nav']).addClass('dropdown-menu').setAttribute('role', 'menu').removeAttribute('id', 'menu-dropdowns') }}>
+  <ul{{ attributes.removeClass(['navbar-nav','classic-menu-nav']).addClass('dropdown-menu').removeAttribute('id', 'menu-dropdowns') }}>
     {% endif %}
     {% for item in items %}
       {%
