@@ -42,7 +42,7 @@ function uw_drupal_theme_form_system_theme_settings_alter(&$form, FormStateInter
   // Set form fields for UW Drupal Theme Settings.
   $form['uw_drupal_theme'] = [
     '#type' => 'vertical_tabs',
-    '#prefix' => '<h2><small>' . t('UW Drupal Theme Settings') . '</small></h2>',
+    '#prefix' => '<h2><small>' . t('Theme settings') . '</small></h2>',
     '#weight' => -11,
   ];
 

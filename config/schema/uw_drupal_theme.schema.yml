@@ -1,4 +1,4 @@
 # Schema for the configuration files of the UW Drupal Theme.
 uw_drupal_theme.settings:
   type: bootstrap.settings
-  label: "UW Drupal Theme - bootstrap settings"
+  label: "UW Drupal Theme settings"
