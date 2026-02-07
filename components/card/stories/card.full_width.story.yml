@@ -4,12 +4,12 @@ $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schema
 name: "Full width"
 slots:
   content:
-    'The card body here and it is important.'
+    '<p>The card body here and it is important.</p>'
   title:
     'Really full width card'
   image:
     theme: image
-    uri: "https://drupal10-working.ddev.site/themes/custom/uw_drupal_theme/assets/images/w-day-cupcakes-300x200.jpeg"
+    uri: "/themes/custom/uw_drupal_theme/assets/images/w-day-cupcakes-300x200.jpeg"
     alt: "delicious looking cupcakes oozing chocolate lined up with an array each adorned with a w"
 
 props:

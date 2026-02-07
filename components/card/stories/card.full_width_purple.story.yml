@@ -1,22 +1,21 @@
 # This is so your IDE knows about the syntax for fixes and autocomplete.
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 
-name: "Inset (default)"
+name: "Full width - purple"
 slots:
   content:
-    '<p>The card body here and it is important.</p>'
+    '<p>More card content stuff on another card here and it is important.</p>'
   title:
-    'Important card 1'
+    'Really full width card'
   image:
     theme: image
     uri: "/themes/custom/uw_drupal_theme/assets/images/w-day-cupcakes-300x200.jpeg"
     alt: "delicious looking cupcakes oozing chocolate lined up with an array each adorned with a w"
 
 props:
-  variant: "default"
+  variant: full__width
   heading_level: 2
   linkurl: "https://uw.edu"
-  linktext: "Go home"
-  color: gold
-  attributes:
-    style: "width: 18rem;"
+  linktext: "Special deal"
+  color: purple
+  alignment: right

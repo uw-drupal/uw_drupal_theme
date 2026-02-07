@@ -1,32 +1,47 @@
 {# Handles output for all button variants. #}
 {# Related uw_wp_theme file: /inc/shortcodes/class.cards-shortcode.php #}
-{#{{  kint(variant) }}#}
-{% set variant = variant == 'default' ? 'arrow' : variant %}
+{#{% set variant = variant == 'default' ? variant %}#}
 {% set color = color == 'light__gold' ? 'light-gold' : color %}
+
+{# Where this button appears doesn't matter. #}
+{% if context == 'none' or context is null %}
 {%
   set link_classes = [
+  'btn',
+  size == 'large' ? 'btn-lg' : 'btn-sm',
+  variant is not empty ? variant : 'default',
+  variant != 'default' ? 'arrow',
+  variant == 'icon' ? 'icon-link' ~ ' ' ~ icon_to_display,
+  color is not empty ? color : 'purple'
+]
+%}
+{% endif %}
+
+{# If this button appears in a card, we need to adjust a few things. #}
+{% if context == 'card' %}
+  {%
+    set link_classes = [
     'btn',
     size == 'large' ? 'btn-lg' : 'btn-sm',
-    variant is not empty ? variant,
-    variant not in ['primary', 'secondary'] ? 'arrow',
-    variant in ['icon'] ? 'icon-link',
-    variant == 'icon' ? icon_to_display,
-    color is not empty ? color : 'purple'
+    variant != 'default' ? 'arrow',
+    variant == 'icon' ? 'icon-link' ~ ' ' ~ icon_to_display,
+    color ? color
   ]
-%}
+  %}
+{% endif %}
+
 {#  Set arrow classes based on style #}
 {% set arrow_box_classes = [
-    variant == 'arrow' ? 'arrow' : '',
+    variant not in ['icon', 'default'] ? 'arrow' : '',
     variant == 'icon' ? 'icon ic-' ~ icon_to_display : ''
   ]
 %}
-{{  kint(link_classes) }}
 <p class="button">
   <a{{create_attribute({'href':link}).addClass(link_classes)}}>
     <span>
       {{text}}
     </span>
-    {% if variant not in ['primary', 'secondary'] %}
+    {% if variant != 'default' %}
       <span class="arrow-box">
         <span{{create_attribute().addClass(arrow_box_classes)}}></span>
       </span>

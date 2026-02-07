@@ -31,15 +31,25 @@
     variant is same as 'inset' and color is empty ? 'lightgold',
   ]
 %}
-{% set button_color = [
-    color == 'purple' ? 'light__gold',
-    color == 'white' ? 'purple',
-    (variant == 'default' and color is empty) ? 'purple',
-    (color == 'gold' and variant is not same as 'block') ? 'white'
-  ]
-%}
+
+{# Set the button color to pass to the button component. #}
+{% if color == 'purple' %}
+  {% set button_color = 'light-gold' %}
+  {% set button_variant = 'secondary' %}
+{% endif %}
+{% if color == 'gold' %}
+  {% set button_color = 'white' %}
+{% endif %}
+{% if color == 'white' %}
+  {% set button_color = 'purple' %}
+  {% set button_variant = 'primary' %}
+{% endif %}
+{# Set the button_variant color to pass to the button component. #}
+{% if variant == 'default' %}
+  {% set button_variant = 'default' %}
+{% endif %}
+
 {% set link_class = stretched_link ? 'stretched-link' : '' %}
-{#{{ kint(heading_level) }}#}
 {% if id %}
 {% set card_id = id|lower %}
 {% endif %}
@@ -47,24 +57,17 @@
 {# Set card width for inline style attribute only for these card styles. #}
 {% set card_width = variant in ['full-width', 'half-block-full', 'half-block-full-width'] ? '100vw' : '100%' %}
 
-
 {#{{ kint(image) }}#}
-{#{{ kint('public:/' ~ file_url(image.0.content.0.0.0['#media'].name.value)) }}#}
-{#{{ kint(image.entity.field_uw_card_image.entity.uri.value) }}#}
 {# Set background image inline style text for large and full-width cards. #}
 {% if variant in ['large', 'full-width', 'half-block-large', 'half-block-full', 'half-block-full-width'] %}
 {% if image is not empty %}
-    {% set image_div_style_attributes = { 'background-image:': 'url(' ~ '"/sites/default/files/2026-01' ~ file_url(image.0.content.0.0.0['#media'].name.value) ~ '")' } %}
-{#  {% else %}#}
-{#    {% set image_div_style_attributes = {'background-image:': 'url(' ~ file_url(image.urifileuri)  ~ ')'} %}#}
-  {% endif %}
+  {% set image_div_style_attributes = {'background-image:': 'url(' ~ image['#uri'] ~ ')'} %}
+{% endif %}
 {% set image_div_attributes = create_attribute() %}
   {% for key,value in image_div_style_attributes %}
   {% set image_div_attributes = image_div_attributes.setAttribute('style', {key,value}) %}
   {% endfor %}
 {% endif %}
-
-{#{{ kint(image_div_attributes) }}#}
 
 {# We need to generate a random number for the svg id if one of these styles. #}
 {% if variant in ['full-width', 'half-block-full', 'half-block-full-width'] %}
@@ -92,14 +95,15 @@
   {{ content }}
   {% if linkurl and linktext %}
     {{ include('uw_drupal_theme:button', {
-      variant: 'primary',
+      variant: button_variant,
       link: linkurl,
       text: linktext,
       color: button_color,
-      size: 'small' },
+      context: 'card',
+      size: 'small'
+      },
       with_context = false)
     }}
-{#  <p class="button"><a{{ button_attributes.addClass('btn', 'btn-sm', button_color, link_class) }} href="{{ linkurl }}"><span>{{ linktext }}</span></a></p>}#}
   {% endif %}
   </div>
 </div>
@@ -117,7 +121,16 @@
     {{ content }}
     </div>
     {% if linkurl and linktext %}
-      <p class="button"><a{{ button_attributes.addClass('btn', 'btn-lg', 'arrow', button_color, link_class) }} href="{{ linkurl }}"><span>{{ linktext }}</span><span class="arrow-box"><span class="arrow"></span></span></a></p>
+      {{ include('uw_drupal_theme:button', {
+        variant: button_variant,
+        link: linkurl,
+        text: linktext,
+        color: button_color,
+        size: 'large',
+        context: 'card'
+      },
+        with_context = false)
+      }}
   {% endif %}
   </div>
 </div>
@@ -131,9 +144,18 @@
     <div class="card-content">
       {{ content }}
     </div>
-  {% if linkurl and linktext %}
-    <p class="button"><a{{ button_attributes.addClass('btn', 'btn-lg', 'arrow', button_color) }} href="{{ linkurl }}"><span>{{ linktext }}</span><span class="arrow-box"><span class="arrow"></span></span></a></p>
-  {% endif %}
+    {% if linkurl and linktext %}
+      {{ include('uw_drupal_theme:button', {
+        variant: button_variant,
+        link: linkurl,
+        text: linktext,
+        color: button_color,
+        context: 'card',
+        size: 'small'
+      },
+        with_context = false)
+      }}
+    {% endif %}
   </div>
 </div>
 
@@ -146,7 +168,16 @@
         {{ content }}
       </div>
       {% if linkurl and linktext %}
-      <p class="button"><a{{ button_attributes.addClass('btn', 'btn-sm', button_color, link_class) }} href="{{ linkurl }}"><span>{{ linktext }}</span></a></p>
+        {{ include('uw_drupal_theme:button', {
+          variant: button_variant,
+          link: linkurl,
+          text: linktext,
+          color: button_color,
+          context: 'card',
+          size: 'larg'
+        },
+          with_context = false)
+        }}
       {% endif %}
   </div>
 </div>
@@ -161,7 +192,16 @@
       {{ content }}
     </div>
     {% if linkurl and linktext %}
-      <p><a class="link-arrow-box" href="{{ linkurl }}"><span>{{ linktext }}</span><span class="arrow-box"><span class="arrow"></span></span></a></p>
+      {{ include('uw_drupal_theme:button', {
+        variant: button_variant,
+        link: linkurl,
+        text: linktext,
+        color: button_color,
+        context: 'card',
+        size: 'large'
+      },
+        with_context = false)
+      }}
     {% endif %}
   </div>
 </div>
@@ -181,9 +221,18 @@
     <div class="card-content">
       {{ content }}
     </div>
-    {% if linkurl and linktext %}
-      <p class="link-with-arrow-box"><a class="link-arrow-box" href="{{ linkurl }}"><span>{{ linktext }}</span><span class="arrow-box"><span class="arrow"></span></span></a></p>
-    {% endif %}
+      {% if linkurl and linktext %}
+        {{ include('uw_drupal_theme:button', {
+          variant: button_variant,
+          link: linkurl,
+          text: linktext,
+          color: button_color,
+          context: 'card',
+          size: 'large'
+        },
+          with_context = false)
+        }}
+      {% endif %}
   </div>
 </div>
 
@@ -195,9 +244,18 @@
     <div class="inner-card-body">
       <h{{ heading_level }} class="card-title">{{ title }}</h{{ heading_level }}>
       {{ content }}
-    {% if linkurl and linktext %}
-      <p class="button"><a{{ button_attributes.addClass('btn', 'btn-lg', 'arrow', button_color) }} href="{{ linkurl }}"><span>{{ linktext }}</span><span class="arrow-box"><span class="arrow"></span></span></a></p>
-    {% endif %}
+      {% if linkurl and linktext %}
+        {{ include('uw_drupal_theme:button', {
+          variant: button_variant,
+          link: linkurl,
+          text: linktext,
+          color: button_color,
+          context: 'card',
+          size: 'large'
+        },
+          with_context = false)
+        }}
+      {% endif %}
     </div>
   </div>
 </div>
@@ -211,7 +269,16 @@
       <h{{ heading_level }} class="card-title">{{ title }}</h{{ heading_level }}>
       {{ content }}
       {% if linkurl and linktext %}
-      <p class="button"><a{{ button_attributes.addClass('btn', 'btn-lg', 'arrow', button_color) }} href="{{ linkurl }}"><span>{{ linktext }}</span><span class="arrow-box"><span class="arrow"></span></span></a></p>
+        {{ include('uw_drupal_theme:button', {
+          variant: button_variant,
+          link: linkurl,
+          text: linktext,
+          color: button_color,
+          context: 'card',
+          size: 'large'
+        },
+          with_context = false)
+        }}
       {% endif %}
     </div>
   </div>

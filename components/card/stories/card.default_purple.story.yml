@@ -16,7 +16,7 @@ props:
   variant: "default"
   heading_level: 2
   linkurl: "https://uw.edu"
-  linktext: "Go home"
-  color: gold
+  linktext: "Purple card"
+  color: purple
   attributes:
     style: "width: 18rem;"

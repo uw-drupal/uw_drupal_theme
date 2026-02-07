@@ -3,6 +3,6 @@ $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schema
 
 name: 'Primary'
 props:
-  variant: primary
+  variant: arrow
   link: https://www.google.com
-  text: 'Primary button'
+  text: 'Primary button arrow'

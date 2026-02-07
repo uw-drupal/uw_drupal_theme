@@ -14,11 +14,9 @@ links:
     title: 'Bootstrap 4.6 documentation'
 variants:
   default:
+    title: Default
+  arrow:
     title: Arrow
-  primary:
-    title: Primary
-  secondary:
-    title: Secondary
   icon:
     title: Icon
 props:
@@ -50,6 +48,16 @@ props:
         white: White
         gold: Gold
         light__gold: "Light gold"
+    context:
+      title: Button context
+      type: string
+      description: "Where the button appears, if applicable."
+      enum:
+        - none
+        - card
+      "meta:enum":
+        none: None
+        card: "In a card"
     size:
       title: Button size
       type: string

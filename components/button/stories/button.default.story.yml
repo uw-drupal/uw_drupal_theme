@@ -5,4 +5,4 @@ name: 'Arrow (default)'
 props:
   variant: default
   link: https://www.google.com
-  text: 'Default button (arrow)'
+  text: 'Default button'
