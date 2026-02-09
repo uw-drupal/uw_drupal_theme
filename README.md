@@ -1,10 +1,14 @@
 # UW Drupal theme
 
-![UW Drupal theme v0.0.5](https://img.shields.io/static/v1?label=version&message=v0.0.5&color=green)
+![UW Drupal theme v1.0.0-rc.1](https://img.shields.io/static/v1?label=version&message=v1.0.0-rc.1&color=green)
 
 This is a port of the [UW WordPress Theme](https://github.com/uweb/uw_wp_theme) which utilizes Bootstrap 4 built by the UMAC web team.
 
 **Note:** This is ready for testing, but **use with caution in any production environment**. CSS, JS and output HTML is up to date with uw_wp_theme 3.6.3. The current version also introduces two experimental Single Directory Components: Button and Card.
+
+* [Installation](#installation)
+* [Configuring and extending (sub-theming)](#Configuring and extending)
+* [Upgrading from 0.0.4](#upgrading)
 
 ## Requirements
 
@@ -29,18 +33,18 @@ directory).
     * Default search scope for site search.
 
 ## What you get
-The theme provides the base markup, javascript and styles of the uw_wp_theme. Advanced grids, cards, accordions, tabs, etc. need to be implemented through custom means or manually entered as html (with classes) on the page. Note that some markup gets stripped by CKEditor5, like the nested spans in the markup for a button.
+The theme provides the base markup, styles and javascript of the uw_wp_theme. Advanced grids, cards, accordions, tabs, etc. need to be implemented through custom means or manually entered as html (with classes) on the page. Note that some markup gets stripped by CKEditor5, like the nested spans in the markup for a button.
 
-There are two Single Directory Components available with the theme. Although not required, the [UI Patterns project](https://www.drupal.org/project/ui_patterns) helps implement single directory components through the Drupal UI. The UI Patterns Library sub-module allows you to the components and their properties.
+There are two Single Directory Components available with the theme. Although not required, the [UI Patterns project](https://www.drupal.org/project/ui_patterns) helps implement single directory components through the Drupal UI. The UI Patterns Library sub-module allows you to the preview components and their properties.
   * **card** - provides options as found in the UW WordPress Theme Cookbook [Cards examples](https://www.washington.edu/docs/theme-cookbook/cards/).
   * **button** - provides options as found in the UW WordPress Theme Cookbook [Buttons examples](https://www.washington.edu/docs/theme-cookbook/buttons/).
 
 ## Configuring and extending
 ### Configuring: Theme settings
-  * **Sidebar menu** - on install, the theme should set the main navigation menu as a block in the Primary section. You can exclude / include it as you would any block through the block settings. There's also a visibility setting in the theme's settings which takes precedence.
-  * **Thinstrip menu** - enable the Thinstrip menu block to override the default audience menu options. After enabling the block, manage the menu items (the menu will have no items at first) at `/admin/structure/menu/manage/thinstrip-menu`.
-  * **QuickLinks menu** - in the theme settings under Theme menus > QuickLinks menu you'll find example starter markup for the QuickLinks menu. Copy the starter markup and create a Content block to hold the markup. Then place that block in the Quicklinks region. Note that you need to ensure the text format set on the editor for the block is permissive enough to allow the markup through.
-  * **Footer menu** - on install, the theme sets the Drupal default Footer menu in the UW Footer region, yet leaves it disabled. If you want to customize the footer links, enable this block. Then adjust the Footer menu items. You need to include the Privacy and Accessibility links found on all UW websites in additional to any custom links you want to add.
+  * **Sidebar menu** - on install, the theme should set the main navigation menu as a block in the Primary region. You can exclude / include it as you would any block through the block settings. There's also a visibility setting in the theme's settings which takes precedence.
+  * **Thinstrip menu** - enable the Thinstrip menu block to override the default audience menu options (Students, Parents, Faculty & Staff, Alumni). After enabling the block, manage the menu items at `/admin/structure/menu/manage/thinstrip-menu`. The menu will have no items until you add at least one.
+  * **QuickLinks menu** - in the theme settings under Theme menus > QuickLinks menu you'll find example starter markup for the QuickLinks menu. Copy the starter markup and create a Content block to hold the markup. Then place that block in the Quicklinks region. Note that you need to ensure the text format set on the editor for the block is permissive enough to allow the starter markup through.
+  * **Footer menu** - on install, the theme sets the Drupal default Footer menu in the UW Footer region, yet leaves it disabled. At this point, the links in the footer are coming from a theme template file. If you want to customize the footer links, enable the Footer block. Then adjust the Footer menu items. You need to include the Privacy and Accessibility links found on all UW websites in additional to any custom links you want to add.
 
 ### Extending: Create a sub-theme
 1. Copy the STARTER directory into your custom themes directory (typically `/web/themes/custom/`).
@@ -49,6 +53,12 @@ There are two Single Directory Components available with the theme. Although not
     * Filenames to change: `STARTER.theme`, `STARTER.libraries.yml`, `STARTER.info.yml.REMOVETHISEXTENSION`, `./config/install/STARTER.settings.yml`, `./config/schema/STARTER.schema.yml`
     * Instances to change (generally): `name` and `libraries` values in `STARTER.info.yml` file, 2 places in `./config/schema/STARTER.schema.yml`
 4. Your sub-theme should be available to install at Administration > Appearance (`/admin/appearance`).
+
+## Upgrading
+### From 0.0.4 to 1.0.0
+1. **Note:** The QuickLinks content is now handled within a custom block. If you customized the QuickLinks markup in the theme settings in 0.0.4, copy that markup into a new content block first or save it somewhere before starting the upgrade.
+2. Get the latest version via git.
+3. Run the update with drush (`drush updatedb` or `drush updb`) or via the UI at /update.php. This updates configuration for the theme's settings.
 
 ## History
 - 2026-02-xx: Diverged from drupal/bootstrap base theme since the foundation is already provided by uw_wp_theme files.
