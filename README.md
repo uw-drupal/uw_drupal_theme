@@ -7,7 +7,7 @@ This is a port of the [UW WordPress Theme](https://github.com/uweb/uw_wp_theme) 
 **Note:** This is ready for testing, but **use with caution in any production environment**. CSS, JS and output HTML is up to date with uw_wp_theme 3.6.3. The current version also introduces two experimental Single Directory Components: Button and Card.
 
 * [Installation](#installation)
-* [Configuring and extending (sub-theming)](#Configuring and extending)
+* [Configuring and extending](#configuring-and-extending)
 * [Upgrading from 0.0.4](#upgrading)
 
 ## Requirements
@@ -59,6 +59,7 @@ There are two Single Directory Components available with the theme. Although not
 1. **Note:** The QuickLinks content is now handled within a custom block. If you customized the QuickLinks markup in the theme settings in 0.0.4, copy that markup into a new content block first or save it somewhere before starting the upgrade.
 2. Get the latest version via git.
 3. Run the update with drush (`drush updatedb` or `drush updb`) or via the UI at /update.php. This updates configuration for the theme's settings.
+4. Uninstall Bootstrap Barrio (go to `/admin/appearance`). After uninstalling, you can remove the `bootstrap_barrio` directory from `/web/themes/contrib` in the file system.
 
 ## History
 - 2026-02-xx: Diverged from drupal/bootstrap base theme since the foundation is already provided by uw_wp_theme files.
