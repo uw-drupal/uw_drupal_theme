@@ -26,28 +26,42 @@
 {% set card_color = [
     color is same as 'purple' ? 'purple',
     color is same as 'white' ? 'white',
-    color is same as 'gold' ? 'lightgold',
+    color is same as 'gold' ? 'gold',
     (variant is same as 'block' and color is not same as 'gold') ? 'purple',
     variant is same as 'inset' and color is empty ? 'lightgold',
   ]
 %}
 
-{# Set the button color to pass to the button component. #}
+{# Set the button color and button variant to pass to the button component. #}
 {% if color == 'purple' %}
-  {% set button_color = 'light-gold' %}
-  {% set button_variant = 'secondary' %}
-{% endif %}
-{% if color == 'gold' %}
-  {% set button_color = 'white' %}
+  {% set button_color = 'light__gold' %}
+  {% if variant in ['step', 'default', 'inset'] %}
+    {% set button_variant = 'secondary' %}
+  {% else %}
+    {% set button_variant = 'arrow' %}
+  {% endif %}
 {% endif %}
 {% if color == 'white' %}
   {% set button_color = 'purple' %}
-  {% set button_variant = 'primary' %}
+  {% if variant in ['step', 'default', 'inset'] %}
+    {% set button_variant = 'primary' %}
+  {% else %}
+    {% set button_variant = 'arrow' %}
+  {% endif %}
 {% endif %}
-{# Set the button_variant color to pass to the button component. #}
-{% if variant == 'default' %}
-  {% set button_variant = 'default' %}
+{% if color == 'gold' %}
+  {% set button_color = 'white' %}
+  {% if variant in ['inset', 'default'] %}
+    {% set button_variant = 'no-arrow' %}
+  {% else %}
+    {% set button_variant = 'arrow' %}
+  {% endif %}
 {% endif %}
+{# Block cards are different. So, this special cases those. #}
+{% if variant == 'block' %}
+  {% set button_color = color == 'gold' ? 'white' : color %}
+{% endif %}
+
 
 {% set link_class = stretched_link ? 'stretched-link' : '' %}
 {% if id %}
@@ -94,16 +108,17 @@
   {% endif %}
   {{ content }}
   {% if linkurl and linktext %}
+    <p class="button">
     {{ include('uw_drupal_theme:button', {
       variant: button_variant,
       link: linkurl,
       text: linktext,
       color: button_color,
-      context: 'card',
       size: 'small'
       },
       with_context = false)
     }}
+    </p>
   {% endif %}
   </div>
 </div>
@@ -113,7 +128,7 @@
 <div{{ attributes.addClass('card').addClass(card_class).addClass(text_class).addClass(card_color).setAttribute('id', card_id) }} style="width: {{ card_width }};">
     <div class="card-body">
       <h{{ heading_level }} class="card-title mb-0">{{ title }}</h{{ heading_level }}>
-    {%  if image %}
+    {% if image %}
       <div class="card-image-top">{{ image|add_class('card-img','card-img-top') }}</div>
     {% endif %}
     <div class="udub-slant-divider"><span></span></div>
@@ -121,17 +136,18 @@
     {{ content }}
     </div>
     {% if linkurl and linktext %}
+      <p class="button">
       {{ include('uw_drupal_theme:button', {
         variant: button_variant,
         link: linkurl,
         text: linktext,
         color: button_color,
         size: 'large',
-        context: 'card'
       },
         with_context = false)
       }}
-  {% endif %}
+      </p>
+    {% endif %}
   </div>
 </div>
 
@@ -145,16 +161,17 @@
       {{ content }}
     </div>
     {% if linkurl and linktext %}
+      <p>
       {{ include('uw_drupal_theme:button', {
         variant: button_variant,
         link: linkurl,
         text: linktext,
         color: button_color,
-        context: 'card',
         size: 'small'
       },
         with_context = false)
       }}
+      </p>
     {% endif %}
   </div>
 </div>
@@ -168,16 +185,17 @@
         {{ content }}
       </div>
       {% if linkurl and linktext %}
-        {{ include('uw_drupal_theme:button', {
-          variant: button_variant,
-          link: linkurl,
-          text: linktext,
-          color: button_color,
-          context: 'card',
-          size: 'larg'
-        },
-          with_context = false)
-        }}
+      <p class="button">
+      {{ include('uw_drupal_theme:button', {
+        variant: 'no-arrow',
+        link: linkurl,
+        text: linktext,
+        color: button_color,
+        size: 'small'
+      },
+        with_context = false)
+      }}
+      </p>
       {% endif %}
   </div>
 </div>
@@ -192,16 +210,17 @@
       {{ content }}
     </div>
     {% if linkurl and linktext %}
+      <p>
       {{ include('uw_drupal_theme:button', {
         variant: button_variant,
         link: linkurl,
         text: linktext,
         color: button_color,
-        context: 'card',
         size: 'large'
       },
         with_context = false)
       }}
+      </p>
     {% endif %}
   </div>
 </div>
@@ -222,16 +241,8 @@
       {{ content }}
     </div>
       {% if linkurl and linktext %}
-        {{ include('uw_drupal_theme:button', {
-          variant: button_variant,
-          link: linkurl,
-          text: linktext,
-          color: button_color,
-          context: 'card',
-          size: 'large'
-        },
-          with_context = false)
-        }}
+        <p class="link-with-arrow-box"><a href="{{ linkurl }}" class="link-arrow-box"><span>{{ linktext }}<span class="arrow-box"><span class="arrow"></span></span></span></a></p>
+        <p>
       {% endif %}
   </div>
 </div>
@@ -245,16 +256,17 @@
       <h{{ heading_level }} class="card-title">{{ title }}</h{{ heading_level }}>
       {{ content }}
       {% if linkurl and linktext %}
+        <p>
         {{ include('uw_drupal_theme:button', {
           variant: button_variant,
           link: linkurl,
           text: linktext,
           color: button_color,
-          context: 'card',
           size: 'large'
         },
           with_context = false)
         }}
+        </p>
       {% endif %}
     </div>
   </div>
@@ -269,23 +281,24 @@
       <h{{ heading_level }} class="card-title">{{ title }}</h{{ heading_level }}>
       {{ content }}
       {% if linkurl and linktext %}
+        <p>
         {{ include('uw_drupal_theme:button', {
           variant: button_variant,
           link: linkurl,
           text: linktext,
           color: button_color,
-          context: 'card',
           size: 'large'
         },
           with_context = false)
         }}
+        </p>
       {% endif %}
     </div>
   </div>
   <div>
   <svg class="slant-pattern">
     <defs>
-      <pattern id="pattern-stripe-{{ random_number  }}" width="14" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
+      <pattern id="pattern-stripe-{{ random_number }}" width="14" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
         <rect width="1" height="10" transform="translate(0,0)" fill="white"></rect>
       </pattern>
       <mask id="mask-stripe"><rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe-{{ random_number }})" /></mask>

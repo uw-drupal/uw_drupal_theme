@@ -15,22 +15,22 @@ links:
 variants:
   default:
     title: Default
+  primary:
+    title: Primary
+  secondary:
+    title: Secondary
   arrow:
     title: Arrow
+  no-arrow:
+    title: 'No arrow'
   icon:
     title: Icon
 props:
   type: object
   properties:
-#    variant:
-#      title: Button style
-#      type: string
-#      description: "The style of button."
-#      enum: [default, primary, secondary, icon]
     link:
       title: Button link Url
       type: string
-#      format: uri-reference
     text:
       title: Button link text
       type: string

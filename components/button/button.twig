@@ -1,50 +1,39 @@
 {# Handles output for all button variants. #}
 {# Related uw_wp_theme file: /inc/shortcodes/class.cards-shortcode.php #}
-{#{% set variant = variant == 'default' ? variant %}#}
+
+{# If no variant is passed in, set variant to 'default'. #}
+{% set variant = variant is empty ? 'arrow' : variant %}
+
+{# Set the style to variant value. If variant is 'default' go with 'arrow'.#}
+{% set style = variant == 'default' ? 'arrow' : variant %}
+
+{# Adjust the light__gold value to the class name for light gold. #}
 {% set color = color == 'light__gold' ? 'light-gold' : color %}
 
-{# Where this button appears doesn't matter. #}
-{% if context == 'none' or context is null %}
-{%
-  set link_classes = [
-  'btn',
-  size == 'large' ? 'btn-lg' : 'btn-sm',
-  variant is not empty ? variant : 'default',
-  variant != 'default' ? 'arrow',
-  variant == 'icon' ? 'icon-link' ~ ' ' ~ icon_to_display,
-  color is not empty ? color : 'purple'
-]
-%}
-{% endif %}
+{% set size_class = size == 'small' ? 'btn-sm' : 'btn-lg' %}
 
-{# If this button appears in a card, we need to adjust a few things. #}
-{% if context == 'card' %}
-  {%
-    set link_classes = [
+{% set color_class = color is not empty ? color : 'purple' %}
+{#{% set color_class = color == 'no-color' ? '' %}#}
+
+{% set style_classes = [
     'btn',
-    size == 'large' ? 'btn-lg' : 'btn-sm',
-    variant != 'default' ? 'arrow',
-    variant == 'icon' ? 'icon-link' ~ ' ' ~ icon_to_display,
-    color ? color
+    style == 'icon' ? 'icon-link arrow',
+    style == 'no-arrow' ? '' : style,
   ]
-  %}
-{% endif %}
+%}
 
 {#  Set arrow classes based on style #}
 {% set arrow_box_classes = [
-    variant not in ['icon', 'default'] ? 'arrow' : '',
-    variant == 'icon' ? 'icon ic-' ~ icon_to_display : ''
+    style == 'icon' ? 'icon ic-' ~ icon_to_display : 'arrow'
   ]
 %}
-<p class="button">
-  <a{{create_attribute({'href':link}).addClass(link_classes)}}>
-    <span>
-      {{text}}
+<a{{create_attribute({'href':link}).addClass(size_class).addClass(style_classes).addClass(color_class)}}>
+  <span>
+    {{text}}
+  </span>
+  {% if style not in ['primary', 'secondary', 'no-arrow'] %}
+    <span class="arrow-box">
+      <span{{create_attribute().addClass(arrow_box_classes)}}></span>
     </span>
-    {% if variant != 'default' %}
-      <span class="arrow-box">
-        <span{{create_attribute().addClass(arrow_box_classes)}}></span>
-      </span>
-    {% endif %}
-  </a>
-</p>
+  {% endif %}
+</a>

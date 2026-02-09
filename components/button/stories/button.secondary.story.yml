@@ -3,8 +3,7 @@ $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schema
 
 name: 'Secondary'
 props:
-  variant: default
+  variant: secondary
   link: 'https://uw.edu'
   text: 'Secondary button - lg'
-  color: gold
   size: large
