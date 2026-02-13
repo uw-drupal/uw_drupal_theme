@@ -15,6 +15,7 @@ libraries:
 regions:
   search: "Search"
   thinstrip: "Thinstrip"
+  quicklinks: "Quicklinks"
   navigation: "Navigation"
   highlighted: "Highlighted"
   help: "Help"
@@ -23,4 +24,4 @@ regions:
   sidebar_first: "Primary"
   sidebar_second: "Secondary"
   uwfooter: "UW Footer"
-  quicklinks: "Quicklinks"
+
