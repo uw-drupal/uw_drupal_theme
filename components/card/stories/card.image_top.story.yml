@@ -6,7 +6,7 @@ slots:
   content:
     '<p>The card body here and it is important.</p>'
   title:
-    'Important card'
+    'Important card image top'
   image:
     theme: image
     uri: "/themes/custom/uw_drupal_theme/assets/images/w-day-cupcakes-300x200.jpeg"

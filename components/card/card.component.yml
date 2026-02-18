@@ -14,13 +14,15 @@ links:
     title: 'Bootstrap 4.6 documentation'
 variants:
   default:
+    title: Default
+  inset:
     title: Inset
   no__image:
     title: 'No image'
   image__top:
     title: 'Image top'
   block:
-    title: 'Block'
+    title: Block
   text__link:
     title: 'Text link'
   step:
@@ -37,14 +39,14 @@ variants:
     title: 'Half block full width'
 slots:
   title:
-    title: Card title
-    description: Heading (title) for the card.
+    title: 'Card title'
+    description: 'Heading (title) for the card.'
   content:
-    title: Card body
-    description: Complete HTML body for the card.
+    title: 'Card body'
+    description: 'Complete HTML body for the card.'
   image:
-    title: Card image
-    description: Image as block. Use when placing image as media.
+    title: 'Card image'
+    description: 'Image as block. Use when placing image as media.'
   links:
     title: Links
     description: 'Array of links.'
@@ -53,9 +55,14 @@ props:
   properties:
     align:
       type: string
-      title: Alignment
-      description: Aligns the image on the side chosen. For large and full-width cards only.
-      enum: ['left', 'right']
+      title: Align text
+      description: Puts the text on the side chosen. For large and full-width cards only.
+      enum:
+        - 'left'
+        - 'right'
+      "meta:enum":
+        'left': 'Left'
+        'right': 'Right'
     color:
       type: string
       title: Color scheme

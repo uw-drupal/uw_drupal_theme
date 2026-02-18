@@ -1,12 +1,12 @@
 # This is so your IDE knows about the syntax for fixes and autocomplete.
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 
-name: "Full width - purple"
+name: "Full widfth - purple"
 slots:
   content:
     '<p>More card content stuff on another card here and it is important.</p>'
   title:
-    'Really full width card'
+    'Full width card'
   image:
     theme: image
     uri: "/themes/custom/uw_drupal_theme/assets/images/w-day-cupcakes-300x200.jpeg"

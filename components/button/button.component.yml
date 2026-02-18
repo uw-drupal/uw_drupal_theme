@@ -34,6 +34,12 @@ props:
     text:
       title: Button link text
       type: string
+    stretched_link:
+      type: boolean
+      title: Stretch the link to boundary of container
+      description: An option for buttons placed in cards.
+      enum: [true, false]
+      default: false
     color:
       title: Button color
       type: string
@@ -48,16 +54,6 @@ props:
         white: White
         gold: Gold
         light__gold: "Light gold"
-    context:
-      title: Button context
-      type: string
-      description: "Where the button appears, if applicable."
-      enum:
-        - none
-        - card
-      "meta:enum":
-        none: None
-        card: "In a card"
     size:
       title: Button size
       type: string
