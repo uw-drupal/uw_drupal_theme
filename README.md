@@ -1,6 +1,6 @@
 # UW Drupal theme
 
-I made some changes here
+I made some changes here.
 
 ![UW Drupal theme v1.0.0-rc.1](https://img.shields.io/static/v1?label=version&message=v1.0.0-rc.1&color=green)
 
