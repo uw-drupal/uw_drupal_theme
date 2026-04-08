@@ -68,6 +68,7 @@ props:
       title: Color scheme
       description: This is the color scheme for the card. The options are gold, white, and purple.
       enum: ['gold', 'white', 'purple']
+      default: gold
     icon:
       type: string
       title: Icon
