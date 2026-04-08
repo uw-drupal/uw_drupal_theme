@@ -1,5 +1,7 @@
 # UW Drupal theme
 
+I made some changes here
+
 ![UW Drupal theme v1.0.0-rc.1](https://img.shields.io/static/v1?label=version&message=v1.0.0-rc.1&color=green)
 
 This is a port of the [UW WordPress Theme](https://github.com/uweb/uw_wp_theme) which utilizes Bootstrap 4 built by the UMAC web team.
