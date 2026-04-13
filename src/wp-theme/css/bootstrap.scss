@@ -1,0 +1,57 @@
+// import UW variables first so we can use them to override Bootstrap theme colors (below)
+@import "uw-variables";
+
+// Overrides the Bootstrap defaults - this also must come before you import bootstrap's scss files!
+$theme-colors: (
+ 	"primary": $purple,
+ 	"secondary": $darkgold,
+ 	"success": #449D44,
+ 	"info": #0074BB,
+ 	"warning": #EE9800,
+ 	"danger": #CB2E25
+);
+
+
+$sizes: (
+	40: 40%
+);
+
+
+$link-color: $links;
+$link-decoration: underline;
+$link-hover-color: $darkgold;
+
+// all other imports
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+//@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "uw-fonts";
+@import "uw-mixins";
+@import "uw-typography";
+@import "uw-content";
+@import "uw-components";
+@import "uw-nav";
+@import "uw-utilities";
+@import "uw-header";
+@import "uw-checkbox-radio";
+@import "uw-alert";
+@import "uw-widgets";
+@import "uw-footer";
+@import "uw.icon-font";
+@import "uw-progress-bars";
+@import "uw-tooltip";
+@import "uw-list-group";
+@import "uw-search";
+@import "uw-comments";
+@import "uw-blocks-old";
+@import "uw-blocks-global";
+
+// 2014 less > scss ports
+@import "2014-hero";
+@import "2014-breadcrumbs";
+@import "2014-buttons";
+@import "2014-sidebar";
+@import "2014-quicklinks";
+
+@import "shortcodes/shortcodes";
+@import "widgets/widgets";
+

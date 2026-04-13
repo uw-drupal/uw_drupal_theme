@@ -1,0 +1,79 @@
+.banner{
+	display: flex;
+	justify-content: center;
+	padding: 1rem;
+	margin-bottom: 0;
+
+	p { margin-bottom: 0; }
+
+	&.alert-primary {
+		background-color: $purple;
+		color: white;
+		border-color: $purple;
+
+		p { color: white; }
+
+		a {
+			color: white;
+
+			@include haf(h a f fv fw) {
+				color: $lightgold;
+			}
+		}
+	}
+	&.alert-dark {
+		a{
+			color: $black;
+
+			@include haf(h a f fv fw) {
+				color: $purple;
+			}
+		}
+
+	}
+
+	&.alert-black {
+		background-color: $black;
+		color: white;
+
+		p { color: white; }
+
+		a {
+			color: white;
+
+			@include haf(h a f fv fw) {
+				color: $gold;
+			}
+		}
+	}
+
+	&.alert-gold {
+		background-color: $gold;
+		color: $black;
+
+		p { color: $black; }
+
+		a {
+			color: $black;
+
+			@include haf(h a f fv fw) {
+				color: #000;
+			}
+		}
+	}
+
+	&.alert-darkgold {
+		background-color: $darkgold;
+		color: white;
+
+		p { color: white; }
+
+		a {
+			color: white;
+
+			@include haf(h a f fv fw) {
+				color: #000;
+			}
+		}
+	}
+}

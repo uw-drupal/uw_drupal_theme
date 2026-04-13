@@ -3,41 +3,39 @@ global-styling:
   js:
     js/skip-link-focus-fix.js: {}
     js/keyboard-navmenu.js: {}
-    js/libs/bootstrap.min.js: { minified: true }
-    js/barrio.js: {}
-    js/2014/2014.js: {}
-    js/2014/alert.js: {}
-    js/2014/quicklinks.js: {}
-    js/2014/radio.js: {}
-#    js/2014/search.js: {}
-#    js/2014/searchtoggle.js: {}
-    js/2014/select.js: {}
-
-
-    js/scripts.js: {}
+    js/keyboard-button.js: {}
+    js/classic-menu.js: {}
+    js/global.js: {}
+    js/2014/2014bundle.min.js: { minified: true }
+    js/components/accordion.js: {}
   css:
     component:
-      css/style.css: {}
-#      css/style.min.css: { minified: true}
-      css/content.css: {}
-      css/sidebar.css: {}
-#      css/widgets.css: {}
-
+      css/style.css: { }
   dependencies:
-    - core/jquery
     - core/drupal
-    - core/popperjs
     - core/internal.backbone
     - core/internal.underscore
+
+bootstrap:
+  js:
+    js/libs/popper.min.js: { minified: true, weight: -19 }
+    js/libs/bootstrap.min.js: { minified: true, weight: -20 }
+  dependencies:
+    - core/jquery
+    - core/popperjs
 
 search:
   js:
     js/2014/search.js: {}
+  dependencies:
+    - core/drupalSettings
+
 searchtoggleonly:
   js:
-    js/searchtoggleonly.js: {}
+    js/2014/searchtoggleonly.js: {}
 
 top-links-to-dropdowns:
   version: 1.x
   js:
     js/top-links-to-dropdowns.js: {}
+

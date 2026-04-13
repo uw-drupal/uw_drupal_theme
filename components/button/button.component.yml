@@ -1,0 +1,85 @@
+# This is so your IDE knows about the syntax for fixes and autocomplete.
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+# The human readable name.
+name: Button (UW Drupal Theme)
+group: Button
+
+# Status can be: "experimental", "stable", "deprecated", "obsolete".
+status: experimental
+links:
+  - url: 'https://www.washington.edu/docs/shortcode-cookbook/buttons/'
+    title: 'UW WordPress theme Shortcode Cookbook'
+  - url: 'https://getbootstrap.com/docs/4.6/components/buttons/'
+    title: 'Bootstrap 4.6 documentation'
+variants:
+  default:
+    title: Default
+  primary:
+    title: Primary
+  secondary:
+    title: Secondary
+  arrow:
+    title: Arrow
+  no-arrow:
+    title: 'No arrow'
+  icon:
+    title: Icon
+props:
+  type: object
+  properties:
+    link:
+      title: Button link Url
+      type: string
+    text:
+      title: Button link text
+      type: string
+    stretched_link:
+      type: boolean
+      title: Stretch the link to boundary of container
+      description: An option for buttons placed in cards.
+      enum: [true, false]
+      default: false
+    color:
+      title: Button color
+      type: string
+      description: "Background color to use for the button."
+      enum:
+        - purple
+        - white
+        - gold
+        - light__gold
+      "meta:enum":
+        purple: Purple
+        white: White
+        gold: Gold
+        light__gold: "Light gold"
+    size:
+      title: Button size
+      type: string
+      enum:
+        - large
+        - small
+      "meta:enum":
+        large: Large
+        small: Small
+    icon_to_display:
+      title: Button icon
+      type: string
+      description: 'Only needed for icon buttons.'
+      enum: ['check', 'flag', 'minus', 'person',
+             'plus', 'camera', 'mail', 'search',
+             'key', 'clipboard', 'bookmark', 'ticket',
+             'heart', 'watch', 'letter', 'marker',
+             'social', 'close', 'calendar', 'pencil',
+             'computer', 'page', 'view', 'eating',
+             'book', 'stop', 'compass', 'home',
+             'play', 'picture', 'address-book', 'map',
+             'music', 'settings', 'tools', 'globe',
+             'briefcase', 'pause', 'trash', 'right-arrow-full',
+             'list', 'page2', 'right-arrow', 'podium',
+             'directions', 'capitol', 'map-marker', 'passport',
+             'administration', 'plane', 'handshake', 'suitcase',
+             'globe2', 'umbrella', 'ribbon', 'money',
+             'checkmark', 'external', 'simple-arrow', 'check2',
+             'people', 'clipboard-check']

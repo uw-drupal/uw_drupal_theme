@@ -1,0 +1,16 @@
+.uw-sidebar {
+	.widget_categories, .widget_recent_comments, .widget_archive {
+		ul {
+			list-style-type: disc;
+			margin-left: 1em;
+		}
+	}
+
+	.widget_categories, .widget_archive {
+		select {
+			border: 2px solid $purple;
+			color: $purple;
+			padding: .25em .5em;
+		}
+	}
+}

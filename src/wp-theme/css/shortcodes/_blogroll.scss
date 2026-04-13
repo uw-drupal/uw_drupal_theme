@@ -1,0 +1,98 @@
+/*
+ *  All styles for Blogroll shortcode
+ */
+
+ /* ========== STYLES NOT IN BLOGROLL.LESS BUT IN UW-2014 ========== */
+ .uw-body-copy {
+	h1, h2, h3, h4, h5,
+	.h1, .h2, .h3, .h4, .h5, .h6 {
+		a {
+			border-bottom: none;
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+	ul.shortcode-blogroll {
+		overflow: visible;
+		margin:0;
+		padding: 0;
+		list-style: none;
+		& > li {
+			&:first-child {
+				margin-top: 0px;
+			}
+			margin: 20px 0 0;
+			position: relative;
+			overflow: hidden;
+			padding-bottom: 20px;
+			.wp-post-image {
+				margin: 10px 30px 0 0;
+				height: auto;
+				width: 90px;
+			}
+			span {
+				display: block;
+				overflow: hidden;
+			}
+			p.date {
+				font-weight: $bold;
+				margin: 10px 0 0;
+				font-family: $headings;
+			}
+			.author-info {
+				margin: 0px 0 20px 0;
+			}
+			&:after {
+				display: block;
+				content: "";
+				width: 100%;
+				height: 1px;
+				background-color: #BBB;
+				bottom: 0;
+				position: absolute;
+			}
+			&:last-child:after {
+				display: none;
+			}
+		}
+		h2 {
+			margin: 20px 0 0px;
+		}
+
+
+		// Hides annoying break
+
+		br {
+			display: none;
+		}
+	}
+
+	ul.shortcode-blogroll-mini {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	@media (max-width: 768px) {
+		.entry-content {
+			.shortcode-blogroll {
+				padding-left: 1.5rem;
+				padding-right: 1.5rem;
+			}
+		}
+	}
+}
+
+a.more {
+	position: relative;
+	// display: inline-block;
+	&:after {
+		background: url(../assets/svg/uw-sprite.svg) no-repeat -206px -492px;
+		content: "";
+		position: absolute;
+		right: -24px;
+		bottom: 0px;
+		width: 14px;
+		height: 21px;
+		transform: rotate(90deg);
+	}
+}

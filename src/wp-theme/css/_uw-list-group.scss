@@ -1,0 +1,67 @@
+// List Groups
+hr {
+    margin-top: 3rem;
+}
+.list-group{
+	border-radius: 0;
+	margin-left: 0;
+    padding-left: 0 !important;
+	br{
+		display: none;
+	}
+}
+.list-group-item {
+	border: 1px solid rgba(55, 58, 60, 0.125);
+  &.active,
+	&.active:hover,
+	&.active:focus {
+		color: $black;
+		border: 0;
+		border-left: 2px solid #4b2e83;
+		background: #eee;
+	}
+	&.disabled{
+		color: $gray;
+	}
+  &.list-group-item-action{
+	text-decoration: underline;
+    color: #495057;
+	margin-bottom: -1px;
+	&:hover,
+	&:focus {
+		background-color: #f8f9fa !important;
+		text-decoration: none;
+	}
+	.list-group-item-heading {
+	  color: inherit;
+	}
+	&:hover,
+	&:focus {
+	  color: #495057;
+	  background-color: darken(#f8f9fa, 5%);
+	}
+  }
+  &.list-group-item-light{
+	  color: #575757;
+  }
+  &.list-group-item-success{
+	  color: #2F4B2F;
+  }
+  &.list-group-item-warning{
+	color: #5B4110;
+}
+}
+.list-group-flush >{
+	.list-group-item{
+		border-width: 1px 0px 1px;
+		margin-bottom: -1px;
+		&:last-child{
+			border-bottom-width: 1px;
+		}
+	}
+}
+.badge-pill {
+	padding-right: 0.6em;
+	padding-left: 0.6em;
+	border-radius: 0;
+}

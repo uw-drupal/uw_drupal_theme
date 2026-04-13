@@ -1,0 +1,46 @@
+{# Handles output for all button variants. #}
+{# Related uw_wp_theme file: /inc/shortcodes/class.cards-shortcode.php #}
+
+{# If no variant is passed in, set variant to 'arrow'. #}
+{% set variant = variant is empty ? 'arrow' : variant %}
+
+{# Set the style to variant value. If variant is 'default' go with 'arrow'.#}
+{% set style = variant == 'default' ? 'arrow' : variant %}
+
+{# Adjust the light__gold value to the class name for light gold. #}
+{% set color = color == 'light__gold' ? 'light-gold' : color %}
+
+{# Button defaults to large if size not passed in. #}
+{% set size_class = size == 'small' ? 'btn-sm' : 'btn-lg' %}
+
+{# Color defaults to purple. #}
+{% set color_class = color is not empty ? color : 'purple' %}
+
+{# Stretched link can be passed. This is an option with cards. #}
+{% set link_class = stretched_link ? 'stretched-link' : '' %}
+
+{# Set up button classes. #}
+{% set style_classes = [
+    'btn',
+    style == 'icon' ? 'icon-link arrow',
+    style == 'no-arrow' ? '' : style,
+  ]
+%}
+
+{#  Set arrow classes based on style #}
+{% set arrow_box_classes = [
+    style == 'icon' ? 'icon ic-' ~ icon_to_display : 'arrow'
+  ]
+%}
+
+{# Build the markup. #}
+<a{{attributes.setAttribute('href', link).addClass(size_class).addClass(style_classes).addClass(color_class).addClass(link_class)}}>
+  <span>
+    {{text}}
+  </span>
+  {% if style not in ['primary', 'secondary', 'no-arrow'] %}
+    <span{{create_attribute().addClass('arrow-box')}}>
+      <span{{create_attribute().addClass(arrow_box_classes)}}></span>
+    </span>
+  {% endif %}
+</a>

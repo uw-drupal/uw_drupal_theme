@@ -1,7 +1,7 @@
 {
-  "name": "barrio_sass",
-  "version": "5.0.5",
-  "description": "Barrio SASS implementation",
+  "name": "uw_drupal_theme",
+  "version": "1.0.1",
+  "description": "UW Drupal Theme SASS implementation",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,33 +9,43 @@
   "keywords": [
     "SASS",
     "Bootstrap",
-    "Drupal",
-    "Barrio"
+    "Drupal"
   ],
-  "author": "@hatuhay",
+  "author": "",
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "4.6.0",
+    "bootstrap": "^4.6.2",
     "bootstrap-icons": "^1.0.0-alpha3",
-    "gulp-cli": "^2.3.0",
+    "css-select": "^6.0.0",
+    "gulp-cli": "^3.1.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "sass": "^1.49.7"
   },
+  "browserslist": [
+    "last 2 versions",
+    ">0.5%",
+    "not dead"
+  ],
   "devDependencies": {
-    "browser-sync": "^2.27.7",
+    "browserlist": "^1.0.1",
     "del": "^3.0.0",
-    "gulp": "^4.0.1",
+    "gulp": "^5.0.1",
     "gulp-autoprefixer": "^8.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-clean-css": "3.9.4",
     "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^6.0.0",
     "gulp-html-replace": "^1.6.2",
+    "gulp-inject-string": "^1.1.2",
     "gulp-load-plugins": "^2.0.4",
     "gulp-postcss": "^9.0.1",
+    "gulp-print": "^5.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.0",
+    "gulp-tap": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
     "merge-stream": "^1.0.1",
     "postcss-inline-svg": "^5.0.0",
     "postcss-pxtorem": "^6.0.0"

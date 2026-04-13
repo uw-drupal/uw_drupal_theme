@@ -1,0 +1,8 @@
+# This is so your IDE knows about the syntax for fixes and autocomplete.
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+name: 'Primary'
+props:
+  variant: primary
+  link: https://www.google.com
+  text: 'Primary button - default size (large)'

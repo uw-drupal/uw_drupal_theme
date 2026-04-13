@@ -1,0 +1,111 @@
+/**
+ * Porting breadcrumb CSS from 2014
+ */
+.uw-breadcrumbs {
+	padding: 20px 0 0;
+	// margin-bottom: 3px;
+	// margin-bottom: -1.5em;
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		list-style: none;
+		display: inline-block;
+		position: relative;
+		&:first-child {
+			a {
+				background: url('../assets/svg/uw-sprite.svg') no-repeat -253px 5px;
+				text-indent: -99999px;
+				width: 25px;
+				padding: 5px 0 0 0;
+				top: -5px;
+				position: relative;
+				margin-right: 25px;
+				&:after {
+					right: -18px;
+				}
+				&:focus,
+				&:active,
+				&:hover {
+				    border-bottom: 1px solid $darkgold;
+				    margin-bottom: -1px;
+				}
+			}
+			&:after {
+				top: 0.9rem;
+			}
+		}
+		&.current {
+            span {
+                color: $black;
+            }
+			&:after {
+				display: none;
+			}
+		}
+		&:after {
+			content: "";
+			position: absolute;
+			height: 1rem;
+			width: 2px;
+			right: 0.8rem;
+			top: 0.6rem;
+			line-height: 1;
+			border-right: 1px solid $black;
+			transform: rotate( 15deg );
+		}
+
+		&:empty {
+			display: none;
+		}
+		a:hover {
+			border-bottom: none;
+			text-decoration: underline;
+			color: $darkgold;
+		}
+	}
+	a, span {
+		color:$links;
+		font-weight: 400;
+		padding: 0 25px 0 0;
+		margin-top: 5px;
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		//Caret
+		br {
+			display: none;
+		}
+	}
+}
+
+// @media only screen and (max-width : 767px) {
+// 	.uw-breadcrumbs {
+// 		/* float: none;
+// 		padding: 0;
+// 		margin: 0 0 0 -5px; */
+// 		li {
+// 		/* 	float: left;
+// 			display: initial; */
+// 			a, span {
+// 				padding: 0 25px 0 0;
+// 			}
+// 			&:before{
+// 				top: 0;
+// 			}
+// 			&:first-child {
+// 				&:before{
+// 					top: 0;
+// 				}
+// 				a {
+// 					background-position: -250px -3px;
+// 					padding: 0;
+// 				}
+// 				&:after {
+// 					top: 8px;
+// 				}
+// 			}
+// 		}
+// 	}
+// }

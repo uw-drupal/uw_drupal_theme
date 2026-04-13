@@ -1,0 +1,111 @@
+# This is so your IDE knows about the syntax for fixes and autocomplete.
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+# The human readable name.
+name: Card (UW Drupal Theme)
+group: Card
+
+# Status can be: "experimental", "stable", "deprecated", "obsolete".
+status: experimental
+links:
+  - url: 'https://www.washington.edu/docs/shortcode-cookbook/cards/'
+    title: 'UW WordPress theme Shortcode Cookbook'
+  - url: 'https://getbootstrap.com/docs/4.6/components/card/'
+    title: 'Bootstrap 4.6 documentation'
+variants:
+  default:
+    title: Default
+  inset:
+    title: Inset
+  no__image:
+    title: 'No image'
+  image__top:
+    title: 'Image top'
+  block:
+    title: Block
+  text__link:
+    title: 'Text link'
+  step:
+    title: Step
+  large:
+    title: Large
+  half__block__large:
+    title: 'Half block large'
+  full__width:
+    title: 'Full width'
+  half__block__full:
+    title: 'Half block full width'
+  half__block__full__width:
+    title: 'Half block full width'
+slots:
+  title:
+    title: 'Card title'
+    description: 'Heading (title) for the card.'
+  content:
+    title: 'Card body'
+    description: 'Complete HTML body for the card.'
+  image:
+    title: 'Card image'
+    description: 'Image as block. Use when placing image as media.'
+  links:
+    title: Links
+    description: 'Array of links.'
+props:
+  type: object
+  properties:
+    align:
+      type: string
+      title: Align text
+      description: Puts the text on the side chosen. For large and full-width cards only.
+      enum:
+        - 'left'
+        - 'right'
+      "meta:enum":
+        'left': 'Left'
+        'right': 'Right'
+    color:
+      type: string
+      title: Color scheme
+      description: This is the color scheme for the card. The options are gold, white, and purple.
+      enum: ['gold', 'white', 'purple']
+      default: gold
+    icon:
+      type: string
+      title: Icon
+      description: Only used with step cards. For example 'ic-check'.
+    heading_level:
+      type: integer
+      title: Heading tag
+      description: Heading tag used for the title. Supported tags are h2, h3, h4.
+      enum:
+        - 2
+        - 3
+        - 4
+      "meta:enum":
+        2: "h2 (Default)"
+        3: h3
+        4: h4
+      default: 2
+    subtitle:
+      type: string
+      title: Subtitle
+      description: Only used in step cards.
+    linktext:
+      type: string
+      title: Link text for the card button
+    linkurl:
+      type: string
+      title: Url for the card button link
+      format: uri-reference
+    stretched_link:
+      type: boolean
+      title: Stretched link?
+      description: Makes the entire card clickable.
+      enum: [true, false]
+      default: false
+    id:
+      type: string
+      title: ID for this card (optional)
+
+
+

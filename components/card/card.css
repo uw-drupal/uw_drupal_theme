@@ -1,0 +1,8 @@
+/* Needed due to nesting of image in a div when compared to uw_wp_theme. */
+.card-image-top img {
+  width: 100%;
+}
+.card-image-top > img, .card-image-inset > img {
+  margin-bottom: 2rem;
+}
+

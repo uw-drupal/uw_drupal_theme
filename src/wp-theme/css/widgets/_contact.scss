@@ -1,0 +1,57 @@
+.contact-widget-inner {
+	padding: 40px;
+	margin-top: 20px;
+	background: url('../assets/images/stripes-dark-tile.svg') 0 -58px repeat-x $lightgold;
+
+	* {
+		margin: 0;
+		font-size: 16px;
+	}
+
+	h3 {
+		font-size: 19px;
+		font-weight: $ultra;
+		margin-top: 35px;
+		margin-bottom: 5px;
+	}
+
+	p.person-phone,
+	a.person-email {
+		padding: 1px 0 1px;
+
+		&:before {
+			background-image: url(../assets/svg/widgets-sprite.svg);
+			content: '';
+			display: inline-block;
+			height: 25px;
+			position: relative;
+			top: 5px;
+			width: 35px;
+
+		}
+
+	}
+
+	p.person-phone {
+		&:before {
+			background-position: 0 -28px;
+		}
+	}
+
+	a.person-email {
+		color: inherit;
+
+		&:before {
+			background-position: 0 1px;
+		}
+	}
+
+}
+
+.uw-sidebar .contact-widget-inner .widgettitle {
+	margin-bottom: 35px;
+
+	&:after {
+		background-color: $lightgold;
+	}
+}

@@ -1,0 +1,144 @@
+@mixin uw-heading1 {
+	font-family: $headingfont;
+	font-weight: 900;
+	color: $purple;
+}
+
+@mixin uw-heading2 {
+	font-family: $subheadfont;
+	font-weight: 100;
+	text-transform: uppercase;
+}
+
+@mixin udub-slant-divider {
+	// UW Slant
+	overflow: hidden;
+	display: block;
+	margin: 0.5rem 0 1rem;
+
+	span {
+		transform: skew(-15deg, 0);
+		display: block;
+		height: 8px;
+		width: 6rem;
+		background-color: $purple;
+		margin: 0 0 0 -5px;
+	}
+
+	&.gold {
+		span { background-color: $gold; }
+	}
+
+	&.white {
+		span { background-color: white;}
+	}
+}
+
+@mixin shadow-1 {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14);
+}
+
+@mixin shadow-2 {
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.14);
+}
+
+@mixin shadow-3 {
+	box-shadow: 0 3px 4px rgba(0, 0, 0, 0.14);
+}
+
+@mixin shadow-4 {
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.14);
+}
+
+@mixin shadow-6 {
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.14);
+}
+
+@mixin shadow-8 {
+	box-shadow: 0 8px 10px rgba(0, 0, 0, 0.14);
+}
+
+@mixin shadow-9 {
+	box-shadow: 0 9px 12px rgba(0, 0, 0, 0.14);
+}
+@mixin container-fixed(){
+	margin-right: auto;
+	margin-left: auto;
+	padding-left:  ($grid-gutter-width / 2);
+	padding-right: ($grid-gutter-width / 2);
+}
+
+// Background sizing
+@mixin background-size($size){
+	-webkit-background-size: $size;
+	-moz-background-size: $size;
+	-o-background-size: $size;
+	background-size: $size;
+}
+
+// Skew transformation
+@mixin skew($x, $y){
+	-webkit-transform: skew($x, $y);
+	-ms-transform: skewX($x) skewY($y); // See https://github.com/twbs/bootstrap/issues/4885; IE9+
+	transform: skew($x, $y);
+}
+
+@mixin border-radius($radius: 5px){
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+}
+
+@mixin full-width-element {
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	left: 50%;
+	right: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/**
+ * Hover, active, and focus states
+ * :link and & are optional
+ * example usage: @include haf(h a f fv fw) {}
+ */
+ @mixin haf( $states: ( 'h', 'a', 'f' ) ) {
+
+	$selectors: ();
+
+	@each $state in $states {
+		@if 'f' == $state {
+			$selectors: append( $selectors, '&:focus', comma );
+		} @else if 'a' == $state {
+			$selectors: append( $selectors, '&:active', comma );
+		} @else if 'l' == $state {
+			$selectors: append( $selectors, '&:link', comma );
+		} @else if 'v' == $state {
+			$selectors: append( $selectors, '&:visited', comma );
+		} @else if 'fv' == $state {
+			$selectors: append( $selectors, '&:focus-visible', comma );
+		} @else if 'fw' == $state {
+			$selectors: append( $selectors, '&:focus-within', comma );
+		} @else if '&' == $state {
+			$selectors: append( $selectors, '&', comma );
+		} @else {
+			$selectors: append( $selectors, '&:hover', comma );
+		}
+	}
+
+	#{ $selectors } {
+		@content;
+	}
+
+}

@@ -1,0 +1,244 @@
+.call-to-action {
+	margin-top: 80px;
+	margin-bottom: 80px;
+	overflow: hidden;
+
+	@media screen and (max-width: 767px) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.container {
+		overflow: hidden;
+		max-width: 100%;
+	}
+
+	&.full-width {
+		width: 100vw;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		left: 50%;
+		right: 50%;
+		margin-left: -50vw;
+		margin-right: -50vw;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+
+		&.cta-image {
+			@media screen and (min-width: 1280px) {
+				.cta-body {
+					max-width: 75%;
+				}
+			}
+
+			@media screen and (max-width: 767px) {
+				.cta-content {
+					max-width: 100%;
+					margin: 0;
+					padding: 20px 40px;
+					transform: skew(0, 0);
+
+					.cta-body {
+						transform: skew(0, 0);
+					}
+				}
+			}
+		}
+	}
+
+	&.rm-top-padding {
+		margin-top: 0;
+	}
+
+	&.rm-bottom-padding {
+		margin-bottom: 0;
+	}
+
+	&.rm-col-padding {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	&.cta-noimage {
+		.row {
+			grid-template-columns: 1fr;
+			background: repeating-linear-gradient(
+				-75deg, /* Angle for diagonal stripes */
+				$purple, /* Color 1 (husky purple) */
+				$purple 5px, /* Color 1 stops at 5px */
+				#32006e 5px, /* Color 2 (darker purple) starts at 5px */
+				#32006e 6px /* Color 2 stops at 6px (1px wide) */
+			);
+
+			.cta-content {
+				max-width: 50%;
+				margin: 0 auto;
+				padding: 20px 80px;
+
+				@media screen and (min-width: 769px) and (max-width: 1023px) {
+					max-width: 70%;
+					padding: 20px 60px;
+				}
+
+				@media screen and (min-width: 600px) and (max-width: 767px) {
+					max-width: 80%;
+					padding: 20px 80px;
+				}
+
+				@media screen and (max-width: 599px) {
+					max-width: 100%;
+					padding: 20px 40px;
+					transform: skew(0, 0);
+
+					.cta-body {
+						transform: skew(0, 0);
+					}
+				}
+			}
+		}
+	}
+
+	.row {
+		display: grid;
+		grid-template-columns: 1fr 1.5fr;
+		align-items: stretch;
+		color: white;
+		padding: 0;
+		border: 0 none;
+		border-radius: 0;
+
+		@media screen and (max-width: 767px) {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-image {
+			order: 1;
+			margin-right: -5px;
+			width: 100%;
+			height: auto;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+
+			@media screen and (max-width: 767px) {
+				display: none;
+			}
+
+			@media screen and (max-width: 767px) {
+				.cta-content {
+					transform: skew(0, 0);
+
+					.cta-body {
+						transform: skew(0, 0);
+					}
+				}
+			}
+		}
+
+		.cta-content {
+			order: 2;
+			transform: skew(-15deg, 0);
+			background-color: $purple;
+			margin-left: -80px;
+			margin-right: -80px;
+			padding: 20px 150px 20px 100px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			margin-bottom: -1px;
+
+			.cta-body {
+				transform: skew(15deg, 0);
+			}
+		}
+	}
+
+	&.cta-image.gold {
+		.row {
+			.cta-content {
+				background-color: $lightgold;
+				h2, .h2, p {
+					color: $purple;
+				}
+			}
+		}
+	}
+
+	&.cta-image.white {
+		border: 1px solid rgb(220, 220, 220);
+		.row {
+			.cta-content {
+				background-color: white;
+				h2, .h2, p {
+					color: $purple;
+				}
+
+				.primary.purple {
+					&:hover span,
+					&:active span,
+					&:focus span {
+						border-color: $purple !important;
+						background-color: $purple !important;
+						color: white !important;
+					}
+
+					&:hover span.arrow-box .arrow,
+					&:active span.arrow-box .arrow,
+					&:focus span.arrow-box .arrow,
+					&:hover span.arrow-box,
+					&:active span.arrow-box,
+					&:focus span.arrow-box {
+						background-color: $gold !important;
+						border-color: white !important;
+					}
+				}
+			}
+		}
+	}
+
+	// content-width container queries
+	&.content-width.cta-image {
+		container-name: cta;
+		container-type: inline-size;
+
+		@media screen and (min-width: 769px) {
+			@container cta (min-width: 500px) and (max-width: 725px) {
+				.row {
+					grid-template-columns: 1fr 1.1fr;
+
+					.cta-content {
+						padding-right: 110px;
+						padding-left: 70px;
+					}
+				}
+			}
+		}
+
+		@container cta (min-width: 1200px) {
+			.cta-body {
+				max-width: 80%;
+			}
+		}
+	}
+
+
+	h2, .h2 {
+		font-family: $headings, sans-serif;
+		font-size: 30px;
+		font-weight: 700;
+		margin-bottom: 10px;
+		color: white;
+		margin-top: 0;
+	}
+
+	p {
+		color: white;
+
+		&.button {
+			margin-bottom: 0;
+		}
+	}
+}

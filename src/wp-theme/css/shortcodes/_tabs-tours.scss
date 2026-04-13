@@ -1,0 +1,203 @@
+.tab-tour {
+	margin-bottom: 50px;
+
+	ul.nav-tabs {
+		margin-left: 0;
+		padding-left: 0;
+
+		@media screen and (max-width: 768px) {
+			display: block;
+		}
+
+		.nav-item {
+			&:last-of-type {
+				.nav-link {
+					border-right: 1px solid rgba(55,58,60,.125);
+				}
+			}
+
+			.nav-link {
+				border-radius: 0;
+				border-color: rgba(55,58,60,.125) rgba(55,58,60,.125) transparent;
+				border-right: 0 none;
+				font-weight: 600;
+				color: #495057;
+				background-color: rgba(55,58,60,.03);
+				transition: all 0.5s ease;
+				width: 100%;
+				text-align: left;
+
+				@media screen and (max-width: 768px) {
+					border-right: 1px solid rgba(55,58,60,.125);
+				}
+
+				&.active, &:hover, &:active, &:focus, &:focus-within {
+					border-bottom: 2px solid $purple;
+					background-color: #eee;
+					transition: all 0.5s ease;
+
+					@media screen and (max-width: 768px) {
+						border: 2px solid $purple;
+					}
+				}
+			}
+		}
+	}
+
+	&.alt-tab {
+		ul.nav-tabs {
+			border-bottom: 0 none;
+			display: flex;
+
+			@media screen and (max-width: 768px) {
+				display: flex;
+			}
+
+			.nav-item {
+				display: flex;
+
+				&:after {
+					content: '';
+					display: block;
+					height: 1.3rem;
+					width: 1px;
+					border-right: 1px solid #6c757d;
+					transform: rotate(15deg);
+				}
+
+				.nav-link {
+					padding: 0;
+					margin-left: 1rem;
+					margin-right: 1rem;
+					border: 0 none;
+					border-bottom: 2px solid transparent;
+					background-color: transparent;
+
+					&.active, &:hover, &:active, &:focus, &:focus-within {
+						border: 0 none;
+						border-bottom: 2px solid $purple;
+					}
+				}
+			}
+		}
+
+		.tab-content { border: 0 none; }
+	}
+
+	.tab-content {
+		padding: 1rem;
+		border-right: 1px solid rgba(55,58,60,.125);
+		border-bottom: 1px solid rgba(55,58,60,.125);
+		border-left: 1px solid rgba(55,58,60,.125);
+
+		h1, h2, h3, h4, h5, h6 { margin-top: 0; }
+
+		.tab-pane { transition: all 0.5s ease-out; }
+	}
+
+	&.vertical-tour {
+		.row {
+			margin-left: 0;
+			margin-right: 0;
+
+			.col-3 {
+				margin-right: 0;
+				padding: 0;
+
+				@media screen and (max-width: 768px) {
+					width: 100%;
+					max-width: 100%;
+					flex: none;
+					border-right: 1px solid rgba(55,58,60,.125);
+				}
+			}
+
+			.col-9 {
+				border: 1px solid rgba(55,58,60,.125);
+				@media screen and (max-width: 768px) {
+					width: 100%;
+					max-width: 100%;
+					flex: none;
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
+		ul.nav {
+			padding-left: 0;
+			margin-left: 0;
+
+			.nav-link {
+				border-radius: 0;
+				border: 1px solid;
+				border-color: rgba(55,58,60,.125) transparent transparent rgba(55,58,60,.125);
+				border-bottom: 0;
+				font-weight: 600;
+				color: #495057;
+				width: 100%;
+				text-align: left;
+				background-color: rgba(55,58,60,.03);
+				transition: all 0.5s ease;
+
+				&.active, &:hover, &:active, &:focus, &:focus-within {
+					border-left: 2px solid $purple;
+					background-color: #eee;
+					transition: all 0.5s ease;
+
+					@media screen and (max-width: 768px) {
+						border: 2px solid $purple;
+					}
+				}
+			}
+
+			.nav-item:last-child {
+				border-bottom: 1px solid rgba(55,58,60,.125);
+			}
+		}
+
+		.tab-content { border: 0 none; }
+	}
+}
+
+// Tabs/tours when there is a sidebar.
+@media screen and (max-width: 1200px) {
+	#primary.col-md-8 {
+		.tab-tour {
+			.col-3 {
+				width: 100%;
+				max-width: 100%;
+				flex: none;
+			}
+
+			.col-9 {
+				width: 100%;
+				max-width: 100%;
+				flex: none;
+				padding-left: 0;
+				padding-right: 0;
+			}
+
+			// don't do this part if it's the alt-tab style, but do it for all other styles.
+			&:not(.alt-tab) {
+				ul.nav-tabs, ul.nav-pills {
+					.nav-item {
+						width: 100%;
+						border-right: 1px solid rgba(55,58,60,.125);
+
+						.nav-link {
+							&.active, &:hover, &:active, &:focus, &:focus-within {
+								border: 2px solid $purple;
+							}
+						}
+					}
+				}
+			}
+
+			&.alt-tab {
+				ul.nav-tabs {
+					display: flex !important;
+				}
+			}
+		}
+	}
+}
