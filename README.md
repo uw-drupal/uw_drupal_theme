@@ -1,6 +1,6 @@
 # UW Drupal theme
 
-![UW Drupal theme v1.0.0-rc.1](https://img.shields.io/static/v1?label=version&message=v1.0.0-rc.1&color=green)
+![UW Drupal theme v1.0.0](https://img.shields.io/static/v1?label=version&message=v1.0.0)
 
 This is a port of the [UW WordPress Theme](https://github.com/uweb/uw_wp_theme) which utilizes Bootstrap 4 built by the UMAC web team.
 
@@ -8,7 +8,7 @@ This is a port of the [UW WordPress Theme](https://github.com/uweb/uw_wp_theme) 
 
 * [Installation](#installation)
 * [Configuring and extending](#configuring-and-extending)
-* [Upgrading from 0.0.4](#upgrading)
+* [Upgrading from 0.0.5](#upgrading)
 
 ## Requirements
 
@@ -55,18 +55,17 @@ There are two Single Directory Components available with the theme. Although not
 4. Your sub-theme should be available to install at Administration > Appearance (`/admin/appearance`).
 
 ## Upgrading
-### From 0.0.4 to 1.0.0
-1. **Note:** The QuickLinks content is now handled within a custom block. If you customized the QuickLinks markup in the theme settings in 0.0.4, copy that markup into a new content block first or save it somewhere before starting the upgrade.
+### From 0.0.5 to 1.0.0
+1. **Note:** The QuickLinks content is now handled within a custom block. If you customized the QuickLinks markup in the theme settings in 0.0.5, copy that markup into a new content block first or save it somewhere before starting the upgrade.
 2. Get the latest version via git.
 3. Run the update with drush (`drush updatedb` or `drush updb`) or via the UI at /update.php. This updates configuration for the theme's settings.
 4. Uninstall Bootstrap Barrio (go to `/admin/appearance`). After uninstalling, you can remove the `bootstrap_barrio` directory from `/web/themes/contrib` in the file system.
 
 ## History
-- 2026-02-xx: Diverged from drupal/bootstrap base theme since the foundation is already provided by uw_wp_theme files.
-- 2025-10-10: CSS and template updates completed to align with uw_wp_theme v3.6.3
-- 2025-03-04: Work started on diverging from stable9 core theme as base to depend directly on bootstrap base theme.
+- 2026-04-13: Released a version 1.0.0
+  - Dependency on Bootstrap Barrio 5.1.x theme removed
+  - CSS and template updates align with uw_wp_theme v3.6.3
 - 2024-11-08: CSS and template updates completed to align with uw_wp_theme v3.3.1
-- 2024-10-18: Dependency on Bootstrap Barrio 5.1.x theme removed. Project now is a subtheme of the stable9 core theme.
 - 2023-01-20: Repo renamed to uw_drupal_theme
 (https://github.com/uw-drupal/uw_drupal_theme.git)
 - 2022-08-09: Private Bitbucket Repo cleaned and moved to github
