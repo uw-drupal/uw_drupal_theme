@@ -1,0 +1,57 @@
+//RSS feed widget
+.widget{
+	h4.widget-title{
+		clear: left;
+		font-weight: 900;
+		font-size: 22px;
+		text-transform: uppercase;
+		position: relative;
+	}
+	.udub-slant-divider{
+		&:after{
+			display: none;
+			//outline: 4px solid pink;
+		}
+		span{
+			width: 5.5rem;
+			padding-bottom: 0;
+
+		}
+	}
+	.uw-widget-rss{
+		a{
+			text-decoration: none;
+		}
+		span{
+
+		}
+		.default_image {
+			background: no-repeat 50% 50% #4b2e83;
+		}
+	}
+	ul{
+		&.uw-widget-rss{
+			margin: 0;
+			a.widget-link{
+				font-family: "Encode Sans Compressed", sans-serif;
+				color: #4b2e83;
+				font-size: 18px;
+				font-weight: 800;
+				line-height: 1.4;
+				overflow: hidden;
+				display: block;
+				text-decoration: none;
+				span{
+					padding-bottom: 20px;
+				}
+
+				&:hover, &:active, &:focus {
+					color: $gold;
+					border-bottom: none;
+				}
+			}
+		}
+	}
+
+}
+

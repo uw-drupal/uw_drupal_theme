@@ -1,0 +1,347 @@
+// jumbotrons
+.jumbotron.img-background {
+	background-image: url('../assets/images/new-burke-aerial.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	position: relative;
+	padding: 6rem;
+	@media (max-width: 768px) {
+		background-image: none!important;
+		padding:0 !important;
+		display: block !important;
+	}
+	.mobile-img{
+		display: none;
+		@media (max-width: 768px) {
+			display: block;
+		}
+	}
+
+	.display-3, p {
+		background: $purple;
+		color: white;
+		padding: 1rem;
+		a{
+			color: white;
+		}
+	}
+	ul {
+		color: white;
+		margin-left: 0px;
+		padding-left: 40px;
+	}
+
+	.display-3 {
+		font-family: $headings, sans-serif;
+		font-weight: 900;
+		font-size: 50px;
+		line-height: 1.2;
+
+		@media (max-width: 768px) {
+			font-size: 40px;
+		}
+	}
+
+	p {
+		font-weight: 300;
+		margin-bottom: 0;
+	}
+
+	.btn { margin: 10px 0 0 0; }
+
+	p:empty { display: none; }
+	p.button { background: none; padding: 0; }
+
+	p.text-dark { font-weight: normal; }
+
+	svg.slant-pattern {
+		height: 60px;
+		@media (max-width: 768px) {
+			display: none;
+		}
+	}
+	&.jumbo-block{
+		ul {
+			background: $purple;
+			margin: -1px 0;
+		}
+
+		@media (max-width: 768px) {
+			.w-40 {
+				background-color: $purple;
+
+				.button { padding-left: 1rem; }
+
+				.btn.btn-lg.primary.arrow {
+					span {
+						border-color: $lightgold;
+						background-color: $lightgold;
+						color: $purple;
+					}
+
+					span.arrow-box {
+						background-color: $gold;
+
+						span.arrow {
+							border-color: white;
+							background-color: $gold;
+						}
+					}
+
+					&:hover, &:active, &:focus {
+						span.arrow-box {
+							background-color: $black;
+							border-color: $black;
+
+							span.arrow {
+								background-color: $black;
+								border-color: white;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	&.jumbo-block-center {
+		@media (max-width: 768px) {
+			.display-3{
+				padding: 0;
+			}
+
+			.w-40 {
+				background-color: white;
+			}
+		}
+	}
+
+	&.jumbo-block ul {
+		background: $purple;
+		color: white;
+		margin: -1px 0;
+		padding-left: 2rem;
+	}
+
+	.d-flex-column.w-40 {
+		text-align: center;
+		margin: 0 auto;
+
+		@media (min-width: 768px) and (max-width: 989px) {
+			width: 60% !important;
+		}
+
+		.container {
+			background: $purple;
+			padding: 20px 40px;
+
+			.display-3 {
+				padding-bottom: 0;
+				margin-bottom: 0; }
+		}
+	}
+
+	@media (max-width: 1023px) {
+		.w-60, .w-40 {
+			padding: 20px;
+			width: 100% !important;
+			// background: #5a5a5a;
+		}
+	}
+
+	&.overlay {
+		padding: 6rem 0;
+		overflow: hidden;
+		@media (max-width: 768px) {
+			padding: 69% 0 0 0;
+		}
+
+		.transparent-overlay-slant {
+			background-color: rgba(85, 52, 151, 0.9); // $purple rgb+a
+			color: white;
+			max-width: 45%;
+			padding-left: 7rem;
+			transform: skew(-15deg, 0);
+			position: relative;
+			left: -3.5rem;
+			@media (max-width: 768px) {
+				background-color: $purple;
+				left:0;
+				max-width: 100%;
+				padding-left: 0;
+				transform: skew(0, 0);
+
+			}
+
+			@media (min-width: 768px) and (max-width: 1023px) {
+				max-width: 90%;
+				padding-left: 4rem;
+				left: -4rem;
+			}
+
+			@media (min-width: 1024px) and (max-width: 1200px) {
+				max-width: 60%;
+				padding-left: 4rem;
+			}
+
+			.inner-overlay {
+				transform: skew(15deg, 0);
+				padding: 3rem 5rem 3rem 3rem;
+				@media (max-width: 768px) {
+					transform: skew(0, 0);
+				}
+
+			}
+
+			.display-3, p {
+				background: none;
+				max-width: 100%;
+				padding: 0;
+			}
+
+			&.overlay-right {
+				left: 50vw;
+				padding-left: 3.5rem;
+				padding-right: 7rem;
+				max-width: 55%;
+
+
+				.inner-overlay { padding: 3rem; }
+
+				@media (max-width: 768px) {
+					// revert to left side - looks bad on right this small.
+					max-width: 100%;
+					padding-left: 0;
+					padding-right: 0;
+					left: 0;
+
+					.inner-overlay { padding: 3rem 5rem 3rem 3rem;}
+				}
+
+				@media (min-width: 768px) and (max-width: 1023px) {
+					max-width: 90%;
+					left: 20vw;
+				}
+
+				@media (min-width: 1024px) and (max-width: 1200px) {
+					max-width: 60%;
+					left: 50vw;
+				}
+			}
+		}
+	}
+
+	&.gray-overlay {
+		.w-60 {
+			padding: 20px;
+			background: rgba(204, 204, 204, 0.8);
+			@media (max-width: 768px) {
+				background: rgba(204, 204, 204, 1);
+			}
+
+			.display-3, p { color: $purple; }
+			p { font-weight: normal; }
+		}
+	}
+
+	&.gold-overlay {
+		a, ul {
+			color: $purple;
+		}
+		.w-60 {
+			padding: 20px;
+			background: rgba(232, 227, 211, 0.8);
+			@media (max-width: 768px) {
+				background-color: $lightgold;
+			}
+
+			.display-3, p { color: $purple; }
+			p { font-weight: normal; }
+		}
+	}
+
+	&.white-overlay {
+		a, ul {
+			color: $purple;
+		}
+		.w-60 {
+			padding: 20px;
+			background: rgba(255, 255, 255, 0.8);
+			@media (max-width: 768px) {
+				background: white;
+			}
+			.display-3, p { color: $purple; }
+			p { font-weight: normal; }
+		}
+	}
+
+	&.purple-overlay {
+		.w-60 {
+			padding: 20px;
+			background: rgba(85, 52, 151, 0.7);
+			@media (max-width: 768px) {
+				background: $purple;
+			}
+
+			.udub-slant-divider span { background-color: $gold; }
+
+			.display-3, p { color: white; }
+
+		}
+	}
+
+	&.default, &.jumbo-simple {
+		.display-3, p {
+			background: none;
+			padding: 0;
+		}
+
+		@media (max-width: 768px) {
+			.w-60 {
+				background-color: white;
+
+				.display-3, p, ul, a {
+					color: $purple;
+				}
+			}
+
+			&.gray-overlay {
+				.w-60 {
+					background: rgba(204, 204, 204, 1);
+					.display-3, p, ul, a { color: $purple; }
+				}
+			}
+
+			&.gold-overlay {
+				.w-60 {
+					background-color: $lightgold;
+
+					.display-3, p, ul, a { color: $purple; }
+				}
+			}
+
+			&.white-overlay {
+				.w-60 {
+					background: white;
+					.display-3, p, ul, a { color: $purple; }
+				}
+			}
+
+			&.purple-overlay {
+				.w-60 {
+					background: $purple;
+					.display-3, p, ul, a { color: white; }
+				}
+			}
+
+		}
+	}
+	&.full-width {
+		width: 100vw;
+		position: relative;
+		left: 50%;
+		right: 50%;
+		margin-left: -50vw;
+		margin-right: -50vw;
+	}
+}

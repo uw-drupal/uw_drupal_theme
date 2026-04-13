@@ -59,12 +59,12 @@ We call a macro which calls itself to render the full tree.
       %}
         {% endif %}
       <li{{ item.attributes.addClass(classes) }}>
-        {% if item.attributes.hasClass('active') and item.attributes.hasClass('current_page_item') %}
-          {# this item is the current page/path we're on and don't need to link it #}
-          <span{{ item.attributes.addClass(classes) }}>{{ item.title }}</span>
-        {% else %}
+{#        {% if item.attributes.hasClass('aActive') and item.attributes.hasClass('current_page_item') %}#}
+{#          #}{# this item is the current page/path we're on and don't need to link it #}
+{#          <span{{ item.attributes.addClass(classes) }}>{{ item.title }}</span>#}
+{#        {% else %}#}
         {{ link(item.title, item.url, { class: ['nav-link'] }) }}
-        {% endif %}
+{#        {% endif %}#}
         {% if item.below %}
           {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
         {% endif %}

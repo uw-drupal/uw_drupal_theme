@@ -1,0 +1,284 @@
+// UW Hero
+.uw-hero-image, .no-uw-hero-image {
+	height: 170px;
+	@include background-size(cover);
+	position: relative;
+	background-color: $purple;
+	overflow: hidden;
+	&:after {
+		position:absolute;
+		bottom: 0;
+		height: 80px;
+		width: 100%;
+		content: "";
+		background: url('../assets/images/stripes-dark-tile.svg');
+		opacity: .2;
+		@media only screen and (max-width : 767px) {
+			content: none;
+		}
+
+	}
+	&:before {
+		position:absolute;
+		bottom: 0;
+		left: 0;
+		height: 80px;
+		width: 100%;
+		content: "";
+		opacity: .4;
+		background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, .8))) 0 0 no-repeat;
+	}
+	// Page Attributes > Big Hero / Radio button
+	&.hero-height {
+		height: 350px;
+		h1 {
+			line-height: 1;
+			padding: 30px 20% 0 0;
+			margin: 0;
+			text-shadow: 1px 1px 3px rgba(0,0,0,.5);
+			font-family: "Encode Sans Compressed", sans-serif;
+			text-transform: uppercase;
+			font-weight: 900;
+			font-size: 75px;
+			&:after {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 0;
+				height: 360px;
+				left: -140px;
+				opacity: .3;
+				width: 600px;
+				background: url(../assets/svg/slashes-light.svg) no-repeat 0 0;
+				z-index: 0;
+				@media only screen and (max-width : 767px) {
+					content: none;
+				}
+			}
+
+		}
+		&:after{
+			display: none;
+		}
+		.udub-slant span {
+			background-color: $gold;
+		}
+		#hashtag{
+			position: absolute;
+			top: 0px;
+			font-family: $headings, sans-serif;
+			font-weight: $ultra;
+			color: $purple;
+			font-size: 21px;
+			overflow: hidden;
+			z-index: 100;
+			span {
+				background-color: rgba(255, 255, 255, 0.9);
+				@include skew(-15deg, 0);
+				padding: 2px 25px 3px 28px;
+				display: block;
+				margin: 0 10px 0 -10px;
+				span {
+					@include skew(15deg, 0);
+					display: block;
+					background-color: transparent;
+				}
+			}
+			@media only screen and (max-width : 767px) {
+				font-size: 18px;
+			}
+		}
+	}
+
+	.btn{
+		position: relative;
+		z-index:1;
+		padding-bottom: 10px;
+
+		&.hero-blank {
+			height: auto;
+			background-color: transparent;
+			background-image: none;
+			&:before{
+				background: transparent;
+			}
+		}
+	}
+}
+
+.no-uw-hero-image, .hero-blank {
+	background: none;
+	background-color: $purple;
+	height: 130px;
+	&:after {
+		opacity: .2;
+	}
+	&:before {
+		display: none;
+	}
+	&:after{
+		background:none;
+	}
+}
+
+.hero-height2{
+	height: 245px;
+	h1{
+		font-family: $headings;
+		text-transform: uppercase;
+		color: #FFF !important;
+		font-weight: $ultra;
+		font-size: 60px;
+		margin: 0;
+		line-height: 1;
+		text-shadow: 1px 1px 2px $darkgray;
+		display: inline-block;
+		vertical-align: bottom;
+		padding-top: 30px;
+		@media only screen and (max-width : 767px) {
+			font-size: 35px;
+		}
+	}
+	.udub-slant span{
+		background-color: $gold;
+		position: relative;
+		z-index: 1;
+	}
+	#hashtag{
+		position: absolute;
+		top: 0px;
+		font-family: $headings, sans-serif;
+		font-weight: $ultra;
+		color: $purple;
+		font-size: 21px;
+		overflow: hidden;
+		&.mask {
+			position: inherit;
+			visibility: hidden;
+			min-height: 70px;
+		}
+		span {
+			background-color: rgba(255, 255, 255, 0.9);
+			@include skew(-15deg, 0);
+			padding: 2px 25px 3px 28px;
+			display: block;
+			margin: 0 10px 0 -10px;
+			span {
+				@include skew(15deg, 0);
+				display: block;
+				background-color: transparent;
+			}
+		}
+		@media only screen and (max-width : 767px) {
+			font-size: 18px;
+		}
+	}
+
+}
+
+
+// Dub slant
+
+.udub-slant {
+	overflow: hidden;
+	display: block;
+	margin: 30px 0 25px 0;
+	span {
+		@include skew(-25deg,0);
+		display:block;
+		height: 11px;
+		width: 210px;
+		background-color:white;
+		margin: 0 0 0 -5px;
+	}
+}
+
+
+// No image
+
+.page-template-no-hero {
+	.uw-body {
+		.uw-site-title {
+			color: $darkgray
+		}
+	}
+}
+
+// No site title
+
+.page-template-no-title {
+	.uw-site-title, .uw-site-title-blank {
+		display: none;
+	}
+	.uw-body {
+
+		&.container {
+			margin-top: 30px;
+		}
+		.widget-area{
+			.nav{
+				margin-top: 0 !important;
+			}
+		}
+	}
+	ul.uw-sidebar-menu {
+		margin-top: -20px;
+	}
+	.uw-breadcrumbs li:first-child a{
+		padding: 9px 0 0;
+	}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 767px) {
+	.hero-mobile-image {
+		background: none !important;
+
+		.mobile-image{
+			display: block;
+			top: 0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			background-position: center bottom;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+
+		.container-fluid {
+			position: relative;
+		}
+
+		h1 {
+			&:after {
+				display: none !important;
+			}
+		}
+	}
+	.uw-hero-image {
+		height: auto;
+		min-height: 170px;
+		.uw-site-title {
+			font-size: 35px;
+			padding-top: 10px;
+		}
+	}
+	.no-uw-hero-image.hero-height,
+	.uw-hero-image.hero-height,
+	.no-uw-hero-image.hero-height2,
+	.uw-hero-image.hero-height2 {
+		min-height: 480px;
+		height: auto;
+		// height: 170px;
+		h1 {
+			font-size: 40px;
+			padding-top: 40px;
+		}
+		.mobile-image {
+			height: 100%;
+			min-height: 480px;
+		}
+	}
+}

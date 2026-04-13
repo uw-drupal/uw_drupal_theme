@@ -1,0 +1,17 @@
+# This is so your IDE knows about the syntax for fixes and autocomplete.
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+name: "Block - purple"
+slots:
+  content:
+    '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>'
+  title:
+    'Important information'
+props:
+  variant: block
+  heading_level: 2
+  linkurl: "https://uw.edu"
+  linktext: "Get yours today"
+  color: purple
+  attributes:
+    style: "width: 18rem;"

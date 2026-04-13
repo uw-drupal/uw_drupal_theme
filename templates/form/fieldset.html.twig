@@ -4,18 +4,8 @@
  * Theme override for a fieldset element and its children.
  *
  * Available variables:
- * - attributes: HTML attributes for the fieldset element.
- * - errors: (optional) Any errors for this fieldset element, may not be set.
- * - required: Boolean indicating whether the fieldeset element is required.
- * - legend: The legend element containing the following properties:
- *   - title: Title of the fieldset, intended for use as the text of the legend.
- *   - attributes: HTML attributes to apply to the legend.
  * - description: The description element containing the following properties:
- *   - content: The description content of the fieldset.
  *   - attributes: HTML attributes to apply to the description container.
- * - children: The rendered child elements of the fieldset.
- * - prefix: The content to add before the fieldset children.
- * - suffix: The content to add after the fieldset children.
  *
  * @see template_preprocess_fieldset()
  */
@@ -30,6 +20,13 @@
     errors ? 'has-error',
   ]
 %}
+{%
+  set description_classes = [
+  'description',
+  description_display == 'invisible' ? 'visually-hidden',
+  'text-muted'
+]
+%}
 <fieldset{{ attributes.addClass(classes) }}>
   {%
     set legend_span_classes = [
@@ -38,21 +35,19 @@
       required ? 'form-required',
     ]
   %}
-  {#  Always wrap fieldset legends in a SPAN for CSS positioning. #}
+  {# Always wrap fieldset legends in a <span> for CSS positioning. #}
   <legend{{ legend.attributes }}>
     <span{{ legend_span.attributes.addClass(legend_span_classes) }}>{{ legend.title }}</span>
   </legend>
   <div class="fieldset-wrapper">
+    {% if description_display == 'before' and description.content %}
+      <small{{ description.attributes.addClass(description_classes) }}>{{ description.content }}</small>
+    {% endif %}
     {% if errors %}
-      <div class="alert alert-danger" role="alert">
-        <strong>{{ errors }}</strong>
+      <div>
+        {{ errors }}
       </div>
     {% endif %}
-
-    {% if description_display == 'before' and description.content %}
-      <small{{ description.attributes.addClass('description', 'text-muted') }}>{{ description.content }}</small>
-    {% endif %}
-
     {% if prefix %}
       <span class="field-prefix">{{ prefix }}</span>
     {% endif %}
@@ -60,9 +55,8 @@
     {% if suffix %}
       <span class="field-suffix">{{ suffix }}</span>
     {% endif %}
-
     {% if description_display in ['after', 'invisible'] and description.content %}
-      <small{{ description.attributes.addClass('description', 'text-muted') }}>{{ description.content }}</small>
+      <small{{ description.attributes.addClass(description_classes) }}>{{ description.content }}</small>
     {% endif %}
   </div>
 </fieldset>

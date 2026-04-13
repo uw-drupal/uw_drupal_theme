@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override for the basic structure of a single Drupal page.
+ * UW Drupal Theme override for the basic structure of a single Drupal page.
  *
  * Variables:
  * - logged_in: A flag indicating if user is logged in.
@@ -14,6 +14,7 @@
  *   - slogan: The slogan of the site.
  * - page_top: Initial rendered markup. This should be printed before 'page'.
  * - page: The rendered page markup.
+ * - path_info.args: Array of URL arguments un aliassed.
  * - page_bottom: Closing rendered markup. This variable should be printed after
  *   'page'.
  * - db_offline: A flag indicating if the database is offline.
@@ -23,6 +24,14 @@
  * @see template_preprocess_html()
  */
 #}
+{%
+  set body_classes = [
+  logged_in ? 'user-logged-in',
+  not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+  node_type ? 'node--type-' ~ node_type|clean_class,
+  db_offline ? 'db-offline',
+]
+%}
 <!DOCTYPE html>
 <html{{ html_attributes }}>
   <head>

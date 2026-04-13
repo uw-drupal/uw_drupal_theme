@@ -1,0 +1,208 @@
+footer.site-footer {
+	background: url('../assets/images/footer.jpg') center bottom;
+    background-size: cover;
+    padding: 0 0 30px 0;
+    background-color: $purple;
+	border-top: 7px solid #d1d1d1;
+	text-align: center;
+	position: relative;
+
+	.footer-wordmark {
+		display: block;
+		color: $white;
+		width: 335px;
+		background: url('../assets/svg/uw-sprite.svg') no-repeat 0 -430px transparent;
+		text-indent: -9999px;
+		overflow: hidden;
+		margin-top: 50px;
+		margin-left: auto;
+		margin-right: auto;
+
+		&:focus,
+		&:hover {
+			background: url('../assets/svg/uw-sprite-focus.svg') no-repeat 0 -430px transparent;
+    	}
+		&:focus {
+			outline: white solid 2px;
+		}
+	}
+
+	.be-boundless {
+		line-height: 24px;
+		width: 170px;
+		color: $white;
+		background: url('../assets/images/boundless.png') no-repeat center top transparent;
+		display: block;
+		text-indent: -99999px;
+		margin: 20px auto 60px;
+		opacity: 1;
+		transition: opacity .25s;
+
+		&:hover,
+		&:focus {
+			opacity: .6;
+		}
+
+		&:focus {
+			outline: white solid 2px;
+		}
+	}
+
+	h4, .h4 {
+		font-family: "Encode Sans Compressed", sans-serif;
+		color: #fff;
+		font-weight: 400;
+		font-size: 20px;
+		position: relative;
+		margin: 41px 0 11px 0;
+		&:before,
+		&:after {
+			content: "";
+			position: absolute;
+			width: 85px;
+			height: 1px;
+			background-color: #9184aa;
+			left: 50%;
+			margin-left: -40px;
+		}
+
+		&:before {
+			top: -27px;
+		}
+
+		&:after {
+			bottom: -85px;
+		}
+	}
+
+	ul.footer-social {
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		li {
+			list-style: none;
+
+			a {
+				color: #fff;
+				text-indent: -9999px;
+				overflow: hidden;
+				display: block;
+				background: url('../assets/svg/uw-sprite.svg') no-repeat 0 -185px transparent;
+				margin: 8px 5px;
+				width: 27px;
+				height: 27px;
+
+				&.facebook	 { background-position: 1px -195px	}
+				&.twitter	 { background-position: -46px -195px	}
+				&.tumblr	 { background-position: -366px -195px	}
+				&.youtube	 { background-position: -138px -195px	}
+				&.linkedin	 { background-position: -184px -195px	}
+				&.pinterest	 { background-position: -92px -195px	}
+				&.vine		 { background-position: -230px -195px	}
+				&.google	 { background-position: -275px -195px	}
+				&.instagram	 { background-position: -322px -195px	}
+
+				&:hover,
+				&:focus {
+					&.facebook	 { background-position: 1px -235px	}
+					&.twitter	 { background-position: -46px -235px	}
+					&.tumblr	 { background-position: -366px -235px	}
+					&.youtube	 { background-position: -138px -235px	}
+					&.linkedin	 { background-position: -184px -235px	}
+					&.pinterest	 { background-position: -92px -235px	}
+					&.vine		 { background-position: -230px -235px	}
+					&.google	 { background-position: -275px -235px	}
+					&.instagram	 { background-position: -322px -235px	}
+				}
+
+				&:focus {
+					outline: white solid 2px;
+				}
+			}
+		}
+	}
+
+	ul.footer-links {
+		margin: 45px 10px 0 10px;
+		padding-left: 0;
+
+		li {
+			list-style: none;
+			display: inline-block;
+
+			&:last-child{
+				margin-right: 0;
+				a {
+					margin-right: 0;
+				}
+				&:after {
+					display: none;
+				}
+			}
+			&:after {
+				display: inline-block;
+				content: "";
+				position: relative;
+				right: 8px;
+				height: 1rem;
+				width: 2px;
+				top: 2px;
+				line-height: 1;
+				border-right: 1px solid white;
+				transform: rotate( 15deg );
+				text-decoration:none;
+			}
+
+			a {
+				color: #fff;
+				position: relative;
+				margin-right: 20px;
+				line-height: 2;
+				text-decoration: none;
+				border-bottom: 1px solid white;
+
+                &:focus, &:hover {
+                    color: $lightgold;
+                    text-decoration:none;
+					border-bottom: 0 none;
+
+					&:after {
+                        color: #fff;
+						text-decoration:none;
+						outline: none;
+                    }
+                }
+
+				&:focus {
+					outline: $lightgold solid 2px;
+				}
+			}
+		}
+	}
+
+	.site-info p {
+		color: #fff;
+		font-size: .8em;
+		margin-top: 15px;
+	}
+
+
+}
+
+@media only screen and (max-width : 767px) {
+	.uw-footer {
+		.footer-wordmark {
+			background-position: 25px -338px;
+			background-size: 690px;
+		}
+		h4, .h4 {
+			&:after {
+				display: none;
+			}
+		}
+	}
+}

@@ -1,0 +1,20 @@
+# This is so your IDE knows about the syntax for fixes and autocomplete.
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+name: "Half block full - gold"
+slots:
+  content:
+    '<p>More card content stuff on another card here and it is important.</p>'
+  title:
+    'Half block full card'
+  image:
+    theme: image
+    uri: "/themes/custom/uw_drupal_theme/assets/images/w-day-cupcakes-300x200.jpeg"
+    alt: "delicious looking cupcakes oozing chocolate lined up with an array each adorned with a w"
+props:
+  variant: half__block__full
+  heading_level: 2
+  linkurl: "https://uw.edu"
+  linktext: "Check it out"
+  color: gold
+  align: left

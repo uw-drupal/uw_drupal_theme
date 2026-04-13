@@ -1,0 +1,225 @@
+/* modals */
+.modal-backdrop.show {
+	display: none;
+}
+
+.modal-open { padding-right: 0 !important; }
+
+.modal-dialog {
+	&.w-90 {
+		max-width: 90vw;
+	}
+
+	&.w-60 {
+		max-width: 60vw;
+
+		@media (max-width: 767px) {
+			max-width: 90vw;
+		}
+	}
+	.modal-content {
+		border-radius: 0;
+		box-shadow: 5px 5px 15px 0px #3d3d3d;
+	}
+}
+
+.modal {
+	background: rgba(0,0,0,0.5);
+
+	@media (prefers-reduced-motion) {
+		&.fade .modal-dialog { transition: none; }
+	}
+
+	.modal-header {
+		p { margin-bottom: 0; }
+	}
+}
+
+.btn-modal span.btn-label { text-transform: none; }
+
+.popover.show {
+	background: $purple;
+
+	.arrow {
+		display: none !important;
+	}
+}
+
+.popover.bs-popover-top {
+	background: $purple;
+
+	.arrow {
+		display: none !important;
+	}
+}
+
+.popover.bs-popover-bottom {
+	background: $purple;
+
+	.arrow {
+		display: none !important;
+	}
+}
+
+.popover {
+	.popover-header {
+		background: $purple;
+		color: $gold;
+		font-family: $bodyfont;
+		font-weight: 600;
+		border-bottom: 0 none;
+		padding: 0;
+
+		&:after {
+			content: '\00d7';
+			font-size: 1.5rem;
+			position: absolute;
+			top: 5px;
+			right: 10px;
+		}
+	}
+
+	.popover-body {
+		background: $purple;
+		font-family: $bodyfont;
+		font-weight: lighter;
+		color: white;
+		padding: 0;
+	}
+	padding: 1rem;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.popover.bs-popover-left {
+	background: $purple;
+
+	.arrow {
+		display: none !important;
+	}
+}
+
+.bs-popover-bottom {
+	.popover-header {
+
+		&:before {
+			display: none !important;
+		}
+	}
+	left: -6% !important;
+	top: 0% !important;
+}
+
+.bs-popover-left {
+	.popover-header {
+		&:before {
+			display: none !important;
+		}
+	}
+	left: 22% !important;
+	top: 18% !important;
+}
+
+.bs-popover-auto[x-placement^="bottom"] {
+	.popover-header {
+		&:before {
+			display: none !important;
+		}
+	}
+}
+
+.bs-popover-top {
+	left: 10% !important;
+	top: -3% !important;
+}
+
+@media (max-width: 991px) {
+	.modal-dialog {
+		top: 15vw;
+	}
+}
+
+@media (min-width: 768px) {
+	.modal-group {
+		.modal-dialog {
+			max-width: 600px;
+		}
+	}
+}
+
+@media (max-width: 499px) {
+	.popover.bs-popover-bottom {
+		left: -5% !important;
+	}
+
+	.popover.bs-popover-top {
+		left: 2%;
+		top: 0% !important;
+	}
+
+	.popover.bs-popover-left {
+		left: 0 !important;
+	}
+}
+
+@media (max-width: 856px) {
+	.popover.bs-popover-right {
+		left: -10% !important;
+		top: 18% !important;
+	}
+}
+
+// fixes for modals inside cards and jumbotrons.
+
+.card {
+	&.purple {
+		.modal {
+			.modal-body {
+				color: $black;
+
+				div, p, li, blockquote, figcaption {
+					color: $black;
+				}
+			}
+		}
+	}
+}
+
+.jumbotron {
+	&[class*="img-background"][class*="overlay"] {
+		.w-60 {
+			.modal {
+				.modal-body {
+					color: $black;
+
+					div, p, li, blockquote, figcaption {
+						color: $black;
+						font-weight: normal;
+					}
+				}
+			}
+		}
+	}
+
+	&[class*="img-background"][class*="jumbo-"] {
+		.w-40 {
+			.modal {
+				.modal-header p {
+					background: none;
+				}
+
+				.modal-body {
+					color: $black;
+
+					div, p, li, blockquote, figure, figcaption {
+						color: $black;
+						background: none;
+						font-weight: normal;
+					}
+				}
+			}
+		}
+	}
+}

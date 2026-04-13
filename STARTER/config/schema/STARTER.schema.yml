@@ -1,0 +1,4 @@
+# Schema for the configuration files of a subtheme of the UW Drupal Theme.
+STARTER.settings:
+  type: theme_settings
+  label: "STARTER Theme settings"

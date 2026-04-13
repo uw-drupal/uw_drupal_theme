@@ -1,0 +1,276 @@
+figure.quote-block {
+	&.quote-simple {
+		div { border: 0 none; }
+
+		blockquote {
+			font-family: 'Encode Sans', sans-serif;
+			font-size: 2rem;
+			line-height: 1.5;
+			font-weight: 600;
+			quotes: inherit;
+		}
+
+		figcaption {
+			display: block;
+			line-height: 1.5;
+			margin-top: 30px;
+
+			.quote-source-title {
+				display: block;
+			}
+		}
+		figcaption .uw-slant-inline {
+			display: none;
+		}
+
+		blockquote:before {
+			content: open-quote;
+			display: block;
+			position: relative;
+			bottom: -1.5rem;
+			left: 0;
+			font-family: 'Encode Sans Normal', sans-serif;
+			font-size: 3rem;
+		}
+
+		blockquote:after {
+			content: close-quote;
+			position: relative;
+			bottom: 0;
+			left: 0;
+			font-family: 'Encode Sans Normal', sans-serif;
+			font-size: 3rem;
+			line-height: 0;
+		}
+		.text-center {
+			blockquote:after {
+				display: block;
+				left: 0;
+				bottom: -20px;
+			}
+
+			figcaption {
+				margin-top: 30px;
+
+				&:before {
+					display: none;
+				}
+			}
+		}
+
+		.text-right {
+			border: 0 none;
+
+			blockquote:after {
+				display: block;
+				left: 0;
+				bottom: -20px;
+			}
+		}
+	}
+
+	div {
+		border-left: 4px solid $gold;
+		padding: 10px 0 10px 20px;
+
+		blockquote {
+			border-left: 0 none;
+			padding: 0;
+			max-width: 100%;
+			font-family: "Encode Sans Compressed", sans-serif;
+			font-weight: 600;
+			font-size: 21px;
+
+			@media (max-width: 767px) {
+				max-width: 100%;
+				margin: 0 auto;
+			}
+		}
+
+		// &.text-white figcaption,
+		// &.text-white .quote-source-title  {
+		// 	color: white;
+		// }
+
+		figcaption {
+			text-align: right;
+			font-family: $bodyfont, sans-serif;
+			font-weight: bold;
+			font-size: 20px;
+			color: #6f777d;
+
+			@media (max-width: 767px) {
+				font-size: 17px;
+				max-width: 100%;
+			}
+
+			.uw-slant-inline {
+				border-left: 1px solid $gold;
+				border-right: 1px solid $gold;
+				transform: skew(-15deg, 0);
+				width: 5px;
+				height: 20px;
+				display: inline-flex;
+				position: relative;
+				top: 4px;
+				margin: 0 10px;
+			}
+
+			.quote-source-title {
+				font-weight: normal;
+				font-style: italic;
+				position: relative;
+			}
+		}
+
+		&.text-right {
+			text-align: right;
+			border-left: 0;
+			border-right: 4px solid $gold;
+			padding-right: 20px;
+		}
+
+		&.text-center {
+			border: 0 none;
+			padding: 0;
+
+			figcaption {
+				text-align: center;
+
+				&:before {
+					display: block;
+					content: "";
+					border-top: 2px solid $gold;
+					width: 20px;
+					margin: 10px auto;
+				}
+			}
+		}
+	}
+}
+
+// fixes for blockquotes inside cards and jumbotrons.
+.card, .jumbotron {
+	figure.quote-block {
+		padding-top: 20px;
+		padding-bottom: 0;
+
+		blockquote { margin-bottom: 0; }
+		div, figcaption { margin-top: 0; }
+	}
+
+	figure.quote-simple {
+		padding-top: 0;
+		padding-bottom: 0;
+
+		blockquote { margin-bottom: 0; }
+		div, figcaption { margin-top: 0; }
+	}
+
+	&.purple {
+		figcaption { color: white; }
+		figure {
+			blockquote:before,
+			blockquote:after {
+				color: white;
+			}
+		}
+	}
+
+	&.large, &.full-width {
+		&.lightgold {
+			blockquote {
+				p {
+					color: $black;
+				}
+			}
+		}
+	}
+
+	&.img-background {
+		blockquote p {
+			margin-bottom: 15px;
+		}
+	}
+
+	&.img-background.white-overlay,
+	&.img-background.gold-overlay,
+	&.img-background.gray-overlay {
+		.w-60 {
+			figure {
+				blockquote {
+					p {
+						color: $black;
+					}
+				}
+
+				figcaption {
+					color: $black;
+				}
+
+				blockquote:before,
+				blockquote:after {
+					color: $black;
+				}
+			}
+		}
+	}
+
+	&.img-background.purple-overlay {
+		.w-60 {
+			figure {
+				figcaption {
+					color: white;
+				}
+
+				blockquote:before,
+				blockquote:after {
+					color: white;
+				}
+			}
+		}
+	}
+
+	&.jumbo-block {
+		figure {
+			background-color: $purple;
+			padding-bottom: 10px;
+
+			&.quote-simple {
+				padding-bottom: 0;
+
+				.mb-0 {
+					margin-left: 0;
+				}
+			}
+
+			.mb-0 {
+				margin-left: 20px;
+
+				figcaption {
+					color: white;
+					padding-right: 10px;
+				}
+
+				blockquote:before,
+				blockquote:after {
+					color: white;
+				}
+			}
+		}
+	}
+
+	&.jumbo-block-slant, &.jumbo-block-center {
+		.mb-0 {
+			figcaption {
+				color: white;
+				padding-right: 10px;
+			}
+
+			blockquote:before,
+			blockquote:after {
+				color: white;
+			}
+		}
+	}
+}

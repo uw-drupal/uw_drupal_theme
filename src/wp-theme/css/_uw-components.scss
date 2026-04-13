@@ -1,0 +1,1963 @@
+// buttons
+
+.btn {
+	border-radius: 0;
+	padding: 5px 20px;
+}
+.btn-lg, .btn-group-lg > .btn {
+	padding: 0;
+	margin: 0.5rem 0;
+	font-size: 1rem;
+}
+
+a.btn.btn-lg, a.btn.btn-sm {
+	text-decoration: none;
+}
+
+.btn.btn-lg, .btn.btn-sm {
+	border-radius: 0;
+	padding-right: 0;
+	text-align: left;
+	transition: none;
+	display: inline-flex;
+	align-items: stretch;
+	line-height: 1.2;
+
+	&:hover, &:active, &:focus {
+		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	}
+
+	span {
+		border: 1px solid;
+		text-transform: uppercase;
+		font-family: $headings, sans-serif;
+		font-weight: 600;
+		text-align: center;
+		padding: 10px 20px;
+	}
+
+	// arrow buttons
+	span.arrow-box {
+		padding: 10px 18px 10px 10px;
+		border: 0 none;
+		display: flex;
+		align-items: center;
+
+		&.dropdown-box {
+			padding: 12px 10px;
+		}
+
+		.arrow {
+			border-width: 0 1px 1px 0;
+			padding: 6px;
+			transform: rotate(-45deg);
+
+			&.dropdown-arrow {
+				border: solid;
+				border-width: 8px 8px 0 8px;
+				padding: 0;
+				transform: rotate(0);
+			}
+		}
+	}
+
+	&.dropdown-toggle::after { display: none; }
+
+	// square-outline button
+	// white button, purple arrow; hovers to gold arrow
+	&.square-outline {
+		border-radius: 0;
+		padding: 0;
+		text-align: left;
+		transition: none;
+		margin: 10px auto;
+		display: flex;
+
+		@media (max-width: 500px) {
+			padding-left: 1.5rem;
+			padding-right: 1.5rem;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		span {
+			border: 1px solid $lightgold;
+			text-transform: uppercase;
+			color: $purple;
+			background-color: white;
+			font-family: $headings, sans-serif;
+			font-weight: 600;
+			text-align: center;
+			line-height: 1.2;
+			padding: 10px 20px;
+		}
+
+		span.arrow-box {
+			background-color: $purple;
+			padding: 10px 18px 10px 10px;
+			border: 0 none;
+			display: flex;
+			align-items: center;
+		}
+
+		span.arrow {
+			border: solid $lightgold;
+			background-color: $purple;
+			border-width: 0 1px 1px 0;
+			padding: 6px;
+			transform: rotate(-45deg);
+		}
+
+		&:hover, &:focus {
+			border: 1px solid transparent;
+			transition: none;
+
+			span.arrow {
+				background-color: $darkgold;
+				border-color: white;
+			}
+
+			span.arrow-box {
+				background-color: $darkgold;
+				border-color: white;
+			}
+		}
+
+		&:active {
+			border: 1px solid transparent;
+			transition: none;
+
+			span.arrow {
+				background-color: $darkgold;
+				border-color: white;
+			}
+
+			span.arrow-box {
+				background-color: $darkgold;
+				border-color: white;
+			}
+		}
+
+		&:focus {
+			box-shadow: 0 0 0;
+
+			span.arrow {
+				background-color: $darkgold;
+				border-color: white;
+			}
+
+			span.arrow-box {
+				background-color: $darkgold;
+				border-color: white;
+			}
+		}
+	}
+
+	// purple button, light gold arrow; hovers to gold arrow
+	&.purple, &.primary, &.btn-primary {
+		span {
+			border-color: $purple;
+			background-color: $purple;
+			color: white;
+		}
+
+		&:hover span,
+		&:active span,
+		&:focus span {
+			border-color: $gold;
+			background-color: $gold;
+			color: white;
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 0.2rem rgba(75, 46, 131, 0.5);
+			border-color: rgba(75, 46, 131, 0.5);
+		}
+
+		&.arrow {
+			&:hover span.arrow-box .arrow,
+			&:active span.arrow-box .arrow,
+			&:focus span.arrow-box .arrow,
+			&:hover span.arrow-box,
+			&:active span.arrow-box,
+			&:focus span.arrow-box {
+				background-color: $gold;
+				border-color: white;
+
+				&.dropdown-arrow {
+					border-color: $black transparent transparent transparent;
+				}
+			}
+
+			&:hover span,
+			&:active span,
+			&:focus span {
+				border-color: $purple;
+				background-color: $purple;
+				color: white;
+			}
+
+			span.arrow-box {
+				background-color: $lightgold;
+
+				.arrow {
+					border-color: $black;
+					background-color: $lightgold;
+
+					&.dropdown-arrow {
+						border-color: $black transparent transparent transparent;
+					}
+				}
+			}
+
+			&.plus, &.play {
+				span.arrow-box {
+					background-color: $lightgold;
+					padding: 0;
+
+					.ic-plus, .ic-play {
+						border: 0 none;
+						padding: 5px;
+						background-color: $lightgold;
+
+						&:before {
+							color: $black;
+							background: none;
+							border: 0 none;
+							font-size: 2rem;
+						}
+					}
+				}
+
+				&:hover, &:active, &:focus {
+					span.arrow-box {
+						background-color: $gold;
+						color: white;
+
+						.ic-play, .ic-plus {
+							background-color: $gold;
+
+							&:before {
+								color: white;
+							}
+						}
+					}
+					span {
+						border-color: $purple;
+						background-color: $purple;
+						color: white;
+					}
+				}
+			}
+
+			&.icon-link {
+				span.arrow-box {
+					background-color: $lightgold;
+					padding: 0;
+
+					.icon {
+						border: 0 none;
+						padding: 5px;
+						background-color: $lightgold;
+
+						&:before {
+							color: $black;
+							background: none;
+							border: 0 none;
+							font-size: 2rem;
+						}
+					}
+				}
+
+				&:hover, &:active, &:focus {
+					span.arrow-box {
+						background-color: $gold;
+						color: white;
+
+						.icon {
+							background-color: $gold;
+
+							&:before {
+								color: white;
+							}
+						}
+					}
+					span {
+						border-color: $purple;
+						background-color: $purple;
+						color: white;
+					}
+				}
+			}
+		}
+	}
+
+	// white button, purple arrow; hovers to gold arrow
+	&.white {
+		span {
+			border-color: $lightgold;
+			color: $purple;
+			background-color: white;
+			border: 1px solid white;
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 0.2rem rgba(75, 46, 131, 0.5);
+			border-color: rgba(75, 46, 131, 0.5);
+		}
+
+		&.arrow {
+			&:hover span.arrow-box .arrow,
+			&:active span.arrow-box .arrow,
+			&:focus span.arrow-box .arrow,
+			&:hover span.arrow-box,
+			&:active span.arrow-box,
+			&:focus span.arrow-box {
+				background-color: $gold;
+				border-color: white;
+
+				&.dropdown-arrow {
+					border-color: white transparent transparent transparent;
+				}
+			}
+
+			span.arrow-box {
+				background-color: $purple;
+				border: 0 none;
+
+				.arrow {
+					border-color: white;
+					background-color: $purple;
+
+					&.dropdown-arrow {
+						border-color: white transparent transparent transparent;
+					}
+				}
+			}
+
+			&.icon-link {
+				span.arrow-box {
+					background-color: $purple;
+					padding: 0;
+
+					.icon {
+						border: 0 none;
+						padding: 5px;
+						background-color: $purple;
+
+						&:before {
+							color: white;
+							background: none;
+							border: 0 none;
+							font-size: 2rem;
+						}
+					}
+				}
+
+				&:hover, &:active, &:focus {
+					span.arrow-box {
+						background-color: $gold;
+						color: white;
+
+						.icon {
+							background-color: $gold;
+
+							&:before {
+								color: white;
+							}
+						}
+					}
+					span {
+						border-color: $lightgold;
+						background-color: white;
+						color: $purple;
+					}
+				}
+			}
+		}
+	}
+
+	// light gold button, gold arrow; hovers to black arrow
+	&.light-gold, &.secondary {
+		&:hover span,
+		&:active span,
+		&:focus span {
+			border-color: $purple;
+			background-color: white;
+			color: $purple;
+		}
+
+		span {
+			border-color: $lightgold;
+			background-color: $lightgold;
+			color: $purple;
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 0.2rem rgba(183, 165, 122, 0.5);
+			border-color: rgba(183, 165, 122, 0.5);
+		}
+
+		&.arrow {
+			&:hover span.arrow-box .arrow,
+			&:active span.arrow-box .arrow,
+			&:focus span.arrow-box .arrow,
+			&:hover span.arrow-box,
+			&:active span.arrow-box,
+			&:focus span.arrow-box {
+				background-color: $black;
+				border-color: white;
+
+				&.dropdown-arrow {
+					border-color: white transparent transparent transparent;
+				}
+			}
+
+			span.arrow-box {
+				background-color: $gold;
+
+				.arrow {
+					border-color: white;
+					background-color: $gold;
+
+					&.dropdown-arrow {
+						border-color: white transparent transparent transparent;
+					}
+				}
+			}
+
+			&:hover span,
+			&:active span,
+			&:focus span {
+				border-color: $lightgold;
+				background-color: $lightgold;
+				color: $purple;
+			}
+
+			&.icon-link {
+				span.arrow-box {
+					background-color: $gold;
+					padding: 0;
+
+					.icon {
+						border: 0 none;
+						padding: 5px;
+						background-color: $gold;
+
+						&:before {
+							color: white;
+							background: none;
+							border: 0 none;
+							font-size: 2rem;
+						}
+					}
+				}
+
+				&:hover, &:active, &:focus {
+					span.arrow-box {
+						background-color: $black;
+						color: white;
+
+						.icon {
+							background-color: $black;
+
+							&:before {
+								color: white;
+							}
+						}
+					}
+					span {
+						border-color: $lightgold;
+						background-color: $lightgold;
+						color: $purple;
+					}
+				}
+			}
+		}
+	}
+
+	// gold button, light gold arrow; hovers to purple button
+	&.gold {
+		&:hover span,
+		&:active span,
+		&:focus span {
+			border-color: $darkgold;
+			background-color: $darkgold;
+			color: white;
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 0.2rem rgba(183, 165, 122, 0.5);
+			border-color: rgba(183, 165, 122, 0.5);
+		}
+
+		span {
+			border-color: $darkgold;
+			background-color: $darkgold;
+			color: white;
+		}
+
+		&.arrow {
+			&:hover span.arrow-box .arrow,
+			&:active span.arrow-box .arrow,
+			&:focus span.arrow-box .arrow,
+			&:hover span.arrow-box,
+			&:active span.arrow-box,
+			&:focus span.arrow-box {
+				background-color: $purple;
+				border-color: white;
+
+				&.dropdown-arrow {
+					border-color: white transparent transparent transparent;
+				}
+			}
+
+			span.arrow-box {
+				background-color: $lightgold;
+
+				.arrow {
+					border-color: $black;
+					background-color: $lightgold;
+
+					&.dropdown-arrow {
+						border-color: $black transparent transparent transparent;
+					}
+				}
+			}
+			&:hover span,
+			&:active span,
+			&:focus span {
+				border-color: $darkgold;
+				background-color: $darkgold;
+				color: white;
+			}
+
+			&.icon-link{
+				span.arrow-box {
+					background-color: $lightgold;
+					padding: 0;
+
+					.icon {
+						border: 0 none;
+						padding: 5px;
+						background-color: $lightgold;
+
+						&:before {
+							color: $black;
+							background: none;
+							border: 0 none;
+							font-size: 2rem;
+						}
+					}
+				}
+
+				&:hover, &:active, &:focus {
+					span.arrow-box {
+						background-color: $purple;
+						color: white;
+
+						.icon {
+							background-color: $purple;
+
+							&:before {
+								color: white;
+							}
+						}
+					}
+					span {
+						border-color: $darkgold;
+						background-color: $darkgold;
+						color: white;
+					}
+				}
+			}
+		}
+	}
+}
+
+// this is mostly a placeholder to get these properties into other elements using @extend because above it's coded with a nested span and you can't pull in using @extend that way.
+.btn-basics {
+	border: 1px solid;
+	text-transform: uppercase;
+	font-family: "Encode Sans Compressed", sans-serif;
+	font-weight: 600;
+	text-align: center;
+	padding: 10px 20px;
+}
+
+.dropdown-menu.show {
+	margin: -2px 0 0 1px;
+	border-radius: 0;
+}
+a.dropdown-item, a.btn {
+	text-decoration: none;
+}
+
+.show > .btn.btn-lg.arrow.dropdown-toggle.purple {
+	span.arrow-box .arrow,
+	span.arrow-box {
+		background-color: $gold;
+	}
+}
+
+.show > .btn.btn-lg.arrow.dropdown-toggle.white {
+	span {
+		border-color: $gold;
+		border-bottom-color: white;
+		background-color: white;
+		color: $purple;
+	}
+
+	span.arrow-box .arrow,
+	span.arrow-box {
+		background-color: $gold;
+
+		&.dropdown-arrow {
+			border-color: white transparent transparent transparent;
+		}
+	}
+}
+
+.show > .btn.btn-lg.arrow.dropdown-toggle.gold {
+	span {
+		border-color: $gold;
+		background-color: $gold;
+		color: white;
+	}
+
+	span.arrow-box .arrow,
+	span.arrow-box {
+		background-color: $purple;
+
+		&.dropdown-arrow {
+			border-color: white transparent transparent transparent;
+		}
+	}
+}
+
+.show > .btn.btn-lg.arrow.dropdown-toggle.light-gold {
+	span.arrow-box .arrow,
+	span.arrow-box {
+		background-color: $black;
+
+		&.dropdown-arrow {
+			border-color: white transparent transparent transparent;
+		}
+	}
+}
+
+.btn.btn-sm {
+	padding: 0;
+	font-size: 0.875rem;
+	line-height: 1.5;
+	margin: 10px 0;
+
+	span {
+		text-transform: none;
+		border-radius: 0;
+		padding: 5px 10px;
+	}
+	&.white {
+		&:hover span,
+		&:active span,
+		&:focus span {
+			border-color: $purple;
+			background-color: $purple;
+			color: white;
+		}
+	}
+}
+
+.btn-success, .btn-danger, .btn-warning, .btn-info {
+	line-height: 1.2;
+	text-transform: uppercase;
+	font-family: $headings, sans-serif;
+	font-weight: 600;
+	text-align: center;
+	padding: 10px 20px;
+	border-radius: 0;
+}
+
+.link-arrow-box {
+	&:hover span.arrow-box .arrow,
+	&:active span.arrow-box .arrow,
+	&:hover span.arrow-box,
+	&:active span.arrow-box {
+		background-color: $lightgold;
+		border-color: $purple;
+	}
+
+	// arrow buttons
+	span.arrow-box {
+		padding: 7px 9px 6px 4px;
+		border: 0 none;
+		display: inline-flex;
+		align-items: center;
+		background-color: $purple;
+		margin-left: 5px;
+
+		.arrow {
+			border: solid;
+			border-width: 0 1px 1px 0;
+			padding: 4px;
+			transform: rotate(-45deg);
+			border-color: white;
+			background-color: $purple;
+		}
+	}
+}
+
+// forms
+.form-control {
+	border-color: #ddd;
+	border-radius: 0 !important;
+}
+
+form input {
+	border-radius: 0 !important;
+}
+
+.form-control-lg {
+	padding: 1.5rem;
+}
+
+label {
+	font-family: $headings, sans-serif;
+	font-weight: 600;
+	font-size: 21px;
+}
+
+label.form-check-label {
+	font-family: $bodyfont;
+	font-weight: normal;
+	font-size: 1rem;
+}
+
+#page .form-check {
+	padding-left: 0;
+}
+
+form p:has(button) {
+	margin-bottom: 0;
+}
+
+.form-control:disabled, .form-control[readonly] {
+	border-color: #818A91;
+	background-color: #ddd;
+	color: $black;
+}
+
+.input-group-text {
+	border-radius: 2px;
+	border: 1px solid #ddd;
+	background: #ECEEEF;
+}
+
+.custom-file-label:after {
+	background-color: $purple;
+	color: white;
+	border-radius: 0 2px 2px 0;
+}
+
+.invalid-feedback { margin-top: 0.5rem; }
+
+// Begin custom controls
+.custom-select, .custom-file-input { border-radius: 2px; }
+
+// if this form is using the custom checkbox/radio styles, remove the "default" styles
+#page {
+	.custom-control {
+		&.custom-checkbox {
+			.custom-control-input {
+				&[type="checkbox"] {
+					display: none !important;
+				}
+			}
+
+			.custom-control-label {
+				margin-left: 25px;
+			}
+		}
+	}
+}
+
+.custom-control.custom-radio {
+	padding-left: 0;
+	left: -0.5rem;
+
+	&.custom-control-inline {
+		padding-right: 0.5rem;
+	}
+}
+
+.custom-control:has(.custom-radio) {
+	padding-left: 0;
+}
+
+.custom-control.custom-checkbox {
+	input {
+		border-radius: 0;
+	}
+}
+
+.custom-control-label:before { top: 0.5rem; }
+.custom-control-label:after { top: 0.5rem; }
+
+#page {
+	.default-checkbox {
+		input[type="checkbox"] {
+			top: 1px;
+		}
+	}
+	.default-radio {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+
+		input[type="radio"] {
+			margin-bottom: 0;
+			top: 1px;
+		}
+
+		label {
+			margin-bottom: 0;
+		}
+	}
+
+	.checkbox-inline, .radio-inline {
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+
+		input[type="checkbox"], input[type="radio"] {
+			margin-bottom: 0;
+			top: 0;
+		}
+
+		input[type="radio"] {
+			top: 1px;
+		}
+
+		label {
+			margin-bottom: 0;
+		}
+	}
+	.default-checkbox, .default-radio {
+		input[disabled] ~ label, input:disabled ~ label {
+			color: #6c757d;
+			font-weight: normal;
+		}
+
+		input[type="checkbox"][disabled] {
+			background-color: #6c757d;
+		}
+	}
+}
+
+form {
+	accent-color: $purple;
+
+	.form-row > div, .col-auto {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-content: flex-start;
+	}
+	.input-group {
+		flex-wrap: nowrap !important;
+		align-items: center;
+
+		p {
+			margin-bottom: 0;
+		}
+	}
+
+	input[type="submit"], button[type="submit"] {
+		background-color: $purple;
+		border: 1px solid $purple;
+		color: white;
+		padding: 5px 20px;
+		display: inline-block;
+		text-align: center;
+		text-decoration: none;
+		vertical-align: middle;
+		user-select: none;
+		font-family: "Encode Sans Compressed", sans-serif;
+		font-weight: 600;
+		font-size: 1rem;
+		line-height: 1.5;
+		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+		&:hover, &:active {
+			background-color: $darkgold;
+			color: white;
+			border-color: $darkgold;
+			transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		}
+
+		&:focus, &:focus-within, &:focus-visible {
+			box-shadow: 0 0 0 0.2rem rgba(75, 46, 131, 0.5);
+			border-color: rgba(75, 46, 131, 0.5);
+			transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		}
+	}
+}
+// End custom controls
+
+// Begin Contact Form 7 aka CF7 styles
+form.wpcf7-form {
+	accent-color: $purple;
+
+	input, textarea {
+		border-radius: 0;
+
+		&:focus, &:focus-within, &:focus-visible {
+			background-color: #fff;
+			border-color: #8967ca;
+			outline: 0;
+			box-shadow: 0 0 0 .2rem rgba(75, 46, 131, 0.25);
+		}
+	}
+
+	input.wpcf7-submit, input[type="submit"] {
+		background-color: $purple;
+		border: 1px solid $purple;
+		color: white;
+		padding: 5px 20px;
+		display: inline-block;
+		text-align: center;
+		text-decoration: none;
+		vertical-align: middle;
+		user-select: none;
+		font-family: "Encode Sans Compressed", sans-serif;
+		font-weight: 600;
+		font-size: 1rem;
+		line-height: 1.5;
+		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+		&:hover, &:active {
+			background-color: $darkgold;
+			color: white;
+			border-color: $darkgold;
+			transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		}
+
+		&:focus, &:focus-within, &:focus-visible {
+			box-shadow: 0 0 0 0.2rem rgba(75, 46, 131, 0.5);
+			border-color: rgba(75, 46, 131, 0.5);
+			transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		}
+	}
+
+	.wpcf7-form-control.wpcf7-radio {
+		input[type="radio"] {
+			border-radius: 50% !important;
+		}
+	}
+
+	.wpcf7-form-control {
+		.wpcf7-list-item {
+			margin: 0 1em 0 0;
+		}
+	}
+
+
+	.wpcf7-response-output {
+		border: 2px solid transparent;
+		border-radius: 0;
+		margin: 1rem 0;
+		position: relative;
+		padding: .75rem 1.25rem;
+	}
+
+	&.sent .wpcf7-response-output {
+		color: #3e6d40;
+		background-color: #daebda;
+		border-color: #cbe4cb;
+	}
+
+	&.failed .wpcf7-response-output,
+	&.aborted .wpcf7-response-output {
+		color: #843430;
+		background-color: #f5d5d3;
+		border-color: #f0c4c2;
+	}
+
+	&.spam .wpcf7-response-output,
+	&.invalid .wpcf7-response-output,
+	&.unaccepted .wpcf7-response-output,
+	&.payment-required .wpcf7-response-output {
+		color: #966b1d;
+		background-color: #fceacc;
+		border-color: #fae2b8;
+	}
+
+	.wpcf7-spinner {
+		background-color: $purple;
+	}
+}
+// End CF7 styles
+
+// Begin Gravity Forms aka GF styles
+#page {
+	.gform-theme--foundation {
+		.gform-grid-row {
+			gap: 5px;
+		}
+		.field_sublabel_above .gform-field-label--type-sub {
+			margin: 0;
+		}
+		.gf_progressbar_percentage, .gfield_fileupload_progressbar_progress {
+			background-color: $purple !important;
+		}
+
+		.gform-loader {
+			border-block-end-color: $purple !important;
+			border-inline-start-color: $purple !important;
+		}
+	}
+
+	.gform_wrapper {
+		accent-color: $purple;
+
+		.gfield_label, .gfield_label_product {
+			font-family: $headings, sans-serif;
+			font-weight: 600;
+			font-size: 21px;
+		}
+		.gform-field-label--type-sub {
+			font-family: $bodyfont, sans-serif;
+			font-weight: normal;
+			font-size: 0.9em;
+		}
+
+		.ginput_container {
+			input, textarea, select {
+				&:not(.ginput_total):not(.ginput_product_price) {
+					appearance: none;
+					border: 1px solid #ccc;
+					color: #666;
+					padding: 3px;
+					border-radius: 0;
+				}
+			}
+
+			input {
+				&.ginput_total, &.ginput_product_price {
+					font-weight: bold;
+				}
+			}
+
+			input[type="file"] {
+				padding: 0;
+			}
+
+			select {
+				display: block;
+				height: calc(1.5em + .75rem + 2px);
+				width: 100%;
+				padding: .38rem .75rem;
+				background-clip: padding-box;
+				font-size: 1rem;
+				font-weight: 400;
+				line-height: 1.5;
+				transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+			}
+
+			.gchoice {
+				input[type="radio"] {
+					appearance: none;
+					border-radius: 50% !important;
+					color: $purple;
+					border: 0.25em solid $purple;
+				}
+				input[type="checkbox"] {
+					&:before {
+						color: white;
+						top: 0;
+					}
+				}
+			}
+
+			&.ginput_container_consent {
+				input[type="checkbox"] {
+					&:before {
+						color: white;
+						top: 0;
+					}
+				}
+			}
+
+			.gsurvey-rating {
+				input[type="radio"] {
+					display: none !important;
+				}
+			}
+
+			.gsurvey-rank {
+				margin-left: 0;
+			}
+
+			.gsurvey-likert {
+				input[type="radio"] {
+					appearance: none;
+					border-radius: 50% !important;
+					color: $purple;
+					border: 0.25em solid $purple;
+					margin-bottom: 0;
+					margin-right: 0;
+				}
+			}
+
+			.gfield_list_groups {
+				.gfield_list_icons {
+					button {
+						background-color: $purple;
+
+						&:focus, &:focus-within, &:focus-visible {
+							box-shadow: 0 0 0 0.2rem rgba(75, 46, 131, 0.5) !important;
+							border-color: rgba(75, 46, 131, 0.5) !important;
+							transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+						}
+					}
+				}
+			}
+		}
+
+		.gform_footer, .gform_page_footer {
+			input[type="button"], input[type="submit"] {
+				background-color: $purple !important;
+				border: 1px solid $purple !important;
+				color: white !important;
+				padding: 5px 20px !important;
+				display: inline-block;
+				text-align: center;
+				text-decoration: none;
+				vertical-align: middle;
+				user-select: none;
+				font-family: "Encode Sans Compressed", sans-serif !important;
+				font-weight: 600 !important;
+				font-size: 1rem !important;
+				line-height: 1.5 !important;
+				transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+				align-self: flex-start;
+
+				&:hover, &:active {
+					background-color: $darkgold !important;
+					color: white !important;
+					border-color: $darkgold !important;
+					transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+				}
+
+				&:focus, &:focus-within, &:focus-visible {
+					box-shadow: 0 0 0 0.2rem rgba(75, 46, 131, 0.5) !important;
+					border-color: rgba(75, 46, 131, 0.5) !important;
+					transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+				}
+			}
+		}
+	}
+}
+// End GF styles
+
+.post-password-form {
+	label {
+		margin-bottom: 0;
+		display: inline-flex;
+	}
+	input {
+		border: 2px solid $purple;
+		&[type=password] {
+			padding: 0;
+			border-radius: 0;
+			display: inline-flex;
+			margin-left: 5px;
+		}
+
+		&[type=submit] {
+			@extend .btn;
+			@extend .btn-primary;
+			@extend .primary;
+			@extend .btn-basics;
+			padding: 6px 10px;
+			position: relative;
+			top: -1px;
+
+			@include haf() {
+				border-color: $darkgold;
+				background: $darkgold;
+				color: white;
+			}
+		}
+	}
+}
+
+// search bar (in-page)
+.input-group.search {
+	align-items: flex-start;
+	width: 30%; // will need to tweak this depending on space it's in
+
+	input[type='search'] {
+		border: 2px solid #ddd;
+		background: #f5f5f5 padding-box;
+	}
+	.input-group-append {
+		button {
+			padding: 10px;
+
+			span {
+				border: 1px solid white;
+				border-radius: 50%;
+				padding: 3px;
+
+				svg {
+					position: relative;
+					top: 2px;
+					left: 4px;
+				}
+			}
+		}
+	}
+}
+
+// UW Slant
+.udub-slant-divider {
+	@include udub-slant-divider;
+}
+
+// UW Slant image overlay pattern
+svg.slant-pattern {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 90px;
+
+	rect.hbar {
+		mask: url(#mask-stripe);
+	}
+
+	.purple-lines {
+		fill: rgba(75, 46, 131, 0.5); // $purple rgb+a
+	}
+
+	.white-lines {
+		fill: rgba(255, 255, 255, 0.5);
+	}
+}
+
+// navigation
+.sidebar .widget {
+	width: 40%;
+	max-width: 100%;
+	h4 {
+		color: white;
+		background: $purple;
+		padding: 10px 20px;
+		margin-bottom: 0;
+		border-right: 50px solid $gold;
+	}
+	.nav.flex-column {
+		margin: 0;
+		padding-left: 0;
+		li {
+			border-bottom: 1px solid white;
+
+			&.has-children span { display: block; }
+
+			a, &.has-children span {
+				background: #eee;
+				color: $black;
+				text-decoration: none;
+				border-left: 10px solid transparent;
+			}
+
+			a.active, a:hover, a:active, a:focus, &.has-children.active span {
+				background: #ddd;
+				border-left-color: $gold;
+			}
+
+			&.has-children.active  {
+				ul.children {
+					margin-left: 0;
+					padding-left: 0;
+					list-style-type: none;
+					background: white;
+					li {
+						a {
+							background: white;
+
+							&:before {
+								content: '- ';
+							}
+							&:hover, &:active {
+								border-left-color: transparent;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+nav.popular-links {
+	@include shadow-2;
+	border: 1px solid rgba(0, 0, 0, 0.14);
+	border-radius: 2px;
+
+	ul.nav {
+		display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		justify-content: center;
+		margin: 0;
+		padding: 0;
+
+		li {
+			flex: 1 1 auto;
+			border-left: 1px solid rgba(0, 0, 0, 0.14);
+			line-height: 20px;
+			margin: 40px 0;
+
+			&:first-child { border-left: 0 none;  }
+
+			a {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				text-decoration: none;
+
+				span, h4 {
+					display: block;
+					text-align: center;
+				}
+
+				h4 {
+					color: $purple;
+					font-family: $headings, sans-serif;
+					font-weight: bold;
+					font-size: 20px;
+					margin-top: 10px;
+				}
+
+				span {
+					color: $black;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	&.boxes {
+		box-shadow: 0 0 0;
+		border: 0 none;
+
+		ul.nav  {
+			justify-content: space-evenly;
+			grid-gap: 20px;
+
+			li {
+				flex: none;
+
+				@include shadow-2;
+				border: 0 none;
+				border: 1px solid rgba(0, 0, 0, 0.14);
+				border-radius: 2px;
+				margin-bottom: 20px;
+				padding: 40px 20px;
+			}
+		}
+	}
+}
+
+#nav-basic, #hover-nav, #double-nav {
+	position: relative;
+}
+
+.carousel {
+	.carousel-item {
+		margin-bottom: 0;
+	}
+	&.slide {
+		box-shadow: 0 0 0;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	@include haf {
+		.carousel-control-next, .carousel-control-prev {
+			width: 3rem;
+			height: auto;
+			background: rgba(75, 46, 131, 0.8);
+			color: white;
+			opacity: 0.9 !important;
+		}
+	}
+
+	.carousel-control-next, .carousel-control-prev {
+		width: 3rem;
+		height: auto;
+		opacity: 1;
+
+		&:hover, &:active, &:focus {
+			background: rgba(75, 46, 131, 0.8);
+			color: white;
+			opacity: 1;
+		}
+
+		.carousel-control-next-icon, .carousel-control-prev-icon {
+			background: none;
+			color: white;
+			border: solid;
+			padding: 6px;
+			position: relative;
+			transition: left .2s ease;
+		}
+
+		.carousel-control-next-icon {
+			border-width: 0 4px 4px 0;
+			transform: rotate(-45deg);
+			right: 5px;
+		}
+
+		.carousel-control-prev-icon {
+			border-width: 0 0 4px 4px;
+			transform: rotate(45deg);
+			left: 5px;
+		}
+	}
+
+	&.full-width {
+		@include full-width-element;
+		.carousel-inner {
+			.carousel-item {
+				img {
+					max-height: 100vh;
+					width: 100vw;
+					object-fit: cover;
+					object-position: center center;
+				}
+			}
+		}
+
+		.carousel-control-next, .carousel-control-prev {
+			@media (max-width: 767px) {
+				max-height: 15%;
+				margin: auto 0;
+			}
+		}
+
+		.carousel-control-next {
+			right: 0;
+		}
+
+		.carousel-control-prev {
+			left: 0;
+		}
+
+		.carousel-control-next-icon {
+			right: 10px;
+		}
+
+		.carousel-control-prev-icon {
+			left: 10px;
+		}
+
+		&.captions-simple {
+			.carousel-control-next, .carousel-control-prev {
+				max-height: 80vh;
+
+				@media (max-width: 767px) {
+					max-height: 15%;
+					margin: auto 0;
+				}
+			}
+		}
+	}
+
+	.carousel-caption {
+		padding-bottom: 40px;
+		background: $purple;
+		text-align: left;
+		bottom: 0;
+
+		@media (max-width: 767px) {
+			background: none !important;
+			bottom: 0;
+			right: inherit;
+			left: 1%;
+			padding-bottom: 0;
+
+			&.w-40 {
+				width: 100% !important;
+			}
+		}
+
+		p {
+			font-weight: 300;
+			margin-bottom: 0;
+			padding: 1rem 2rem 0;
+			color: white;
+
+			a {
+				color: $lightgold;
+			}
+
+			@media (max-width: 767px) {
+				background: none !important;
+			}
+		}
+	}
+
+	&.captions-simple,
+	&.captions-branded {
+		&:not(.full-width) {
+			.carousel-control-prev, .carousel-control-next {
+				height: 15%;
+				margin: auto 0;
+			}
+		}
+	}
+
+	&.captions-simple {
+		.carousel-caption {
+			background: white;
+			position: relative;
+			left: 0;
+			padding: 0;
+			width: 100% !important;
+			z-index: 1;
+			margin-bottom: 40px;
+
+			p {
+				font-style: italic;
+				background: white;
+				color: $black;
+				border-bottom: 1px solid #bfbfbf;
+				padding: 1rem 0 1rem;
+				display: inline-block;
+				line-height: 1.5;
+				margin-left: 3vw;
+				margin-right: 3vw;
+
+				a {
+					color: $links;
+				}
+			}
+
+			&.d-none.d-sm-block { display: block !important; }
+
+			&.caption-slide-indicator {
+				a {
+					text-decoration: none;
+					color: $purple;
+					transition: 0s !important;
+
+					@include haf {
+						color: $darkgold;
+						text-decoration: none;
+						transition: 0s !important ;
+
+						.ic-camera:before, .ic-simple-arrow:before {
+							color: $darkgold;
+							text-decoration: none;
+						}
+					}
+				}
+				p.slide-indicator {
+					display: block;
+					border-bottom: 0 none;
+					padding-top: 0;
+				}
+				.ic-camera:before, .ic-simple-arrow:before {
+					font-size: 30px;
+					display: inline-block;
+					position: relative;
+					top: 6px;
+				}
+
+				.ic-simple-arrow:before { right: 5px; }
+			}
+		}
+
+		.carousel-control-next, .carousel-control-prev {
+			height: 100%;
+			width: 3rem;
+		}
+
+		.carousel-control-next-icon {
+			right: 5px;
+		}
+
+		.carousel-control-prev-icon {
+			left: 5px;
+		}
+	}
+
+	&.homepage {
+		.carousel-inner {
+			.carousel-caption {
+				right: inherit;
+				bottom: inherit;
+				top: 3rem;
+				left: 6rem;
+				text-align: left;
+				background: none;
+
+				.display-3, p {
+					padding: 1rem;
+				}
+
+				.display-3 { font-size: 50px; }
+
+				.btn {
+					padding-left: 0;
+				}
+			}
+
+			svg.slant-pattern {
+				height: 35px;
+			}
+		}
+
+		.carousel-control-next {
+			top: inherit;
+			bottom: 1rem;
+			right: 15rem;
+			opacity: 1;
+			background: none;
+			transition: none;
+			text-decoration: none;
+
+			span {
+				font-family: $headings, sans-serif;
+				text-transform: uppercase;
+				font-size: 18px;
+				font-weight: bold;
+				text-align: left;
+				line-height: 1.2;
+				text-shadow: rgba(0, 0, 0, 0.5) 3px 3px 6px;
+			}
+
+			.carousel-control-next-icon {
+				left: -20px;
+			}
+
+			&:before {
+				content: '';
+				display: block;
+				position: relative;
+				top: 1rem;
+				border-left: 2px solid white;
+				height: 120px;
+				width: 38px;
+				transform: skew(-15deg, 0);
+			}
+
+			@include haf {
+				.carousel-control-next-icon {
+					left: -15px;
+				}
+				span {
+					text-shadow: rgba(0, 0, 0, 0.8) 3px 3px 6px;
+				}
+			}
+		}
+
+		.carousel-control-next, .carousel-control-prev {
+			width: auto;
+
+			@include haf {
+				background: none;
+			}
+		}
+	}
+}
+
+.photo-grid {
+	column-count: 3;
+	column-gap: 5px;
+
+	.caption-overlay {
+		display: none;
+	}
+
+	.photo-container {
+		display: flex;
+		justify-content: center;
+		position: relative;
+
+		img {
+			object-fit: cover;
+		}
+
+		&:hover .caption-overlay,
+		&:focus .caption-overlay {
+			background: rgba(75, 46, 131, .75);
+			color: #fff;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			justify-content: center;
+			left: 0;
+			margin-bottom: -5px;
+			position: absolute;
+			text-align: center;
+			top: 0;
+			width: 100%;
+		}
+	}
+
+
+	.image-caption {
+		background-color: rgba(75, 46, 131, .75);
+		color: white;
+		font-family: 'Encode Sans Compressed', sans-serif;
+		font-size: 20px;
+		justify-self: center;
+		padding: 10px;
+		text-align: center;
+		text-shadow: 2px 2px 5px #4b2e83;
+		z-index: 999;
+	}
+
+	&:not(.gallery-masonry) {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+
+		@media (min-width: 1001px) {
+			&.one-col { grid-template-columns: 1fr; }
+			&.two-col { grid-template-columns: repeat(2, 1fr); }
+			&.three-col { grid-template-columns: repeat(3, 1fr); }
+			&.four-col { grid-template-columns: repeat(4, 1fr); }
+			&.five-col { grid-template-columns: repeat(5, 1fr); }
+			&.six-col { grid-template-columns: repeat(6, 1fr); }
+			&.seven-col { grid-template-columns: repeat(7, 1fr); }
+			&.eight-col { grid-template-columns: repeat(8, 1fr); }
+			&.nine-col { grid-template-columns: repeat(9, 1fr); }
+		}
+
+		@media (min-width: 801px) and (max-width: 1000px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		@media (min-width: 501px) and (max-width: 800px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media (max-width: 500px) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	&.grid-gap-off {
+		column-gap: 0 !important;
+
+		img { margin-bottom: 0 !important; }
+	}
+
+	@media (min-width: 1001px) {
+		&.four-col { column-count: 4; }
+		&.five-col { column-count: 5; }
+		&.six-col { column-count: 6; }
+		&.seven-col { column-count: 7; }
+		&.eight-col { column-count: 8; }
+		&.nine-col { column-count: 9; }
+	}
+
+	@media (min-width: 801px) and (max-width: 1000px) {
+		column-count: 3;
+	}
+
+	@media (min-width: 501px) and (max-width: 800px) {
+		column-count: 2;
+	}
+
+	@media (max-width: 500px) {
+		column-count: 1;
+	}
+
+	&.one-col { column-count: 1; }
+	&.two-col { column-count: 2; }
+	&.three-col { column-count: 3; }
+
+	a { display: block; }
+
+	img {
+		width: 100% !important;
+		height: auto !important;
+		margin-bottom: 5px;
+
+		@include haf {
+			box-shadow: 1px 1px 5px rgba(75, 46, 131, .7);
+		}
+
+		@include haf(fv) {
+			outline: 2px dashed rgba(75, 46, 131, .7);
+		}
+	}
+
+	.modal {
+		padding-right: 0 !important;
+		.modal-dialog { margin: auto; }
+		.modal-header { border-bottom: 0 none; }
+		.modal-body {
+			padding-top: 0;
+
+			img {
+				margin-bottom: 0;
+
+				@include haf {
+					box-shadow: 0 0 0;
+				}
+			}
+		}
+	}
+}
+
+.photo-modal {
+	padding-right: 0 !important;
+	img {
+		width: 100% !important;
+		height: auto !important;
+		margin-bottom: 5px;
+
+		@include haf {
+			box-shadow: 1px 1px 5px rgba(75, 46, 131, .7);
+		}
+
+		@include haf(fv) {
+			outline: 2px dashed rgba(75, 46, 131, .7);
+		}
+	}
+	.modal-dialog { margin: auto; }
+	.modal-header { border-bottom: 0 none; }
+	.modal-body {
+		padding-top: 0;
+
+		img {
+			margin-bottom: 0;
+
+			@include haf {
+				box-shadow: 0 0 0;
+			}
+		}
+	}
+}
+
+.bs-popover-right > .arrow::after,
+.bs-popover-auto[x-placement^="right"] > .arrow::after {
+	border-right-color: $purple;
+}
+
+.bs-popover-top > .arrow::after,
+.bs-popover-auto[x-placement^="top"] > .arrow::after {
+	border-top-color: $purple;
+}
+
+.bs-popover-bottom > .arrow::after,
+.bs-popover-auto[x-placement^="bottom"] > .arrow::after {
+	border-bottom-color: $purple;
+}
+
+.bs-popover-left > .arrow::after,
+.bs-popover-auto[x-placement^="left"] > .arrow::after {
+	border-left-color: $purple;
+}
+
+.popover-header { border-bottom: none; }
+.popover { font-family: 'Open Sans', sans-serif; }
+
+#popovers {
+	.btn.btn-lg, .btn-group-lg > .btn, .btn.btn-sm, .btn-group-sm > .btn {
+		padding-right: 20px;
+	}
+}
+
+.badge {
+	border-radius: 0;
+}
+
+a.badge:not(.badge-light, .badge-warning) {
+	color: white;
+}
+
+a.badge {
+	&.badge-light, &.badge-warning {
+		color: $black;
+	}
+
+	&.badge-success {
+		background-color: #398439;
+	}
+}
+
+// pagination
+.pagination {
+	margin-bottom: 20px;
+
+	@media (max-width: 768px) {
+		width: 98%;
+		justify-content: center;
+		margin: 0 auto;
+	}
+
+	.nav-links {
+		display: flex;
+		padding-left: 0;
+		list-style: none;
+		border-radius: 0.25rem;
+
+		.page-numbers {
+			position: relative;
+			display: block;
+			padding: 0.5rem 0.75rem;
+			margin-left: -1px;
+			line-height: 1.25;
+			color: $darkgray;
+			text-decoration: none;
+			background-color: white;
+			border: 1px solid #dee2e6;
+
+			&:hover {
+				z-index: 2;
+				color: $darkgold;
+				text-decoration: none;
+				background-color: #e9ecef;
+				border-color: #dee2e6;
+			}
+
+			&:focus {
+				z-index: 2;
+				outline: 0;
+				box-shadow: 0 0 0 0.2rem rgba(75, 46, 131, 0.25);
+			}
+
+			&:first-child {
+				margin-left: 0;
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+			&:last-child {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+
+			&.current {
+				z-index: 1;
+				color: white;
+				background-color: $purple;
+				border-color: $purple;
+			}
+		}
+	}
+}
+//Tabs
+.nav-tabs, .nav-pills{
+	margin: 0;
+    padding-left: 0 !important;
+	.nav-link{
+		border-radius: 0;
+	}
+}

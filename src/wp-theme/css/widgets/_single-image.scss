@@ -1,0 +1,9 @@
+.pic-text-widget{
+	a.pic-title {
+		text-decoration: none;
+
+		&:hover, &:active, &:focus {
+			color: $gold;
+		}
+	}
+}

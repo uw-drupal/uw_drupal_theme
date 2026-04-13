@@ -1,0 +1,388 @@
+body, p {
+	font-size: 17px;
+	font-family: $bodyfont, sans-serif;
+	color: $black;
+}
+
+h1, .h1 {
+	font-family: $headings, sans-serif;
+	font-weight: 900;
+	font-size: 37px;
+	color: $purple;
+}
+
+h2, .h2 {
+	font-family: $headings, sans-serif;
+	font-weight: 800;
+	font-size: 28px;
+	color: $purple;
+}
+
+h3, .h3 {
+	font-family: $headings, sans-serif;
+	font-weight: 800;
+	font-size: 24px;
+	color: $black;
+	margin-top: 30px;
+}
+
+h4, .h4 {
+	font-family: $bodyfont, sans-serif;
+	font-weight: normal;
+	font-size: 20px;
+	color: $purple;
+}
+
+h2.widget-title, h2.widget-title.h4, h4.widget-title, .widget h2 {
+	font-family: $headings, sans-serif;
+	font-weight: 800;
+	font-size: 22px;
+	text-transform: uppercase;
+	color: $purple;
+	margin-top: 30px;
+	margin-bottom: 14px;
+}
+
+h5, .h5 {
+	font-family: $bodyfont, sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+	color: $black;
+}
+
+h6, .h6 {
+	font-family: $bodyfont, sans-serif;
+	font-weight: 300;
+	font-size: 17px;
+	color: $black;
+}
+
+h3.custom-heading {
+	font-family: $headingfont, sans-serif;
+
+	.text-muted {
+		font-family: 'Encode Sans', sans-serif;
+		color: #6f767c !important; // accessible color contrast tweak
+		font-weight: 400;
+	}
+}
+
+h1.display-fancy {
+	font-family: $headings, sans-serif;
+	font-weight: 300;
+	font-size: 96px;
+
+	strong {
+		font-weight: 800;
+	}
+}
+
+h1.display-1 {
+	font-family: $headings, sans-serif;
+	font-weight: 900;
+	font-size: 96px;
+}
+
+h1.display-2, .h1-display-2 {
+	font-family: $headings, sans-serif;
+	font-weight: 800;
+	font-size: 3.4rem;
+}
+
+h1.display-3 {
+	font-family: $headings, sans-serif;
+	font-weight: 400;
+	font-size: 50px;
+}
+
+h1.display-4 {
+	font-family: $headings, sans-serif;
+	font-weight: 400;
+	font-size: 36px;
+}
+
+h1 a, h1 a:visited,
+h2 a, h2 a:visited,
+h3 a, h3 a:visited,
+h4 a, h4 a:visited,
+h5 a, h5 a:visited,
+h6 a, h6 a:visited {
+	color: inherit;
+	font-size: inherit;
+}
+
+
+p.lead {
+	font-family: $headings, sans-serif;
+	font-weight: 600;
+	font-size: 26px;
+	color: #818A91;
+}
+
+code { color: #d1387e; }
+
+mark { background-color: #fff9c0; color: $black; }
+
+.entry-content blockquote {
+	padding-left: 20px;
+}
+
+@media (max-width: 768px) {
+	.single-post article .entry-content > blockquote {
+		padding-left: 20px;
+	}
+}
+
+
+blockquote {
+	border-left: 4px solid $gold;
+	padding: 20px 0 20px 20px;
+
+	:before {
+		display: none;
+	}
+
+	.mb-0 {
+		font-family: $headings, sans-serif;
+		font-weight: 600;
+		font-size: 21px;
+	}
+
+	.blockquote-footer {
+		text-align: right;
+		font-family: $bodyfont, sans-serif;
+		font-weight: bold;
+		font-size: 20px;
+		color: #818A91;
+
+		cite {
+			font-weight: normal;
+			font-style: italic;
+			position: relative;
+		}
+
+		.uw-slant-inline {
+			border-left: 1px solid $gold;
+			border-right: 1px solid $gold;
+			transform: skew(-15deg, 0);
+			width: 5px;
+			height: 20px;
+			display: inline-flex;
+			position: relative;
+			top: 4px;
+			margin: 0 10px;
+		}
+	}
+
+	&.text-right {
+		text-align: right;
+		border-left: 0;
+		border-right: 4px solid $gold;
+		padding-right: 20px;
+	}
+
+	&.text-center {
+		border: 0 none;
+		padding: 0;
+
+		.blockquote-footer {
+			text-align: center;
+
+			&:before {
+				display: block;
+				content: "";
+				border-top: 2px solid $gold;
+				width: 20px;
+				margin: 10px auto;
+			}
+		}
+	}
+}
+
+.entry-header {
+	.entry-title {
+		a {
+			word-wrap: break-word;
+			color: $purple;
+			text-decoration: none;
+		}
+	}
+}
+
+figure.quote-block {
+	padding-top: 5vh;
+	padding-bottom: 5vh;
+
+	&.quote-simple {
+		div { border: 0 none; }
+
+		blockquote {
+			font-family: 'Encode Sans', sans-serif;
+			font-size: 2rem;
+			line-height: 1.5;
+			font-weight: 600;
+		}
+
+		figcaption {
+			display: block;
+			line-height: 1.5;
+
+			.quote-source-title {
+				display: block;
+			}
+		}
+		figcaption .uw-slant-inline {
+			display: none;
+		}
+
+		blockquote:before {
+			content: open-quote;
+			display: block;
+			position: relative;
+			bottom: -2.2rem;
+			left: 0;
+			font-family: 'Encode Sans Normal', sans-serif;
+			font-size: 3rem;
+		}
+
+		blockquote:after {
+			content: close-quote;
+			position: relative;
+			bottom: -35px;
+			left: -15px;
+			font-family: 'Encode Sans Normal', sans-serif;
+			font-size: 3rem;
+			line-height: 0;
+		}
+		.text-center {
+			blockquote:after {
+				display: block;
+				left: 0;
+				bottom: -20px;
+			}
+
+			figcaption {
+				margin-top: 30px;
+
+				&:before {
+					display: none;
+				}
+			}
+		}
+
+		.text-right {
+			border: 0 none;
+
+			blockquote:after {
+				display: block;
+				left: 0;
+				bottom: -20px;
+			}
+		}
+	}
+
+	div {
+		border-left: 4px solid $gold;
+		padding: 10px 0 10px 20px;
+
+		blockquote {
+			border-left: 0 none;
+			padding: 0;
+			max-width: 50vw;
+			font-family: "Encode Sans Compressed", sans-serif;
+			font-weight: 600;
+			font-size: 21px;
+
+			@media (max-width: 767px) {
+				max-width: 80vw;
+				margin: 0 auto;
+			}
+		}
+
+		&.text-white figcaption, &.text-white .quote-source-title  {
+			color: white;
+		}
+
+		figcaption {
+			text-align: right;
+			font-family: $bodyfont, sans-serif;
+			font-weight: bold;
+			font-size: 20px;
+			color: #6f777d;
+
+			@media (max-width: 767px) {
+				font-size: 17px;
+				max-width: 80vw;
+			}
+
+			.uw-slant-inline {
+				border-left: 1px solid $gold;
+				border-right: 1px solid $gold;
+				transform: skew(-15deg, 0);
+				width: 5px;
+				height: 20px;
+				display: inline-flex;
+				position: relative;
+				top: 4px;
+				margin: 0 10px;
+			}
+
+			.quote-source-title {
+				font-weight: normal;
+				font-style: italic;
+				position: relative;
+			}
+		}
+
+		&.text-right {
+			text-align: right;
+			border-left: 0;
+			border-right: 4px solid $gold;
+			padding-right: 20px;
+		}
+
+		&.text-center {
+			border: 0 none;
+			padding: 0;
+
+			figcaption {
+				text-align: center;
+
+				&:before {
+					display: block;
+					content: "";
+					border-top: 2px solid $gold;
+					width: 20px;
+					margin: 10px auto;
+				}
+			}
+		}
+	}
+}
+
+.text-white-50.bg-dark {
+	color: rgba(255,255,255,0.55) !important;
+}
+
+.bg-success, .btn-success {
+	background-color: #398439 !important;
+}
+
+/*--------------------------------------------------------------
+# Links
+--------------------------------------------------------------*/
+a, a:visited {
+	color: $links;
+}
+
+a:hover, a:focus, a:active {
+	color: $darkgold;
+}
+
+a:focus {
+	outline: 2px solid $purple;
+}
+
+a:hover, a:active {
+	outline: 0;
+}

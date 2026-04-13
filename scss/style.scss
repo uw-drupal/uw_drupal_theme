@@ -1,6 +1,8 @@
 // import files
-@import "style-from-wp-theme";
-@import "bootstrap-from-wp-theme";
+@import "_style.scss";
+@import "../src/wp-theme/css/bootstrap";
+//@import "_bootstrap.scss";
+//@import "mixins";
 
 // Add uw_drupal_theme specific CSS here
 // or create a variables file and reference it here

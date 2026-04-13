@@ -1,0 +1,314 @@
+	//
+	// Checkbox & Radio
+	// --------------------------------------------------
+
+#page {
+	input[type="radio"]{
+		display: inline-grid;
+		appearance: none;
+		background-color: #fff;
+		margin: 0;
+		font: initial;
+		color: $purple;
+		width: 1.15em;
+		height: 1.15em;
+		border: 0.25em solid $purple;
+		border-radius: 50%;
+		transform: translateY(-0.075em);
+		place-content: center;
+		&:before{
+			content: "";
+			width: 0.3em;
+			height: 0.3em;
+			border-radius: 50%;
+			padding: 3px 2px;
+			transform: scale(0);
+			transition: 120ms transform ease-in-out;
+			box-shadow: inset 1em 1em $purple;
+		}
+		&:checked::before {
+			transform: scale(1);
+		}
+		&:disabled{
+			border: 0.25em solid grey;
+		};
+		&:disabled::before{
+			color: gray;
+		}
+	}
+	input[type="radio"] + br,input[type="checkbox"] + br {
+		display: none;
+	}
+	input[type="checkbox"] {
+		appearance: none;
+		background-color: #4b2e83;
+		color: white;
+		display: inline-grid;
+		height: 1.15em;
+		width: 1.15em;
+		margin: 0;
+		//transform: translateY(-0.075em);
+		place-content: center;
+		opacity: 1;
+		top: 4px;
+		&:before{
+			content: '';
+			width: 1.15em;
+			height: 1.15em;
+			transform: scale(0);
+			transition: 120ms transform ease-in-out;
+		}
+		&:checked:before{
+			content: '✓';
+			height: 1.12em;
+			width: 1.15em;
+			position: relative;
+			left: 4px;
+			top: -3px;
+			transform: scale(1);
+		}
+	}
+	.checkbox, input[type="checkbox"], .radio,  input[type="radio"] {
+		margin-bottom: 10px;
+		margin-right: 10px;
+		position: relative;
+		font-size: 1rem;
+		line-height: 1.5;
+		input {
+			 outline: none !important;
+		}
+}
+
+
+	// Replace icons
+	// --------------------------------------------------
+	.icons {
+		color: $gray-light;
+		display: block;
+		height: 20px;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 20px;
+		text-align: center;
+		line-height: 21px;
+		font-size: 20px;
+		cursor: pointer;
+		transition: color .25s linear;
+
+		.first-icon,
+		.second-icon {
+			display: inline-table;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background-color: transparent;
+			margin: 0;
+			opacity: 1;
+		}
+		.second-icon {
+			opacity: 0;
+		}
+	}
+
+	// Alternate States
+	// --------------------------------------------------
+
+	// Hover State
+	&:hover {
+		transition: color .25s linear;
+
+		.first-icon { opacity:0; }
+		.second-icon { opacity: 1; }
+	}
+
+	// Checked State
+	&.checked {
+		color: $purple;
+
+		.first-icon { opacity: 0; }
+		.second-icon {
+			opacity: 1;
+			color: $purple;
+			transition: color .25s linear;
+		}
+	}
+
+	// Disabled state
+	&.disabled {
+		cursor: default;
+		color: mix($gray-light, white, 38%);
+
+		.icons {
+			color: mix($gray-light, white, 38%);
+		}
+		.first-icon { opacity: 1; }
+		.second-icon { opacity: 0; }
+
+		&.checked {
+			.icons {
+				color: mix($gray-light, white, 38%);
+			}
+			.first-icon { opacity: 0; }
+			.second-icon {
+				opacity: 1;
+				color: mix($gray-light, white, 38%);
+			}
+		}
+	}
+
+	// Alternate Color
+	// --------------------------------------------------
+
+	// Primary
+	&.primary {
+		.icons { color: $purple; }
+		// Checked State
+		&.checked {
+			color: $purple;
+
+			.icons { color: $purple; }
+		}
+		// Disabled state
+		&.disabled {
+			cursor: default;
+			color: $gray-light;
+
+			.icons { color: $gray-light; }
+
+			&.checked {
+				.icons { color: $gray-light; }
+			}
+		}
+	}
+}
+
+	.radio + .radio,
+	.checkbox + .checkbox { margin-top: 10px; }
+
+	// more stuff
+	.fui-radio-unchecked:before,
+	.fui-radio-checked:before {
+		background: url(../assets/svg/uw-sprite.svg) no-repeat 0 0 rgba(0, 0, 0, 0);
+		content: "";
+		width: 22px;
+		height: 22px;
+		top: 2px;
+		left: 0;
+		position: absolute;
+	}
+	.fui-radio-unchecked:before {
+		background-position: -380px -25px;
+	}
+	.fui-radio-checked:before {
+		background-position: -404px -25px;
+	}
+.checked {
+	.fui-radio-unchecked:before {
+		background-position: -379px -25px;
+	}
+	.fui-radio-checked:before {
+		background-position: -404px 0px;
+	}
+}
+
+	.checkbox:focus .icons .first-icon,
+	.radio:focus .icons .first-icon {
+		opacity: 0;
+	}
+	.checkbox:focus .icons .second-icon,
+	.radio:focus .icons .second-icon {
+		opacity: 1;
+	}
+
+
+
+.checkbox {
+	.fui-radio-unchecked:before,
+	.fui-radio-checked:before {
+		background: url(../assets/svg/uw-sprite.svg) no-repeat 0 0 rgba(0, 0, 0, 0);
+		content: "";
+		width: 22px;
+		height: 22px;
+		top: 2px;
+		left: 0;
+		position: absolute;
+	}
+	.fui-radio-unchecked:before {
+		background-position: -437px -25px;
+	}
+	.fui-radio-checked:before {
+		background-position: -437px -25px;
+	}
+	&.checked {
+		.fui-radio-unchecked:before {
+			background-position: -437px 1px;
+		}
+		.fui-radio-checked:before {
+			background-position: -437px 1px;
+		}
+	}
+}
+
+.checkbox,
+.radio {
+	input {
+		display: block;
+		position: absolute;
+		top: 2px;
+		left: 0;
+		width: 20px;
+		height: 20px;
+		padding: 0;
+		margin: 0;
+		//outline: 0!important;
+		//opacity: 0;
+	}
+}
+
+	// Contact Form 7 isn't able to show custom radios and checkboxes
+	.wpcf7 .fui-radio-unchecked:before,
+	.wpcf7 .fui-radio-checked:before {
+		display: none
+	}
+
+	//
+	// This section contains Gravity Forms workarounds for the short term:   mbw 05/15/2017
+	//
+
+	// Discard theming for gform_wrapper (Gravity Forms) - fixes checkbox target overlays on checkboxen
+	.gform_wrapper .fui-radio-unchecked:before,
+	.gform_wrapper .fui-radio-unchecked:before,
+	.gform_wrapper .fui-radio-checked:before,
+	.gform_wrapper .fui-radio-checked:before
+	{
+		display: none
+	}
+
+	// This fixes the field of checkboxes to remove the line break that puts the element on the next line
+	// which might be from the 2 column form setup we did.... so this suppresses it
+
+	.gfield_checkbox br {
+		display: none;
+	}
+
+#page .frm_forms {
+	input[type="radio"], input[type="checkbox"] {
+		&:before{
+			content: initial;
+		}
+		appearance: auto;
+		display: initial;
+		background-color: initial;
+		margin: initial;
+		font: initial;
+		color: initial;
+		width: initial;
+		height: initial;
+		border: initial;
+		border-radius: initial;
+		transform: initial;
+		place-content: initial;
+	}
+
+}
